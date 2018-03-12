@@ -10,7 +10,7 @@ The main benefits of the Czech Standard are the easier integration of TPP at ban
 ## Actual version of Czech Standard for Open Banking
 
 * Czech Standard for Open Banking [EN] _comming soon_
-* Czech Standard for Open Banking [[CZ](https://github.com/Czech-BA/COBS/CzechOpenBankingStandard_CZ.pdf)]
+* Czech Standard for Open Banking [[CZ](https://github.com/Czech-BA/COBS/blob/master/CzechOpenBankingStandard_CZ.pdf)]
 
 ## Parts
 
