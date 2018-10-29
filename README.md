@@ -1,14 +1,15 @@
 # Czech Standard for Open Banking issue tracker
 
 **_COBS overview of changes_**
+
 Version | Note
-----|-----
-1.0|Basic document v.1.0
-**1.2**|Document version 1.2 - Correction of typing errors, new error codes, new chart visualizations, coupled payment type codes in response to initiation of payment (Chapter 4.24.2.1) and general element descriptions added / specified.
-2.0_draft|Document v.2.0 -- An extension to initiate Instant Payment has been added to the standard. Any further processing of such initiated payment is done according to the rules of this scheme. Chapter 3.2.4, 4.24.1 and 4.25
-2.0_draft|Added new request header parameters for original TPP identification
-2.0_draft|Extended description of the use of certificates in chaper 1.4.8
-GitHub| New overview of the request and response examples
+------- | ----
+1.0 | Basic document v.1.0
+**1.2** | Document version 1.2 - Correction of typing errors, new error codes, new chart visualizations, coupled payment type codes in response to initiation of payment (Chapter 4.24.2.1) and general element descriptions added / specified.
+2.0_draft | Document v.2.0 -- An extension to initiate Instant Payment has been added to the standard. Any further processing of such initiated payment is done according to the rules of this scheme. Chapter 3.2.4, 4.24.1 and 4.25
+2.0_draft | Added new request header parameters for original TPP identification
+2.0_draft | Extended description of the use of certificates in chaper 1.4.8
+GitHub | New overview of the request and response examples
 </br>
 
 
