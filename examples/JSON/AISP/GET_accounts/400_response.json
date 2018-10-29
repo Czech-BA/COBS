@@ -1,0 +1,11 @@
+{
+   "errors":[
+      {
+         "error":"PAGE_NOT_FOUND"
+      },
+      {
+         "error":"PARAMETER_INVALID",
+         "scope":"sort"
+      }
+   ]
+}

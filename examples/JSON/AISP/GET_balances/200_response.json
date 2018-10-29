@@ -1,0 +1,26 @@
+{
+   "balances":[
+      {
+         "type":{
+            "codeOrProprietary":{
+               "code":"PRCD"
+            }
+         },
+         "creditLine":{
+            "included":true,
+            "amount":{
+               "value":10000.00,
+               "currency":"CZK"
+            }
+         },
+         "amount":{
+            "value":4520.15,
+            "currency":"CZK"
+         },
+         "creditDebitIndicator":"DBIT",
+         "date":{
+            "dateTime":"2017-02-17T12:32:41.0Z"
+         }
+      }
+   ]
+}

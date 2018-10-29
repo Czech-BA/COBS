@@ -1,0 +1,51 @@
+{
+   "paymentIdentification":{
+      "instructionIdentification":"IDTPP45678911"
+   },
+   "paymentTypeInformation":{
+      "instructionPriority":"NORM"
+   },
+   "amount":{
+      "instructedAmount":{
+         "value":1245.44,
+         "currency":"GBP"
+      }
+   },
+   "requestedExecutionDate":"2017-01-31",
+   "debtorAccount":{
+      "identification":{
+         "iban":"CZ6330300000000000000123"
+      },
+      "currency":"CZK"
+   },
+   "creditorAgent":{
+      "financialInstitutionIdentification":{
+         "bic":"ABNYUS33",
+         "name":"New York Commercial Bank",
+         "postalAddress":{
+            "streetName":"Merrick Avenue615",
+            "buildingNumber":"61511590-6644",
+            "postCode":"11590-6644",
+            "townName":"WESTBURY, NY",
+            "country":"US"
+         }
+      }
+   },
+   "creditor":{
+      "name":"First Hudson boat Inc.",
+      "postalAddress":{
+         "streetName":"Grand St",
+         "buildingNumber":"1256",
+         "postCode":"NY 11211",
+         "townName":"Brooklyn ,NY",
+         "country":"US"
+      }
+   },
+   "creditorAccount":{
+      "identification":{
+         "other":{
+            "identification":"123456789"
+         }
+      }
+   }
+}

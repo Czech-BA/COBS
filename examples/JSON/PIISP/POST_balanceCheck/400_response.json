@@ -1,0 +1,16 @@
+{
+   "errors":[
+      {
+         "error":"FIELD_MISSING",
+         "scope":"merchant.identification",
+         "parameters":null,
+         "message":null
+      },
+      {
+         "error":"AC09",
+         "scope":null,
+         "parameters":null,
+         "message":null
+      }
+   ]
+}

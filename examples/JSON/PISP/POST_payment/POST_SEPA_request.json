@@ -1,0 +1,87 @@
+{
+   "paymentIdentification":{
+      "instructionIdentification":"SEPAFUL123",
+      "endToEndIdentification":"NOTPROVIDED"
+   },
+   "paymentTypeInformation":{
+      "instructionPriority":"HIGH"
+   },
+   "amount":{
+      "instructedAmount":{
+         "value":45789.45,
+         "currency":"EUR"
+      }
+   },
+   "requestedExecutionDate":"2017-01-31",
+   "ultimateDebtor":{
+      "name":"Karel Novák",
+      "postalAddress":{
+         "streetName":"Vodičkova",
+         "buildingNumber":"12",
+         "postCode":"12000",
+         "townName":"Praha 2",
+         "country":"CZ"
+      },
+      "identification":{
+         "privateIdentification":{
+            "other":{
+               "identification":"1245789528",
+               "schemeName":{
+                  "proprietary":"ID CARD",
+                  "issuer":"OU Praha 2,CZ"
+               }
+            }
+         }
+      }
+   },
+   "debtorAccount":{
+      "identification":{
+         "iban":"CZ7508000000002108589434"
+      },
+      "currency":"CZK"
+   },
+   "creditorAgent":{
+      "financialInstitutionIdentification":{
+         "bic":"GIBAATWWXXX"
+      }
+   },
+   "creditor":{
+      "name":"1. wiena investment",
+      "postalAddress":{
+         "streetName":"Reisnerstraße",
+         "buildingNumber":"20",
+         "postCode":"1030",
+         "townName":"Wiena",
+         "country":"AT"
+      }
+   },
+   "creditorAccount":{
+      "identification":{
+         "iban":"AT872011102000123456"
+      }
+   },
+   "ultimateCreditor":{
+      "name":"Franz Schubert",
+      "postalAddress":{
+         "streetName":"Dianagasse",
+         "buildingNumber":"6",
+         "postCode":"1030",
+         "townName":"Wiena",
+         "country":"AT"
+      },
+      "identification":{
+         "privateIdentification":{
+            "other":{
+               "identification":"12356879131",
+               "schemeName":{
+                  "proprietary":"passport",
+                  "issuer":"WIENA"
+               }
+            }
+         }
+      }
+   },
+   "purpose":{
+      "proprietary":"sale of shares"
+   }
+}

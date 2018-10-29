@@ -1,0 +1,26 @@
+{
+   "exchangeIdentification":123456,
+   "card":{
+      "cardHolderName":"Jan Novák",
+      "maskedPAN":"1234***********6789"
+   },
+   "debtorAccount":{
+      "identification":{
+         "iban":"CZ0708000000001019382023"
+      },
+      "currency":"CZK"
+   },
+   "authenticationMethod":"NPIN",
+   "merchant":{
+      "identification":"471 16 129",
+      "shortName":"NEOLUXOR",
+      "commonName":"Neoluxor s.r.o.",
+      "address":"Hlavní 5, Praha 1",
+      "countryCode":"CZ",
+      "merchantCategoryCode":"5192"
+   },
+   "transactionDetails":{
+      "currency":"CZK",
+      "totalAmount":10050.15
+   }
+}

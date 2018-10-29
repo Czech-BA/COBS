@@ -1,0 +1,12 @@
+{
+   "errors":[
+      {
+         "error":"ID_NOT_FOUND",
+         "scope":"signId"
+      },
+      {
+         "error":"ID_NOT_FOUND",
+         "scope":"paymentId"
+      }
+   ]
+}

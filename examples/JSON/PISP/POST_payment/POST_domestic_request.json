@@ -1,0 +1,30 @@
+{
+   "paymentIdentification":{
+      "instructionIdentification":"NejakeID41785962314574"
+   },
+   "paymentTypeInformation":{
+      "instructionPriority":"NORM"
+   },
+   "amount":{
+      "instructedAmount":{
+         "value":1245.44,
+         "currency":"CZK"
+      }
+   },
+   "requestedExecutionDate":"2017-01-31",
+   "debtorAccount":{
+      "identification":{
+         "iban":"CZ7508000000002108589434"
+      },
+      "currency":"CZK"
+   },
+   "creditorAccount":{
+      "identification":{
+         "iban":"CZ6330300000000000000123"
+      },
+      "currency":"CZK"
+   },
+   "remittanceInformation":{
+      "unstructured":"/VS/7418529630/SS/1234567890"
+   }
+}

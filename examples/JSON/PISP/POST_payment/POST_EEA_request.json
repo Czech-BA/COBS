@@ -1,0 +1,47 @@
+{
+   "paymentIdentification":{
+      "instructionIdentification":"MOJeID1234"
+   },
+   "paymentTypeInformation":{
+      "instructionPriority":"NORM"
+   },
+   "amount":{
+      "instructedAmount":{
+         "value":1245.44,
+         "currency":"USD"
+      }
+   },
+   "requestedExecutionDate":"2017-01-31",
+   "debtorAccount":{
+      "identification":{
+         "iban":"CZ8601000000000161486937"
+      },
+      "currency":"CZK"
+   },
+   "creditorAgent":{
+      "financialInstitutionIdentification":{
+         "bic":"GIBACZPX"
+      }
+   },
+   "creditor":{
+      "name":"Bohumil Hrabal",
+      "postalAddress":{
+         "streetName":"Na Hrázi",
+         "buildingNumber":"326/24",
+         "postCode":"18000",
+         "townName":"Praha 8",
+         "country":"CZ"
+      }
+   },
+   "creditorAccount":{
+      "identification":{
+         "iban":"CZ3908000000000204533335",
+         "other":{
+            "identification":"204533335"
+         }
+      }
+   },
+   "remittanceInformation":{
+      "unstructured":"fa 123546897"
+   }
+}

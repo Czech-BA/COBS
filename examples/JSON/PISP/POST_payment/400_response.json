@@ -1,0 +1,19 @@
+{
+   "errors":[
+      {
+         "error":"AC01"
+      },
+      {
+         "error":"AM06",
+         "scope":"amount.instructedAmount.value"
+      },
+      {
+         "error":"AM03",
+         "parameters":{
+            "CURRENCY":"JPY",
+            "CURRENCY_ALLOWED":"CZK"
+         },
+         "scope":"debtorAccount.currency"
+      }
+   ]
+}
