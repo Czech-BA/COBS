@@ -1,0 +1,21 @@
+{
+  "consentId":"b261424c-882a-4ce4-a78a-0f4d664ef5cc",
+"consents":[
+   {
+	     "identification": {
+         "iban": "CZ0708000000001019382023",
+         "other": "1019382023"
+         },
+	     "accesses": ["AIS.balances","AISP.transactions","PIS"],
+		"validUntil":"2018-12-24T18:00:00+01:00"
+	  },
+	  {
+      "identification": {
+         "iban": "CZ7408000000001135924571",
+         "other": "1135924571"
+         },
+      "accesses": ["PIS"],
+		"validUntil":"2018-12-24T18:00:00+01:00"	
+   }
+]
+}

@@ -1,0 +1,34 @@
+{
+	"pageNumber": 0,
+	"pageCount": 1,
+	"pageSize": 25,
+	"nextPage": 0,
+	"standingOrders": [{
+		"standingOrderIdentification": {
+			"instructionIdentification": "SomeID-1285673519924",
+			"transactionIdentification": "033225570000078020091"
+		},
+		"amount": {
+			"instructedAmount": {
+				"value": 1500.00,
+				"currency": "CZK"
+			}
+		},
+		"standingOrder": {
+			"alias": "Payments for lunch - kindergarten Michal",
+			"execution": {
+				"interval": "MONTHLY",
+				"intervalDue": "25",
+				"mode": "MAX_AMOUNT_EXCEEDED",
+				"modeDue": "DUE_OR_BEFORE_DAY_OF_MONTH"
+			}
+		},
+		"debtorAccount": {
+			"id": "0f45a992....",
+			"identification": {
+				"iban": "CZ7508000000002108589434"
+			},
+			"currency": "CZK"
+		}
+	}]
+}

@@ -7,3 +7,5 @@ This is an examples for API Information about the account and contains a request
  - [GET list of client payment accounts](GET_accounts/readme.md)
  - [GET account balance](GET_balances/readme.md)
  - [GET account transactions overview](GET_transactions/readme.md)
+ - [GET list of client’s standing orders](GET_standingorders/readme.md)
+ - [GET standing order detail](GET_standingorder/readme.md)

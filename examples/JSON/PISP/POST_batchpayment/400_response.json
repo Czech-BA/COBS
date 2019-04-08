@@ -1,0 +1,13 @@
+{
+  "errors": [
+    {
+      "error": " ACC_DIFFERENT"
+    },
+    {
+      "error": "INCORRECT_SIGNID",
+      "parameters": {
+        "signID": " SomeID-1285673519924",
+        "error": "State CLOSED"
+      }
+  ]
+}

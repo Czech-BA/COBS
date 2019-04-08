@@ -1,0 +1,19 @@
+{
+  "errors": [
+    {
+      "error": "AC02"
+    },
+    {
+      "error": " DT01",
+      "scope": "requestedExecutionDate"
+    },
+    {
+      "error": "AM03",
+      "parameters": {
+        "CURRENCY": "JPY",
+        "CURRENCY_ALLOWED": "CZK"
+      },
+      "scope": "debtorAccount.currency"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "authorizationType": "USERAGENT_REDIRECT",
+  "href": {
+    "url": "http://www.bank.cz/authorization/164298331754922",
+    "id": "164298331754922"
+  },
+  "method": "GET",
+  "formData": {
+    "SAMLRequest": "45sa4d4e4e4fds5f6s4df4sd6f",
+    "relayState": "token"
+  },
+  "signInfo": {
+    "state": "OPEN",
+    "signId": "fc65339fd01994a"
+  }
+}

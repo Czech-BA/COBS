@@ -1,0 +1,13 @@
+{
+  "instructionStatus": "ACSP",
+  "realizedPayments": [
+        {
+          "transactionIdentification": "someId56668746523322",
+          "date": "2017-01-31T00:00:00.000+01"
+        },
+        {
+          "transactionIdentification": " otherId198568745569",
+          "date": "2017-01-31T00:00:00.000+01"
+        },
+     ]
+}
