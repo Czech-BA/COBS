@@ -4,7 +4,7 @@
 
 Version | Note
 ------- | ----
- - | **Added structured technical definition in OpenAPI 3.0 (swagger) format - [see](swagger/)**
+2.0 | **Added structured technical definition in OpenAPI 3.0 (swagger) format - [see](swagger/)**
 **3.0** | Common header parameters definitions and new resources for consent management, standing orders, batch payments and co-signing - required from 1.1.2020
 2.0 | Final document - actual version
 2.0_draft | Extended description of the use of certificates in chapter 1.4.8
