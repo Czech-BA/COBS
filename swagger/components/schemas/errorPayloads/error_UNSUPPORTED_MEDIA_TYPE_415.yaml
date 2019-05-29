@@ -1,0 +1,21 @@
+error_UNSUPPORTED_MEDIA_TYPE_415:
+  title: error_UNSUPPORTED_MEDIA_TYPE_415
+  description: |
+    Request contains a request for unsupported transmission type (e.g. in relation to headers Accept and Accept-Language).
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "UNSUPPORTED_MEDIA_TYPE"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"UNSUPPORTED_MEDIA_TYPE"
+     }]

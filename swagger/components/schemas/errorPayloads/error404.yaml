@@ -1,0 +1,11 @@
+error404:
+  title: error404
+  description: |
+    The requested object / page does not exist or was not found.
+  type: object
+  properties:
+    errors:
+      type: array
+      items:
+        anyOf:
+          - $ref: "error_NOT_FOUND_404.yaml#/error_NOT_FOUND_404"

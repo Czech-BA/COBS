@@ -1,0 +1,42 @@
+OK_200_AllAccountList:
+  description: OK
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+    Signature:
+      $ref: "../parameters/responseHeaders.yaml#/signatureHeaderRes"
+    Digest:
+      $ref: "../parameters/responseHeaders.yaml#/digestHeaderRes"
+    ASPSP-Signature-Certificate:
+      $ref: "../parameters/responseHeaders.yaml#/aspspSignatureCertificate"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/responsePayloads/getAllAccounts.yaml#/getAllAccounts"
+      example:
+        {
+          "pageNumber": 0,
+          "pageCount": 2,
+          "pageSize": 100,
+          "nextPage": 1,
+          "accounts": [ {
+            "id": "D2C8C1DCC51A3738538A40A4863CA288E0225E52",
+            "identification": {
+              "iban": "CZ0708000000001019382023",
+              "other": "1019382023"
+            },
+            "currency": "CZK",
+            "servicer": {
+              "bankCode": "0800",
+              "countryCode": "CZ",
+              "bic": "GIBACZPX"
+            },
+            "nameI18N": "Muj hlavni osobni ucet",
+            "productI18N": "Osobní účet ČS"
+          }
+          ]
+        }

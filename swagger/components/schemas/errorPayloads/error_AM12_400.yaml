@@ -1,0 +1,24 @@
+error_AM12_400:
+  title: error_AM12_400
+  description: |
+    [InvalidAmount] – wrong amount. For instance, too low or high amount or wrong number format according to the number of decimal places according to the ISO 4217.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AM12"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"AM12",
+       "scope": "transactionDetails.totalAmount",
+       "parameters": null,
+       "message": null
+     }]

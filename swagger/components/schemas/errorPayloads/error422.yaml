@@ -1,0 +1,11 @@
+error422:
+  title: error422
+  description: |
+    This error can be used if the requested object cannot be processed, or the required query parameter is absent.
+  type: object
+  properties:
+    errors:
+      type: array
+      items:
+        anyOf:
+          - $ref: "error_UNPROCESSABLE_ENTITY_422.yaml#/error_UNPROCESSABLE_ENTITY_422"

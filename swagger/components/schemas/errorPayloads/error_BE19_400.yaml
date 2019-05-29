@@ -1,0 +1,24 @@
+error_BE19_400:
+  title: error_BE19_400
+  description: |
+    [InvalidChargeBearerCode] - invalid fee type for the given transaction type.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "BE19"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"BE19",
+       "scope": "charges.bearer",
+       "parameters": null,
+       "message": null
+     }]

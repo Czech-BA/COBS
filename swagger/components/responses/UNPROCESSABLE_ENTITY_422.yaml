@@ -1,0 +1,13 @@
+UNPROCESSABLE_ENTITY_422:
+  description: Unprocessable Entity
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorPayloads/error422.yaml#/error422"

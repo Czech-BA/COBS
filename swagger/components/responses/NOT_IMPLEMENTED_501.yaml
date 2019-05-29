@@ -1,0 +1,7 @@
+NOT_IMPLEMENTED_501:
+  description: Not Implemented
+  headers:
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Process-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"

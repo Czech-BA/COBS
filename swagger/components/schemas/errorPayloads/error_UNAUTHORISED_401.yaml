@@ -1,0 +1,23 @@
+error_UNAUTHORISED_401:
+  title: error_UNAUTHORISED_401
+  description: |
+    Invalid/missing access token = user is not authenticated
+      OR
+    Invalid/missing certificate = provider is not authenticated/authorised
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "UNAUTHORISED"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"UNAUTHORISED"
+     }]

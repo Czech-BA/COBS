@@ -1,0 +1,24 @@
+error_REC_SEND_400:
+  title: error_REC_SEND_400
+  description: |
+    [RECEIVER_SAME_AS_SENDER] –  Payer's account is the same as the payee's account (Applies to all types of payments)
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "REC_SEND"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"REC_SEND",
+       "scope": null,
+       "parameters": null,
+       "message": null
+     }]

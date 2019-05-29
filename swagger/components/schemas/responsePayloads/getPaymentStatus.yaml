@@ -1,0 +1,9 @@
+getPaymentStatus:
+  title: getPaymentStatus
+  description: Response message of payments status.
+  type: object
+  required:
+    - instructionStatus
+  properties:
+    instructionStatus:
+      $ref: "../elements.yaml#/instructionStatus"

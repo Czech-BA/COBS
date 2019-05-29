@@ -1,0 +1,66 @@
+#####################################################
+#                Query Parameters
+#####################################################
+
+pageSizeParam:
+  name: size
+  in: query
+  description: |
+    It defines the required number of records on the page. If the parameter is not specified, the API returns the entire set.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"
+
+pageParam:
+  name: page
+  in: query
+  description: |
+    It defines the required page number. Pages are numbered from 0. If the parameter is not specified, the API returns the first (zero) page.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageParam"
+
+sortParam:
+  name: sort
+  in: query
+  description: |
+    It defines a list of fields for sorting. The individual fields in the list are separated by a comma
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/sortParam"
+
+orderParam:
+  name: order
+  in: query
+  description: |
+    A list of arrangement methods (ASC, DESC) separated by comma. The order corresponds to the order of fields in the sort parameter.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/orderParam"
+
+currencyParam:
+  name: currency
+  in: query
+  description: |
+    Required account currency for multi-currency accounts.
+  required: false
+  schema:
+    $ref: "../schemas/objects.yaml#/currencyCode"
+
+fromDate:
+  name: fromDate
+  in: query
+  description: |
+    Date and time of the start of required transaction history.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/fromDate"
+
+toDate:
+  name: toDate
+  in: query
+  description: |
+    Date and time of the end of required transaction history [inclusive].
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/toDate"

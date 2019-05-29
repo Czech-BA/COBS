@@ -1,0 +1,22 @@
+error_FIELD_MISSING_400:
+  title: error_FIELD_MISSING_400
+  description: |
+    Missing mandatory field in the request.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "FIELD_MISSING"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"FIELD_MISSING",
+       "scope":"transactionDetails.currency"
+     }]

@@ -1,0 +1,24 @@
+error_AC09_400:
+  title: error_AC09_400
+  description: |
+    [InvalidAccountCurrency] – for multicurrency accounts, or currency not supported according to the table of exchanges.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AC09"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"AC09",
+       "scope":"currency",
+       "parameters": null,
+       "message": null
+     }]

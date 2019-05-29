@@ -1,0 +1,30 @@
+error_NO_PART_400:
+  title: error_NO_PART_400
+  description: |
+    Unattainable Payment Method - The payer or payee bank does not provide the requested priority of the instruction (Instant Payment).
+    In this case, the bank can extend the error response by the "parameters" element and define a set of possible payment priorities. TPP resp. the PSU may be able to choose another type of priority.
+    …
+    "parameters": {
+            "ALLOWED_PRIORITY_TYPES" : ["NORM", "HIGH"]
+    }
+
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "NO_PART"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"NO_PART",
+       "scope": null,
+       "parameters": null,
+       "message": null
+     }]

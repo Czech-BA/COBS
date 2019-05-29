@@ -1,0 +1,26 @@
+accountId:
+  name: id
+  in: path
+  description: |
+    API payment account identifier from the response to a query on the list of accounts.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/accountId"
+
+paymentId:
+  name: paymentId
+  in: path
+  description: |
+    The value of transactionIdentification from POST response payment initiation.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/transactionIdentification"
+
+signId:
+  name: signId
+  in: path
+  description: |
+    Unique identifier for current transaction authorization
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/signId"

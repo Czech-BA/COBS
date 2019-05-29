@@ -1,0 +1,41 @@
+actionIdRes:
+  description: |
+    IDs that identify the technical or business process within the call of each API request. APSPS should have a return value in this case.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/actionId"
+
+xRequestIdRes:
+  description: |
+    Unique identifier for each request specified by TPP returned in response header.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/xRequestId"
+
+contentTypeRes:
+  description: |
+    Defines MIME media type of the response. For example application/json or application/xml in case of bulk payment initiation.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/contentType"
+
+signatureHeaderRes:
+  description: |
+    If the ASPSP signs the response, it contains a digital signature.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/signatureHeader"
+
+digestHeaderRes:
+  description: |
+    When the ASPS in response includes a signature he also must include a "Digest" header as defined in [RFC3230].
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/digestHeader"
+
+aspspSignatureCertificate:
+  description: |
+    The public ASPSP certificate used for signing the request, In base64 encoding.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/aspspSignatureCertificate"

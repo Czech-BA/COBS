@@ -1,0 +1,24 @@
+error_RR03_400:
+  title: error_RR03_400
+  description: |
+    [MissingCreditorNameOrAddress] -  the field is missing the required data about the recipient's name or address (or its part). If the data is in bad format, the error code FIELD_INVALID is used.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "RR03"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"RR03",
+       "scope": null,
+       "parameters": null,
+       "message": null
+     }]

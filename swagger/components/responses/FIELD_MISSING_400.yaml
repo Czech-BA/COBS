@@ -1,0 +1,13 @@
+FIELD_MISSING_400:
+  description: Bad Request
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorPayloads/error_FIELD_MISSING_400.yaml#/error_FIELD_MISSING_400"

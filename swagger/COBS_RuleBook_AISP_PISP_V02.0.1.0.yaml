@@ -1,0 +1,5428 @@
+openapi: 3.0.2
+info:
+  title: Czech Open Banking Standard
+  version: "2.0.1"
+  description: |
+
+  contact:
+    name: Petr Michalik, Andrea Lisá, Luisa Kadlecova
+    email: pmichalik@csas.cz
+
+servers:
+  - url: https://api.bank.cz
+    description: An openbanking test server
+
+paths:
+######################################################
+#                Predefined Schemas
+######################################################
+  /my/accounts:
+    get:
+      summary: List of client payment accounts
+      description: |
+        Paged list of client accounts. Each account contains a unique id usable for URI referencing, e.g. for the account detail.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** yes
+          * **Sorting:**  yes
+          * **Filtering:**  no
+      operationId: -getAllAccounts
+      tags:
+        - Account information
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+      #path
+      #query
+        - $ref: "#/components/parameters/pageSizeParam"
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/sortParam"
+        - $ref: "#/components/parameters/orderParam"
+      #header
+          #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_AllAccountList"
+
+        '400':
+          $ref: "#/components/responses/BAD_REQUEST_400_getAllAccounts"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '415':
+          $ref: "#/components/responses/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "#/components/responses/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "#/components/responses/SERVICE_UNAVAILABLE_503"
+
+  /my/accounts/{id}/balance:
+    get:
+      summary: Account balance
+      description: |
+        The balance of the specific client account according to the reference id account.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getAccountsBalances
+      tags:
+        - Account information
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+      #path
+        - $ref: "#/components/parameters/accountId"
+      #query
+        - $ref: "#/components/parameters/currencyParam"
+
+      #header
+          #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_AccountsBalances"
+
+        '400':
+          $ref: "#/components/responses/BAD_REQUEST_400_getAccountsBalances"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '404':
+          $ref: "#/components/responses/NOT_FOUND_404"
+
+        '415':
+          $ref: "#/components/responses/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "#/components/responses/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "#/components/responses/SERVICE_UNAVAILABLE_503"
+
+  /my/accounts/{id}/transactions:
+    get:
+      summary: Overview of transactions
+      description: |
+        Paged list of transactions of a selected client account.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** yes
+          * **Sorting:**  yes
+          * **Filtering:**  no
+      operationId: -getAccountsTransactions
+      tags:
+        - Account information
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+      #path
+        - $ref: "#/components/parameters/accountId"
+      #query
+        - $ref: "#/components/parameters/fromDate"
+        - $ref: "#/components/parameters/toDate"
+        - $ref: "#/components/parameters/currencyParam"
+        - $ref: "#/components/parameters/pageSizeParam"
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/sortParam"
+        - $ref: "#/components/parameters/orderParam"
+
+      #header
+          #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_AccountsTransactions"
+
+        '400':
+          $ref: "#/components/responses/BAD_REQUEST_400_getAccountsTransactions"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '404':
+          $ref: "#/components/responses/NOT_FOUND_404"
+
+        '415':
+          $ref: "#/components/responses/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "#/components/responses/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "#/components/responses/SERVICE_UNAVAILABLE_503"
+
+  /my/standingorders:
+    get:
+      summary: List of client’s standing orders
+      description: |
+        Paged list of client’s standing orders. Each standing order contains a unique id usable for URI referencing, e.g. for the standing order detail.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** yes
+          * **Sorting:**  yes
+          * **Filtering:**  no
+      operationId: -getStandingorders
+      tags:
+        - Account information
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+      #path
+      #query
+        - $ref: "#/components/parameters/fromDate"
+        - $ref: "#/components/parameters/toDate"
+        - $ref: "#/components/parameters/currencyParam"
+        - $ref: "#/components/parameters/pageSizeParam"
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/sortParam"
+        - $ref: "#/components/parameters/orderParam"
+
+      #header
+          #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_StandingOrders"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '404':
+          $ref: "#/components/responses/NOT_FOUND_404"
+
+        '415':
+          $ref: "#/components/responses/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "#/components/responses/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "#/components/responses/SERVICE_UNAVAILABLE_503"
+
+
+  /my/payments/balanceCheck:
+    post:
+      summary: Query for Balance Check
+      description: |
+        This is the resource for sending a request for balance check in a particular payer's payment account. This resource is authorized. Access to information must be granted by the client outside the interaction of this API before the resource is used.
+      operationId: -postBalanceCheck
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+        #path
+        #query
+        - $ref: "#/components/parameters/fromDate"
+        - $ref: "#/components/parameters/toDate"
+        - $ref: "#/components/parameters/currencyParam"
+        - $ref: "#/components/parameters/pageSizeParam"
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/sortParam"
+        - $ref: "#/components/parameters/orderParam"
+
+          #header
+          #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "#/components/requestBodies/requestBalanceCheck"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_PISBalanceCheck"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '400':
+          $ref: "#/components/responses/BAD_REQUEST_400_postBalanceCheck"
+
+        '415':
+          $ref: "#/components/responses/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "#/components/responses/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "#/components/responses/SERVICE_UNAVAILABLE_503"
+
+  /my/payments:
+    post:
+      summary: New payment - payment initiation
+      description: |
+        Resource for entering a new payment.
+      operationId: -postNewPayment
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+        #path
+        #query
+        - $ref: "#/components/parameters/fromDate"
+        - $ref: "#/components/parameters/toDate"
+        - $ref: "#/components/parameters/currencyParam"
+        - $ref: "#/components/parameters/pageSizeParam"
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/sortParam"
+        - $ref: "#/components/parameters/orderParam"
+
+          #header
+          #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "#/components/requestBodies/requestNewPayment"
+
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_newPayment"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '400':
+          $ref: "#/components/responses/BAD_REQUEST_400_postNewPayment"
+
+        '415':
+          $ref: "#/components/responses/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "#/components/responses/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "#/components/responses/SERVICE_UNAVAILABLE_503"
+
+  /payments/{paymentId}/status:
+    get:
+      summary: Payment status.
+      description: |
+        A resource to display the payment status. It is an entered payment which has not been authorised by the client yet or has already been authorised, and PISP requires its status
+
+        **Resource characteristics:**
+          * **Authorization:**  request does not require the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getPaymentStatus
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "#/components/parameters/paymentId"
+        #header
+        #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_PaymentStatus"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '404':
+          $ref: "#/components/responses/TRANSACTION_MISSING_404"
+
+  /payments/{paymentId}:
+    get:
+      summary: Payment info.
+      description: |
+        A resource to display the information on the entered payment. It is payment which is received for authorisation, but has not been authorised by the client yet. The resource only works with transactions entered through a specific provider. The resource to find out the transaction detail. Information on the provider is taken from the certificate or information on licence.
+
+        **Resource characteristics:**
+          * **Authorization:**  request does not require the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getPaymentInfo
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "#/components/parameters/paymentId"
+        #header
+        #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_PaymentInfo"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '404':
+          $ref: "#/components/responses/TRANSACTION_MISSING_404"
+
+        '501':
+          $ref: "#/components/responses/NOT_IMPLEMENTED_501"
+
+  /my/payments/{paymentId}:
+    delete:
+      summary: Deleting the entered unathorised payment
+      description: |
+        A resource for deleting the unauthorised payment. Deleting is not conditioned by the transaction authorisation as it is not a payment received by the bank.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -deleteUnauthorisedPayment
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "#/components/parameters/paymentId"
+        #header
+        #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_deleteUnauthorisedPayment"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '404':
+          $ref: "#/components/responses/TRANSACTION_MISSING_404"
+
+        '501':
+          $ref: "#/components/responses/NOT_IMPLEMENTED_501"
+
+  /my/payments/{paymentId}/sign:
+    post:
+      summary: Generating Authorization ID.
+      description: |
+        - Generating the authorization ID for payment before the initiation of the authorization process. The resource is implemented by banks that do not want to generate authorization ID for payment in the response when entering a new (unauthorized) payment through the resource POST /my/payments.
+        - Each bank may define and describe in its documentation its own authorization scenarios. The CODE of authorization methods for these scenarios is used in the response of this resource.
+        - Part of the response is also the set of scenarios that may contain one or more authorisation scenarios. If more scenarios are returned, it is up to the client to select what scenario to choose. The power of verifying each scenario should correspond to the power of other scenarios, or the scenarios are mutually replaceable.
+        - Each scenario is defined as the sequence of codes of particular authorization methods. The code of authorization method is defined by the bank and should be described in its own API documentation outside the ČOBS standard.
+
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -postGeneratingAuthorizationId
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "#/components/parameters/paymentId"
+        #header
+        #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_PaymentAuthorizationId"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '404':
+          $ref: "#/components/responses/TRANSACTION_MISSING_404"
+
+        '501':
+          $ref: "#/components/responses/NOT_IMPLEMENTED_501"
+
+  /my/payments/{paymentId}/sign/{signId}/:
+    get:
+      summary: Step I. Payment authorization detail
+      description: |
+        - To identify the status and scenarios of payment authorization.
+        - Part of the response is also the set of scenarios that may contain one or more authorisation scenarios. If more scenarios are returned, it is up to the client to select what scenario to choose. The power of verifying each scenario should correspond to the power of other scenarios, or the scenarios are mutually replaceable.
+        - Each scenario is defined as the sequence of codes of particular authorization methods.
+        - Each bank may define and describe in its documentation its own authorization scenarios.
+        - CODE of authorization methods of these scenarios is used in the response of this resource.
+
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getPaymentAuthorizationDetail
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "#/components/parameters/paymentId"
+        - $ref: "#/components/parameters/signId"
+        #header
+        #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_PaymentAuthorizationId"
+
+        '400':
+          $ref: "#/components/responses/AUTH_LIMIT_EXCEEDED_400"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '404':
+          $ref: "#/components/responses/NOT_FOUND_404"
+
+        '501':
+          $ref: "#/components/responses/NOT_IMPLEMENTED_501"
+
+    post:
+      summary: Step II. Payment authorization initiation - specific for each bank
+      description: |
+        - This resource is designed to **start a specific authorization method** from the selected scenario.
+        - The input is the JSON object containing the required type of authorization method - **CODE** and all elements specific for that step.
+        - The output of this resource is an overview of values required for completing the authorization.
+        - **E.g., for CODE corresponding to the federated authorization, the response will be URL and parameters for redirecting to the federated authorization page.**
+        - And, for instance, for CODE corresponding to authorization through the OTP code sent by SMS, the response will only be the confirmation of sending the code. The sending as such is initiated by the bank.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -postPaymentAuthorizationInitiation
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "#/components/parameters/paymentId"
+        - $ref: "#/components/parameters/signId"
+        #header
+        #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "#/components/requestBodies/requestPaymentAuthorizationInitiation"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_postPaymentAuthorizationInitiation"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '404':
+          $ref: "#/components/responses/NOT_FOUND_404"
+
+        '400':
+          $ref: "#/components/responses/AUTH_LIMIT_EXCEEDED_400"
+
+    put:
+      summary: Step III. Payment authorization initiation – specific for each bank
+      description: |
+        - An optional resource designed for the finalization of the authorization process.
+        - The resource may be purely indicative or returns information on whether the authorization process was completed and with what result.
+        - E.g., in the case of federated authorization.
+        - Or what input, e.g. for entering the received OTP for the SMS method.
+        - Then the output is information on the authorization and also OTP verification.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -putPaymentAuthorizationInitiation
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "#/components/parameters/paymentId"
+        - $ref: "#/components/parameters/signId"
+        #header
+        #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_putPaymentAuthorizationInitiation"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '404':
+          $ref: "#/components/responses/NOT_FOUND_404"
+
+        '400':
+          $ref: "#/components/responses/AUTH_LIMIT_EXCEEDED_400"
+
+        '501':
+          $ref: "#/components/responses/NOT_IMPLEMENTED_501"
+
+  /accounts/balanceCheck:
+    post:
+      summary: Query for Balance Check
+      description: |
+        This is a resource for sending a query for Balance Check in a specific payment account of the account payer. The resource is not authorized directly by the account holder, through the authorization resource. Access to information must be granted by the client outside the interaction of this API before the resource is used.
+      operationId: -postAccountsBalanceCheck
+      tags:
+        - Balance check
+
+      security:
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+        #header
+        #common header parameter
+        - $ref: "#/components/parameters/contentTypeReq"
+        - $ref: "#/components/parameters/authorization"
+        - $ref: "#/components/parameters/apiKey"
+        - $ref: "#/components/parameters/accept"
+        - $ref: "#/components/parameters/acceptLanguage"
+        - $ref: "#/components/parameters/xRequestIdReq"
+        - $ref: "#/components/parameters/dateHeader"
+        - $ref: "#/components/parameters/contentLength"
+        - $ref: "#/components/parameters/transferEncoding"
+        - $ref: "#/components/parameters/actionIdReq"
+          #optional User Information in header
+        - $ref: "#/components/parameters/userInvolved"
+        - $ref: "#/components/parameters/userIpAddress"
+        - $ref: "#/components/parameters/userIpPort"
+        - $ref: "#/components/parameters/userDeviceOs"
+        - $ref: "#/components/parameters/userUserAgent"
+        - $ref: "#/components/parameters/userTimestamp"
+        - $ref: "#/components/parameters/userGeoLocation"
+        - $ref: "#/components/parameters/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "#/components/parameters/tppName"
+        - $ref: "#/components/parameters/tppIdentification"
+          #header to support the signature function
+        - $ref: "#/components/parameters/signatureHeaderReq"
+        - $ref: "#/components/parameters/digestHeaderReq"
+        - $ref: "#/components/parameters/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "#/components/requestBodies/requestBalanceCheck"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/OK_200_PISBalanceCheck"
+
+        '401':
+          $ref: "#/components/responses/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "#/components/responses/FORBIDDEN_403"
+
+        '400':
+          $ref: "#/components/responses/BAD_REQUEST_400_postBalanceCheck"
+
+        '415':
+          $ref: "#/components/responses/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "#/components/responses/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "#/components/responses/SERVICE_UNAVAILABLE_503"
+
+components:
+  securitySchemes:
+  ####################################################
+  #           Predefined Security Schemas
+  ####################################################
+
+    OAuth2:
+      description: |
+        Bearer OAuth2 Token.
+      type: http
+      scheme: bearer
+
+    ClientCert:
+      description: |
+        Use of an x509 client certificate within mutual TLS
+      type: http
+      scheme: mutualTLS
+
+    ApiKey:
+      description: |
+        An optional string issued to a communicating third party as the call identifier of that party primarily serving as a communication configuration element.
+      type: apiKey
+      in: header
+      name: API-key
+
+  schemas:
+  #####################################################
+  #          Predefined Schemas - elements
+  #####################################################
+
+
+    contentType:
+      description: |
+        Defines MIME media type of the resource. For example application/json or application/x-www-form-urlencoded (OAuth2 /auth resources) and application/xml in case of bulk payment initiation.
+      type: string
+      maxLength: 50
+      example: "application/json"
+
+    authorization:
+      description: |
+        Contains the credentials to authenticate a user agent with a server. Element is defined in RFC 6750 In the case of this specification as Bearer Token Usage.
+      type: string
+      maxLength: 1024
+      example: "Bearer 77d49180-f486-40cf-8a63-87f4f639027c"
+
+    apiKey:
+      description: |
+        The API key issued for TPP is part of the communication configuration for better identification of third-party call access settings. In essence, this is not a security element.
+      type: string
+      maxLength: 10
+      example: "ce0f4b31-fe74-4403-92ef-2d706f288107"
+
+    accept:
+      description: |
+        The Accept request HTTP header specifies which content types, expressed as MIME types, the client is able to understand.
+      type: string
+      maxLength: 50
+      example: "application/json,application/xml;q=0.9,*/*;q=0.8"
+
+    acceptLanguage:
+      description: |
+        The Accept-Language request HTTP header specifies which languages the client is able to understand, and which locale variant is preferred. If no `Accept-Language:` is given, local country language is assumed.
+
+        For example:
+          - Accept-Language: *
+          - Accept-Language: en-US, en;q=0.8
+      type: string
+      maxLength: 50
+      example: "en-US, en;q=0.8"
+
+    xRequestId:
+      description: |
+        Unique identifier for each request specified by TPP. It is recommended to use a UUID format with a length of 36 to 60 characters.
+      type: string
+      maxLength: 60
+      example: "f713da2b-6908-4c3f-9461-784f74b86710"
+
+    dateHeader:
+      description: |
+        Each request of a transaction contains the date and time at which the message was originated. In timestamp format.
+      type: string
+      example: "1568452389"
+
+    contentLength:
+      description: |
+        The Content-Length entity-header field indicates the size of the entity-body, in decimal bytes, sent to the recipient.
+      type: number
+      example: 16529
+
+    transferEncoding:
+      description: |
+        The Transfer-Encoding general-header field specifies the form of encoding used to safely transfer the request payload to the ASPSP and back to TPP.
+      type: string
+      example: "gzip"
+
+    actionId:
+      description: |
+        IDs that identify the technical or business process within the call of each API request.
+
+        For example, it can be used to identify the process of retrieving a transaction history that is provided as a paged response available through multiple requests.
+      type: string
+      maxLength: 60
+      example: "2f549458-b592-4a85-ad57-e9610dfd5218"
+
+    userInvolved:
+      description: |
+        The flag identifies if the end user is online and the request was made based on his activity.
+      type: boolean
+      example: true
+
+    userIpAddress:
+      description: |
+        Identifies the API's end-user IP address. The TPP should fill this value if the IP address can be detected. The address can be in IPv4 or IPv6 format.
+      type: string
+      maxLength: 50
+      example: "192.168.1.221"
+
+    userIpPort:
+      description: |
+        An element used to pass on information about what end-user IP port is using.
+      type: string
+      maxLength: 40
+      example: "443"
+
+    userDeviceOs:
+      description: |
+        The element is used to forward information about the end user operating system used.
+      type: string
+      maxLength: 100
+      example: "Mac OS"
+
+    userUserAgent:
+      description: |
+        Contains information about the end-user web browser. The format should be the same as the standard HTTP parameter User-Agent.
+      type: string
+      maxLength: 200
+      example: "Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:42.0) Gecko/20100101 Firefox/42.0"
+
+    userTimestamp:
+      description: |
+        Local time on User's device.
+      type: string
+      example: "1568452581"
+
+    userGeoLocation:
+      description: |
+        End-user GPS coordinates (if the coordinates can be reliably detected).
+
+        **Required format:** GEO:Latitude;Longitude
+
+        Based on [RFC2426] in signed degrees format (DDD.dddd)
+      type: string
+      maxLength: 100
+      example: "GEO:50.089354;14.400031"
+
+    userDeviceId:
+      description: |
+        It contains a unique identifier of end user equipment, if available. For example, a unique mobile device identifier (IMEI).
+      type: string
+      example: "990000862471854"
+
+    tppName:
+      description: |
+        The name of the original TPP that created the request. Eg. ‘Star corporation, a.s.’.
+      type: string
+      example: "Star Corporation, a.s."
+
+    tppIdentification:
+      description: |
+        The identification (licence number) of the original TPP that created the request. Eg. ‘CZ013574-15’.
+      type: string
+      example: "CZ013984-14"
+
+    signatureHeader:
+      description: |
+        If the TPP signs the request, it contains a digital signature.
+      type: string
+      example: "ACDE666345014BB46003B0706277D9F0A407CC6815DE7F550CF83310F1A82D9C"
+
+    digestHeader:
+      description: |
+        When an TPP  includes a signature he also must include a "Digest" header as defined in [RFC3230].
+      type: string
+      example: "F6A5CBE090AE0506D5EB1D0D38370FE8EC55591545F234B5B09F8832AF434CCA"
+
+    tppSignatureCertificate:
+      description: |
+        The public TPP certificate used for signing the request, In base64 encoding (with the "BEGIN CERTIFICATE" and "END CERTIFICATE" markers).
+      type: string
+      example: "B837482297624E072EB04C0A8CA6A03ED48FBFD74255DEAA2DE471E9F203AFB5..."
+
+    aspspSignatureCertificate:
+      description: |
+        The public ASPSP certificate used for signing the request, In base64 encoding.
+      type: string
+      example: "4710C3600CB14042ADE6EBA7194C2A2C01F6C2EEADF7894AF212797C53BB84D0..."
+
+    pageSizeParam:
+      description: |
+        It defines the required number of records on the page. If the parameter is not specified, the API returns the entire set.
+      type: integer
+      example: 25
+
+    pageParam:
+      description: |
+        It defines the required page number. Pages are numbered from 0. If the parameter is not specified, the API returns the first (zero) page.
+      type: integer
+      example: 1
+
+    sortParam:
+      description: |
+        It defines a list of fields for sorting. The individual fields in the list are separated by a comma
+      type: string
+      example: "iban"
+
+    orderParam:
+      description: |
+        A list of arrangement methods (ASC, DESC) separated by comma. The order corresponds to the order of fields in the sort parameter.
+      type: string
+      example: "ASC"
+
+    pageNumber:
+      description: |
+        Number of current page.
+      type: integer
+      example: 1
+
+    pageCount:
+      description: |
+        Total number of query pages
+      type: integer
+      example: 12
+
+    nextPage:
+      description: |
+        The number of the next page. If the current page is at the same time the last page of the list, then this parameter is not listed or is given with a null value.
+      type: integer
+      example: 2
+
+    pageSize:
+      description: |
+        Number of entries per page. This parameter can match the required size value from the query, except for the cases when it is the last page, or when the requested page range exceeded the maximum limit defined for the particular API resource.
+      type: integer
+      example: 25
+
+    totalCount:
+      description: |
+        Optional data about the total number of entries for all pages. If this value cannot be precisely determined, it is not stated.
+      type: integer
+      example: 298
+
+    accountId:
+      description: |
+        API Payment account identifier.
+      type: string
+      example: "D2C8C1DCC51A3738538A40A4863CA288E0225E52"
+
+    fromDate:
+      description: |
+        Date and time of the start of required transaction history.
+      type: string
+      example: "2018-12-02"
+
+    toDate:
+      description: |
+        Date and time of the end of required transaction history [inclusive].
+      type: string
+      example: "2018-12-15"
+
+    iban:
+      description: International Bank Account Number (IBAN)
+      type: string
+      maxLength: 34
+      pattern: "[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}"
+      example: "CZ0708000000001019382023"
+
+    other:
+      description: Another payer account identifier, e.g. the account number.
+      type: string
+      maxLength: 35
+      example: "1019382023"
+
+    bankCode:
+      description: Country Bank Code, provided when BIC is not specified.
+      type: string
+      maxLength: 20
+      example: "0800"
+
+    countryCode:
+      description: |
+        ISO 3166-1 alpha-2 country code of the bank.
+      type: string
+      maxLength: 2
+      example: "CZ"
+
+    bicCode:
+      description: |
+        BIC code of bank managing PSU account
+      type: string
+      pattern: "[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}"
+      example: "GIBACZPX"
+
+    nameI18N:
+      description: |
+        Account name
+      type: string
+      example: "Můj hlavní osobní účet"
+
+    productI18N:
+      description: |
+        Product name
+      type: string
+      example: "Osobní účet ČS"
+
+    included:
+      description: Included debit/overdraft
+      type: boolean
+      example: true
+
+    value:
+      description: Amount value
+      type: number
+      example: 10000.00
+
+    requestedExecutionDate:
+      description: |
+        The date on which the initiating party requests payment processing by a settlement agent. On this date, funds will be debited from the payer's account if the agreed terms are met. The bank terms pertaining to the execution date may vary, for example, depending on the business hours, the work day specification for the type of payment, the number of days to track the available balance, the number of days for future maturity, the date older than the current day, etc. If the requested execution date is not filled in, the payer's bank will debit funds from the payer's account immediately after meeting the agreed terms.
+      type: string
+      format: date
+      example: "2017-01-31"
+
+
+    creditDebitIndicator:
+      description: |
+        Indication of whether the balance in the account for which the balance information is generated.
+
+        The indication of whether this is a debit or credit payment is marked with one of the following codes:
+
+          - DBIT To the debit of
+          - CRDT In other cases
+      type: string
+      enum:
+        - DBIT
+        - CRDT
+      example: "DBIT"
+
+    entryReference:
+      description: |
+        Identification no. of the payment assigned by the bank.
+      maxLength: 35
+      type: string
+
+    reversalIndicator:
+      description: |
+        Indication of whether it is a cancellation. An expression of whether it is a cancellation or not is marked with one of the codes below:
+
+          - **true:** It is cancellation
+          - **false:** It is not cancellation
+
+      type: boolean
+      example: false
+
+    transactionStatus:
+      description: |
+        Item status (debited or credited payments) of the account from the point of view of the bank. The statement will present only posted items, with the constant BOOK, or blocked items, with the constant PDNG.
+      type: string
+      enum:
+        - BOOK
+        - PDNG
+      example: "BOOK"
+
+    bankTransactionCodeCode:
+      description: |
+        The code of banking transaction according to the code list of the Czech Banking Association assigned to a specific payment. Each bank uses an own code list to identify payments, which is, however, based on the 1st to 3rd level of transaction code list according to the CBA Standard for camt.053.
+      maxLength: 35
+      type: string
+      enum:
+        - 10000101000
+        - 10000102000
+        - 10000103000
+        - 10000104000
+        - 10000105000
+        - 10000106000
+        - 10000107000
+        - 10000201000
+        - 10000202000
+        - 10000301000
+        - 10000401000
+        - 10000402000
+        - 10000403000
+        - 10000501000
+        - 10000502000
+        - 10000503000
+        - 10000504000
+        - 20000101000
+        - 20000102000
+        - 20000103000
+        - 20000104000
+        - 20000201000
+        - 20000202000
+        - 20000203000
+        - 20000301000
+        - 20000302000
+        - 30000101000
+        - 30000102000
+        - 30000103000
+        - 30000201000
+        - 30000202000
+        - 30000203000
+        - 30000301000
+        - 40000101000
+        - 40000102000
+        - 40000103000
+        - 40000104000
+        - 40000201000
+        - 40000202000
+        - 40000203000
+        - 40000301000
+        - 40000302000
+        - 40000303000
+        - 40000304000
+        - 40000401000
+        - 40000402000
+        - 40000403000
+        - 40000501000
+        - 40000502000
+        - 40000503000
+        - 40000601000
+        - 40000602000
+        - 40000603000
+        - 40000604000
+        - 40000605000
+        - 50000201001
+        - 50000201002
+        - 50000201003
+        - 50000201004
+        - 50000201005
+        - 50000201006
+        - 50000201007
+        - 50000202001
+        - 50000202002
+        - 50000202003
+        - 50000202004
+        - 50000202005
+        - 50000202006
+        - 50000202007
+        - 90000101000
+        - 90000201000
+        - 90000301000
+        - 90000401000
+        - 90000501000
+        - 90000601000
+        - 90000701000
+      example: "40000501000"
+
+    bankTransactionCodeIssuer:
+      description: |
+        Identification of the code list issuer for banking transactions which acquires the value of the CBA.
+      maxLength: 35
+      type: string
+      enum:
+        - CBA
+      example: "CBA"
+
+    messageIdentification:
+      description: |
+        Assumed payment identification entered by the client on its initiation or order of the payment in the payment history.
+      maxLength: 35
+      type: string
+
+    accountServicerReference:
+      description: |
+        A banking reference assigned to the payment, e.g., on initiation through direct banking services.
+      maxLength: 35
+      type: string
+
+    paymentInformationIdentification:
+      description: |
+        Another/next banking reference assigned to the payment assigned by the bank, for card payments, the card sequence number may be entered, or the specific symbol may be entered here.
+      maxLength: 35
+      type: string
+
+    instructionPriority:
+      description: |
+        If the element is not filled in, the payer's provider assigns a NORM value and makes a payment by default. If a "HIGH" value is indicated, the payer's provider will make the payment as priority / express / urgent, usually at D + 0 foreign currency. If the "NORM" is specified, they will make the payment by default, i.e. D + 1 foreign currency, where D, the date of debiting funds from the payer's account. The deadlines for making standard and priority payments may vary depending on the type of payment and are governed by the terms of each payer's conditions.
+
+        If the "INST" value is stated, the payer's provider executes the payment as Instant according to the applicable rule.
+      maxLength: 4
+      type: string
+      example: "NORM"
+
+    serviceLevelCode:
+      description: |
+        Service level code. An agreement or rules according to which the transaction is to be processed.
+      type: string
+      maxLength: 4
+      enum:
+        - DMCT
+        - ESCT
+        - XBCT
+        - EXCT
+        - NXCT
+      example: "DMCT"
+
+    categoryPurposeCode:
+      description: Payment purpose category code
+      type: string
+
+
+    categoryPurposeProprietary:
+      description: Payment purpose category, in free format
+      type: string
+      maxLength: 35
+
+
+    instructionIdentification:
+      description: |
+        Payment identification entered by a third party, or a constant symbol may be entered.
+      maxLength: 35
+      type: string
+      
+    transactionIdentification:
+      description: |
+        Transaction identification
+      maxLength: 35
+      type: string
+      example: "048885570000001020045"
+
+    endToEndIdentification:
+      description: |
+        A unique identifier specified by the client initiating the payment that serves for unambiguous payment identification and is passed in the unchanged state throughout the payment chain, or, there may be a variable symbol filled in here.
+      maxLength: 35
+      type: string
+
+    mandateIdentification:
+      description: |
+        For SEPA collections, Unique Mandate Reference stated for the given SEPA collection, as a mandatory field [1..1].
+      maxLength: 35
+      type: string
+
+    chequeNumber:
+      description: |
+        For cheque transactions there may be a cheque number; for card transactions there may be a card number with asterisks. The card no. is each time in the format xxxxxxxxxxxx1234 where according to the standard, only 0-9 may be used (8-28 char.) i.e. without illustrative xxxx.
+      maxLength: 35
+      type: string
+
+    clearingSystemReference:
+      description: |
+        A bank-defined code list value identifying the type of payment or payment type used. For card transactions, card association identification may be indicated.
+      maxLength: 35
+      type: string
+
+    instructionStatus:
+      description: |
+        Status of entered payment.
+      maxLength: 35
+      type: string
+
+    scenarios:
+      description: |
+        A set of possible authorization scenarios
+      type: string
+      example: "CODE of The One of the methods ..."
+
+    signId:
+      description: |
+        Unique identifier for current transaction authorization.
+      type: string
+      example: "164298331754922"
+    authorizationType:
+      description: |
+        Code of required authorization (from authorization scenarios)
+      maxLength: 35
+      type: string
+
+    redirectUrl:
+      description: |
+        - URL link or package of federated authorization call back address.
+        - This address is used by the federated bank authorization to redirect back to the TPP application after authorization is complete
+      maxLength: 35
+      type: string
+
+    url:
+      description: |
+        URL link or package of federated authorization
+      maxLength: 35
+      type: string
+
+    id:
+      description:
+        URL link or package of federated authorization
+      maxLength: 35
+      type: string
+
+    method:
+      description:
+        Method to use href link and federated authorization.
+      maxLength: 35
+      type: string
+
+    SAMLRequest:
+      description: |
+        - Optional parameter. For the method POST federated authorization (authorizationType=USERAGENT_REDIRECT) element
+        - Contains data of SAML request.
+      maxLength: 35
+      type: string
+
+    relayState:
+      description: |
+        - Optional parameter. For the method POST federated authorization (authorizationType=USERAGENT_REDIRECT) element
+        - Contains relayState for returnable value.
+      maxLength: 35
+      type: string
+
+    state:
+      description: Transaction authorization status
+      type: string
+      example: "OPEN"
+
+    pollInterval:
+      description: Value in milliseconds how often I can ask for authorization status.
+      type: integer
+      example: "5000"
+
+    instructionForNextAgent:
+      description: |
+        Other information related to the payment order processing which is to be executed by another bank.
+      type: string
+
+    #----------------------------------------------------
+    #                     Objects
+    #----------------------------------------------------
+
+    dateOfBalance:
+      description: |
+        Date (and time) of balance of the account for which the balance information is generated.
+      type: object
+      required:
+        - dateTime
+      properties:
+        dateTime:
+          description: Date or date and time of the balance according to ISO 8601
+          type: string
+          example: "2017-02-17T12:32:41.0Z"
+
+    creditLineAmount:
+      description: |
+        Amount of agreed permitted debit
+      type: object
+      required:
+        - value
+        - currency
+      properties:
+        value:
+          $ref: "#/components/schemas/value"
+        currency:
+          $ref: "#/components/schemas/currencyCode"
+
+    balanceAmount:
+      description: |
+        Value/amount of account balance according to balance type. The currency corresponds to the currency of the account to which the balance information is generated.
+      type: object
+      required:
+        - value
+        - currency
+      properties:
+        value:
+          $ref: "#/components/schemas/value"
+        currency:
+          $ref: "#/components/schemas/currencyCode"
+
+    creditLine:
+      description:
+        Amount of agreed permitted debit/overdraft
+      type: object
+      required:
+        - included
+      properties:
+        included:
+          $ref: "#/components/schemas/included"
+        amount:
+          $ref: "#/components/schemas/creditLineAmount"
+
+    codeOrProprietary:
+      description: |
+        Codes of balance types.
+      type: object
+      required:
+        - code
+      properties:
+        code:
+          description: |
+            Indicates the type of balance to which the balance information relates.
+          type: string
+          enum:
+            - CLAV
+            - PRCD
+            - CLBD
+            - ITBD
+          example: "CLAV"
+
+    balanceType:
+      description: |
+        Determines the balance type to which information on account balance applies.
+      type: object
+      required:
+        - codeOrProprietary
+      properties:
+        codeOrProprietary:
+          $ref: "#/components/schemas/codeOrProprietary"
+
+    identification:
+      description: |
+        Account identifier
+      type: object
+      required:
+        - iban
+      properties:
+        iban:
+          $ref: "#/components/schemas/iban"
+        other:
+          $ref: "#/components/schemas/other"
+
+    currencyCode:
+      description: |
+        Defined account currency.
+
+        Currency code according to ISO 4217 = 3 capital letters.
+      type: string
+      maxLength: 3
+      pattern: "[A-Z]{3}"
+      example: "CZK"
+
+    chargeBearer:
+      description: |
+        Provides the party (parties) that will pay fees associated with the payment transaction processing.
+      type: string
+      maxLength: 4
+      enum:
+        - DEBT
+        - CRED
+        - SHAR
+        - SLEV
+      example: "DEBT"
+
+    sourceCurrency:
+      description: |
+        Client account currency (source/original currency/payer account currency for intrabank conversion payments).
+      type: string
+      maxLength: 3
+      pattern: "[A-Z]{3}"
+      example: "EUR"
+      
+    targetCurrency:
+      description: |
+        Payment currency (End/target currency/payee account currency for intrabank conversion payments).
+      type: string
+      maxLength: 3
+      pattern: "[A-Z]{3}"
+      example: "CZK"
+      
+    exchangeRate:
+      description: |
+        The exchange rate used to charge a payment. Only one rate is filled in, even in the case of cross conversion. 
+      type: number
+      example: 25.89
+      
+    postalAddress:
+      description: |
+        Postal address
+      type: object
+      properties:
+        streetName:
+          $ref: "#/components/schemas/streetName"
+        buildingNumber:
+          $ref: "#/components/schemas/buildingNumber"
+        postCode:
+          $ref: "#/components/schemas/postCode"
+        townName:
+          $ref: "#/components/schemas/townName"
+        country:
+          $ref: "#/components/schemas/country"
+        addressLine:
+          $ref: "#/components/schemas/addressLine"
+        
+    otherIdentification:
+      description: |
+        Other identification as the organization/legal entity.
+      type: object
+      properties:
+        identification:
+          description: |
+            Other payer identification as the organization/legal entity in unstructured form.
+          type: string
+          example: "48135283"
+        schemeName: 
+          description: |
+            Code type for payer identification as the organization/legal entity.
+          type: object
+          properties:
+            code:
+              description: |
+                Code type for payer identification as the organization/legal entity in the free text format.
+              type: string
+            proprietary:
+              description: |
+                Code type for payer identification as the organization/legal entity in the free text format.
+              type: string
+              example: "RENWORTH s.r.o"
+            issuer:
+              description: |
+                Code issuer for the payer identification as the organization/legal entity.
+              type: string
+              example: "WIENA"
+              
+    accountIdentification:
+      description: |
+        Identification of account
+      type: object
+      properties:
+        iban:
+          $ref: "#/components/schemas/iban"
+        other:
+          description: |
+            Account no. in other/local format of account no. 
+          type: object
+          properties:
+            identification:
+              description: |
+                Account no. in other/local format of account no. 
+              type: string
+              example: "1019382023"
+              
+    standingOrderIdentification:
+      description: |
+        Standing order identification
+      type: object
+      properties:
+        instructionIdentification:
+          $ref: "#/components/schemas/instructionIdentification"
+        transactionIdentification:
+          $ref: "#/components/schemas/transactionIdentification"
+
+
+    streetName:
+      description: |
+        Street name used for postal address.
+      type: string
+      example: "Reisnerstrase"
+      
+    buildingNumber:
+      description: |
+        Land registry no. used for postal address.
+      type: string
+      example: "20"
+      
+    postCode:
+      description: |
+        Postcode used for postal address. 
+      type: string
+      example: "1030"
+      
+    townName:
+      description: |
+        Town name used for postal address.  
+      type: string
+      example: "Wiena"
+      
+    country:
+      description: |
+        CountryCode, ISO 3166 (2 alphanumeric characters code version) 
+      type: string
+      example: "AT"
+      
+    addressLine:
+      description: |
+        Unstructured record of payer postal address 
+      type: string
+      
+
+    servicer:
+      description: Account servicer (bank)
+      type: object
+      properties:
+        bankCode:
+          $ref: "#/components/schemas/bankCode"
+        countryCode:
+          $ref: "#/components/schemas/countryCode"
+        bic:
+          $ref: "#/components/schemas/bicCode"
+
+    accountInfo:
+      description: Info about client account
+      type: object
+      required:
+        - id
+        - identification
+        - servicer
+      properties:
+        id:
+          $ref: "#/components/schemas/accountId"
+        identification:
+          $ref: "#/components/schemas/identification"
+        currency:
+          $ref: "#/components/schemas/currencyCode"
+        servicer:
+          $ref: "#/components/schemas/servicer"
+        nameI18N:
+          $ref: "#/components/schemas/nameI18N"
+        productI18N:
+          $ref: "#/components/schemas/productI18N"
+
+
+    accountsList:
+      description: |
+        Set of client accounts
+      type: array
+      items:
+        $ref: "#/components/schemas/accountInfo"
+
+    balanceInfo:
+      description: |
+        Account balance information
+      type: object
+      required:
+        - type
+        - amount
+        - creditDebitIndicator
+        - date
+      properties:
+        type:
+          $ref: "#/components/schemas/balanceType"
+        creditLine:
+          $ref: "#/components/schemas/creditLine"
+        amount:
+          $ref: "#/components/schemas/balanceAmount"
+        creditDebitIndicator:
+          $ref: "#/components/schemas/creditDebitIndicator"
+        date:
+          $ref: "#/components/schemas/dateOfBalance"
+
+    balancesArray:
+      description: |
+        Set of balances of client payment account
+      type: array
+      items:
+        $ref: "#/components/schemas/balanceInfo"
+
+    bookingDate:
+      description: |
+        Date of processing/posting of payment by bank in the format ISODate, or ISODateTime, i.e. YYYY-MM-DD, or YYYY-MM-DDThh:mm:ss.sTZD.
+      type: object
+      properties:
+        date:
+          description: |
+            Date of processing/posting of payment by bank in the format ISODate, or ISODateTime, i.e. YYYY-MM-DD, or YYYY-MM-DDThh:mm:ss.sTZD, depending on the transaction type and method how the bank presents data (and time) of payment processing/posting. Mainly for card or cash transactions it is posted as ISODateTime.
+
+            where:
+              - **YYYY** = four-digit year
+              - **MM**   = two-digit month (01=January, etc.)
+              - **DD**   = two-digit day of month (01 through 31)
+              - **hh**   = two digits of hour (00 through 23) (am/pm NOT allowed)
+              - **mm**   = two digits of minute (00 through 59)
+              - **ss**   = two digits of second (00 through 59)
+              - **TZD**  = time zone designator (Z or +hh:mm or -hh:mm)
+          type: string
+          format: date-time
+          example: "2017-01-31T00:00:00.000+01"
+
+    valueDate:
+      description: |
+        Due date/payment foreign currency in the format ISODate, or ISODateTime, i.e. YYYY-MM-DD, or YYYY-MM-DDThh:mm:ss.sTZD.
+      type: object
+      properties:
+        date:
+          description: |
+            Due date/payment foreign currency in the format ISODate, , or ISODateTime, i.e. YYYY-MM-DD, or YYYY-MM-DDThh:mm:ss.sTZD, depending on the transaction type and method how the bank presents data (and time) of due date/ payment foreign currency. Mainly for card or cash transactions it is posted as ISODateTime.
+
+            where:
+              - **YYYY** = four-digit year
+              - **MM**   = two-digit month (01=January, etc.)
+              - **DD**   = two-digit day of month (01 through 31)
+              - **hh**   = two digits of hour (00 through 23) (am/pm NOT allowed)
+              - **mm**   = two digits of minute (00 through 59)
+              - **ss**   = two digits of second (00 through 59)
+              - **TZD**  = time zone designator (Z or +hh:mm or -hh:mm)
+          type: string
+          format: date-time
+          example: "2017-01-31T00:10:00.000+01"
+
+    bankTransactionCodeProprietary:
+      description: |
+        The code of banking transaction according to the code list of the Czech Banking Association assigned to a specific payment. Each bank uses an own code list to identify payments, which is, however, based on the 1st to 3rd level of transaction code list according to the CBA Standard for camt.053.
+      type: object
+      properties:
+        code:
+          $ref: "#/components/schemas/bankTransactionCodeCode"
+        issuer:
+          $ref: "#/components/schemas/bankTransactionCodeIssuer"
+
+    bankTransactionCode:
+      description: |
+        The code of banking transaction according to the code list of the Czech Banking Association assigned to a specific payment. Each bank uses an own code list to identify payments, which is, however, based on the 1st to 3rd level of transaction code list according to the CBA Standard for camt.053.
+      type: object
+      properties:
+        proprietary:
+          $ref: "#/components/schemas/bankTransactionCodeProprietary"
+
+    transactionReferences:
+      description: |
+        Payment details. The level repeats only for the given item.
+      type: object
+      properties:
+        messageIdentification:
+          $ref: "#/components/schemas/messageIdentification"
+        accountServicerReference:
+          $ref: "#/components/schemas/accountServicerReference"
+        paymentInformationIdentification:
+          $ref: "#/components/schemas/paymentInformationIdentification"
+        instructionIdentification:
+          $ref: "#/components/schemas/instructionIdentification"
+        endToEndIdentification:
+          $ref: "#/components/schemas/endToEndIdentification"
+        chequeNumber:
+          $ref: "#/components/schemas/chequeNumber"
+        clearingSystemReference:
+          $ref: "#/components/schemas/clearingSystemReference"
+          
+          
+    amountDetails:
+      description: |
+        Details of the payment amount, especially if it is a conversion payment or cashback.
+      type: object
+      properties:
+        instructedAmount:
+          $ref: "#/components/schemas/instructedAmount"
+        transactionAmount:
+          $ref: "#/components/schemas/transactionAmount"
+        counterValueAmount:
+          $ref: "#/components/schemas/counterValueAmount"
+        proprietaryAmount:
+          $ref: "#/components/schemas/proprietaryAmount"
+          
+    charges:
+      description: |
+        Information on fees.
+      type: object
+      properties:
+        bearer:
+          description: |
+            payments will be charged to his debit (OUR, SHA, BEN).
+          type: string
+          enum:
+            - OUR
+            - SHA
+            - BEN
+            
+    relatedParties:
+      description: |
+        Information on the payer. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        debtor:
+          $ref: "#/components/schemas/debtor"
+        debtorAccount:
+          $ref: "#/components/schemas/debtorAccount"
+        ultimateDebtor:
+          $ref: "#/components/schemas/ultimateDebtor"
+        creditor:
+          $ref: "#/components/schemas/creditor"
+        creditorAccount:
+          $ref: "#/components/schemas/creditorAccount"
+        ultimateCreditor:
+          $ref: "#/components/schemas/ultimateCreditor"
+        proprietary:
+          description: |
+            For more detailed identification of on which ATM the card transaction occurred.
+          type: object
+          properties:
+            type:
+              description: |
+                For identification of whether for the card transaction it is own / external ATM.
+              type: string
+            party:
+              description: |
+                For identification of the ATM name/owner.
+              type: object
+              properties:
+                name:
+                  description: |
+                    For identification of ATM name/location.
+                  type: string
+
+    relatedAgents:
+      description: |
+        Information on the payer bank and the payee bank in the payment.
+      type: object
+      properties:
+        debtorAgent:
+          $ref: '#/components/schemas/debtorAgent'
+        creditorAgent:
+          $ref: '#/components/schemas/creditorAgent'
+
+    debtorAgent:
+      description: |
+        Information on the payer bank. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        financialInstitutionIdentification:
+          $ref: "#/components/schemas/financialInstitutionIdentificationDebtor"
+
+    creditorAgent:
+      description: |
+        Information on the payee bank. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        financialInstitutionIdentification:
+          $ref: "#/components/schemas/financialInstitutionIdentificationCreditor"
+
+
+    intermediaryAgent1:
+      description: |
+        Intermediate 1
+      type: object
+      properties:
+        financialInstitutionIdentification:
+          $ref: "#/components/schemas/financialInstitutionIdentificationDebtor"
+     
+    financialInstitutionIdentificationDebtor:
+      description: |
+        Payer bank code in the international format BIC / SWIFT code.
+      type: object
+      properties:
+        bic:
+          description: |
+            BIC / SWIFT code of the payer bank
+          type: string
+          example: "ABNYUS33"
+        clearingSystemMemberIdentification:
+          description: |
+            Local format of the payer bank code – either in the code form or in the form of text description.
+          type: object
+          properties:
+            clearingSystemIdentification:
+              description: |
+                Payer bank identification in the local payment system in which the payer bank works.
+              type: object
+              properties:
+                code:
+                  description: |
+                    Payer bank identification in the local payment system in which the payer bank works in the form of payment system code.
+                  type: string
+                proprietary:
+                  description: |
+                    Payer bank identification in the local payment system in which the payer bank works in unstructured form of descriptive text.
+                  type: string
+                memberIdentification:
+                  description: |
+                    Local code format of the payer bank code.
+                  type: string
+                  example: "2700"
+        neme:
+          description: |
+            Payer bank code as stated in the code list of world banks (SWIFT Directory).
+          type: string
+          example: "New York Commercial Bank"
+        postalAddres:
+          $ref: "#/components/schemas/postalAddress"
+        other:
+          description: |
+           Other payee bank identification.
+          type: object
+          properties:
+            identification:
+              description: |
+                Other payer bank identification, mainly in the form of the so-called local bank code.
+              type: string
+              
+    financialInstitutionIdentificationCreditor:
+      description: |
+        Code of the payee bank in the international format BIC / SWIFT code.
+      type: object
+      properties:
+        bic:
+          description: |
+            BIC / SWIFT code of the payer bank
+          type: string
+          example: "ABNYUS33"
+        clearingSystemMemberIdentification:
+          description: |
+            Local format of the payee bank code – either in the code form or in the form of text description.
+          type: object
+          properties:
+            clearingSystemIdentification:
+              description: |
+                Payee bank identification in the local payment system in which the payer bank works.
+              type: object
+              properties:
+                code:
+                  description: |
+                    Payee bank identification in the local payment system in which the payer bank works in the form of payment system code.
+                  type: string
+                proprietary:
+                  description: |
+                    Payee bank identification in the local payment system in which the payer bank works in unstructured form of descriptive text.
+                  type: string
+                memberIdentification:
+                  description: |
+                    Local code format of the payee bank code.
+                  type: string
+                  example: "2700"
+        neme:
+          description: |
+            Payee bank code as stated in the code list of world banks (SWIFT Directory).
+          type: string
+          example: "New York Commercial Bank"
+        postalAddres:
+          $ref: "#/components/schemas/postalAddress"
+        other:
+          description: |
+           Other payee bank identification.
+          type: object
+          properties:
+            identification:
+              description: |
+                Other payee bank identification, mainly in the form of the so-called local bank code.
+              type: string
+
+
+    creditor:
+      description: |
+        Information on the payee. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        name:
+          description: |
+            Payee name.
+          type: string
+          example: "1. wiena investment"
+        postalAddress:
+          $ref: "#/components/schemas/postalAddress"
+        identification:
+          $ref: "#/components/schemas/payerIdentification"
+
+    paymentCreditor:
+      description: |
+        Information on the payee. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        name:
+          description: |
+            Payee name.
+          type: string
+          example: "1. wiena investment"
+        postalAddress:
+          $ref: "#/components/schemas/postalAddress"
+          
+    ultimateCreditor:
+      description: |
+        Information on the final payee. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        name:
+          description: |
+            Final payee name.
+          type: string
+          example: "Franz Schubert"
+        postalAddress:
+          $ref: "#/components/schemas/postalAddress"
+        identification:
+          $ref: "#/components/schemas/payerIdentification"
+    
+    
+    ultimateDebtor:
+      description: |
+        Information on the original/actual payer. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        name:
+          description: |
+            Name of the original/actual payer.
+          type: string
+          example: "Karel Novák"
+        postalAddress:
+          $ref: "#/components/schemas/postalAddress"
+        identification:
+          $ref: "#/components/schemas/payerIdentification"
+        
+    creditorAccount:
+      description: |
+        Information on the payee account. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        identification:
+          $ref: "#/components/schemas/accountIdentification"
+        currency:  
+          $ref: "#/components/schemas/currencyCode"
+        name:
+          description: |
+            Payee account name.
+          type: string
+
+    paymentCreditorAccount:
+      description: |
+        Information on the payee account. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        identification:
+          $ref: "#/components/schemas/accountIdentification"
+        currency:
+          $ref: "#/components/schemas/currencyCode"
+          
+    debtorAccount:
+      description: |
+        Information on the account payer. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        identification:
+          $ref: "#/components/schemas/accountIdentification"
+        currency:  
+          $ref: "#/components/schemas/currencyCode"
+        name:
+          description: |
+            Payer account name.
+          type: string
+
+    paymentDebtorAccount:
+      description: |
+        Information on the account payer. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      required:
+        - identification
+      properties:
+        identification:
+          $ref: "#/components/schemas/accountIdentification"
+        currency:
+          $ref: "#/components/schemas/currencyCode"
+
+    debtorAccountSO:
+      description: |
+        Payer's account
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/accountId"
+        identification:
+          description: |
+            Payer account identifier
+          type: object
+          properties:
+            iban:
+              $ref: "#/components/schemas/iban"
+        currency:  
+          $ref: "#/components/schemas/currencyCode"
+
+          
+    debtor:
+      description: |
+        Information on the payer. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        name:
+          description: |
+            Payer name.
+          type: string
+          example: "RENWORTH s.r.o"
+        postalAddress:
+          $ref: "#/components/schemas/postalAddress"
+        identification:
+          $ref: "#/components/schemas/payerIdentification"
+
+    paymentDebtor:
+      description: |
+        Information on the payer. It is according to the payment direction, and filled in in the case of counterparty.
+      type: object
+      properties:
+        name:
+          description: |
+            Payer name.
+          type: string
+          example: "RENWORTH s.r.o"
+
+    payerIdentification:
+      description: |
+        Identification.
+      type: object
+      properties:
+        organisationIdentification:
+          description: |
+            Clear identification as the organization/legal entity.
+          type: object
+          properties:
+            bicOrBei:
+              description: |
+                Identification as the organization/legal entity in the form of BIC or BEI code. 
+              type: string
+            other:
+              description: |
+                Other identification as the organization/legal entity.
+              type: object
+              properties:
+                identification:
+                  $ref: "#/components/schemas/otherIdentification"
+        privateIdentification:
+          description: |
+            Clear payer identification as the natural person.
+          type: object
+          properties:
+            other:
+              description: |
+                Other identification as the organization/legal entity.
+              type: object
+              properties:
+                identification:
+                  $ref: "#/components/schemas/otherIdentification"
+              
+            
+          
+    instructedAmount:
+      description: |
+        Amount and currency of payment in the currency that was required by the client for transfer. E.g., for intra-bank payments, the payer account currency and the payment currency if the client required the payment in the payer account currency.
+      type: object
+      properties:
+        amount:
+          description: |
+            The original amount and currency of payment that was required by the client for transfer.
+          type: object
+          properties:
+            value:
+              $ref: "#/components/schemas/value"
+            currency:
+              $ref: "#/components/schemas/currencyCode"
+              
+    amount:
+      description: |
+        Payment amount
+      type: object
+      properties:
+        instructedAmount:
+          description: |
+            Amount and currency in the instruction
+          type: object
+          properties:
+            value:
+              $ref: "#/components/schemas/value"
+            currency:
+              $ref: "#/components/schemas/currencyCode"
+
+    paymentAmount:
+      description: |
+        Payment amount
+      type: object
+      required:
+        - instructedAmount
+      properties:
+        instructedAmount:
+          description: |
+            Amount and currency in the instruction
+          type: object
+          properties:
+            value:
+              $ref: "#/components/schemas/value"
+            currency:
+              $ref: "#/components/schemas/currencyCode"
+        equivalentAmount:
+          description: |
+            Equivalent amount and currency
+          type: object
+          properties:
+            value:
+              $ref: "#/components/schemas/value"
+            currency:
+              $ref: "#/components/schemas/currencyCode"
+
+    transactionAmount:
+      description: |
+        The amount and currency of payment for cumulated payments and Cashback.
+      type: object
+      properties:
+        amount:
+          description: |
+            The amount and currency of payment for cumulated payments and Cashback, where the total amount of payment including the part for Cashback is entered here.
+          type: object
+          properties:
+            value:
+              $ref: "#/components/schemas/value"
+            currency:
+              $ref: "#/components/schemas/currencyCode"
+              
+    counterValueAmount:
+      description: |
+        The amount and currency of payment in the client account currency after conversion of amount that was required by the client for transfer.
+      type: object
+      properties:
+        amount:
+          description: |
+            The final amount and payment currency that was required by the client for transfer.
+          type: object
+          properties:
+            value:
+              $ref: "#/components/schemas/value"
+            currency:
+              $ref: "#/components/schemas/currencyCode"
+        currencyExchange:
+          description: |
+            Information on currencies and exchange rates used.
+          type: object
+          properties:
+            sourceCurrency:
+              $ref: "#/components/schemas/sourceCurrency"
+            targetCurrency:
+              $ref: "#/components/schemas/targetCurrency"
+            exchangeRate:
+              $ref: "#/components/schemas/exchangeRate"
+              
+    proprietaryAmount:
+      description: |
+        Amount of cash withdrawal through the Cashback service.
+      type: object
+      properties:
+        type:
+          description: |
+            The constant "CASHBACK" is to be filled in.
+          type: string
+          example: "CASHBACK"
+        amount:
+          description: |
+            Cashback amount and currency – only the part of total payment, to which the cash amount withdrawn falls within the Cashback service.
+          type: object
+          properties:
+            value:
+              $ref: "#/components/schemas/value"
+            currency:
+              $ref: "#/components/schemas/currencyCode"
+
+    exchangeRateInformation:
+      description: Contractual course
+      type: object
+      properties:
+        exchangeRate:
+          description: Agreed exchange rate
+          type: string
+        rateType:
+          description: Type of agreed exchange rate
+          type: string
+        contractIdentification:
+          description: Identify the use of the agreed exchange rate
+          type: string
+          maxLength: 35
+
+    chargesAccount:
+      description: Account for fees
+      type: object
+      properties:
+        identification:
+          $ref: '#/components/schemas/identification'
+
+    transactionDetails:
+      description: |
+        Payment details. The level repeats only for the given item.
+      type: object
+      properties:
+        references:
+          $ref: "#/components/schemas/transactionReferences"
+
+    signInfo_newPayment:
+      description: Status information and id of unauthorized transactions
+      type: object
+      required:
+        - state
+      properties:
+        state:
+          description: Transaction authorization status
+          type: string
+          example: "OPEN"
+        signId:
+          $ref: "#/components/schemas/signId"
+
+    signInfo:
+      description: Information on instruction authorization
+      type: object
+      required:
+        - state
+        - signId
+      properties:
+        state:
+          description: Status of transaction authorization in a format supported by bank
+          type: string
+          example: "OPEN"
+        signId:
+          $ref: "#/components/schemas/signId"
+
+    purpose:
+      description: |
+        Payment purpose.
+      type: object
+      properties:
+        code:
+          description: |
+            Payment purpose expressed as a code that was entered in the payment.
+          type: string
+        proprietary:
+          description: |
+            Payment purpose expressed as unstructured information that was entered in the payment.
+          type: string
+          example: "PLATBA ZA SLUŽBY"
+    
+    remittanceInformation:
+      description: |
+        Additional payment information.
+      type: object
+      properties:
+        unstructured:
+          description: |
+            Aditional payment information filled in in the payment as unstructured information.  If the payment states several repetitions of unstructured record supplementing payment information, then only the first of them will be considered.
+          type: string
+          example: "/VS/7418529630/SS/1234567890"
+        structured:
+          description: |
+            The completion of payment symbols (variable, specific and constant) is expected.
+
+            If the payment does not have a variable, specific or constant symbol, then the entire Structured Remittance Information will be left empty.
+          type: object
+          properties:
+            creditorReferenceInformation:
+              description: |
+                To display information on variable, specific and constant symbol.
+              type: object
+              properties:
+                reference:
+                  description: |
+                    | Start the field with the VS code: (for variable symbol), or SS: (for specific symbol) or KS: (for constant symbol). In one repetition of the reference field, all three symbols may be stated, each time maximum one repetition of each individual symbol. The method of recording symbols is VS:|KS:|SS:)[0-9]{1,10}.
+                  type: string
+    
+  
+    entryDetails:
+      description: |
+        Turnover details. The level repeats only for the given item.
+      type: object
+      properties:
+        transactionDetails:
+          $ref: "#/components/schemas/transactionDetails"
+        amountDetails:
+          $ref: "#/components/schemas/amountDetails"
+        charges:
+          $ref: "#/components/schemas/charges"
+        relatedParties:  
+          $ref: "#/components/schemas/relatedParties"
+        relatedAgents:
+          $ref: "#/components/schemas/relatedAgents"
+        purpose:
+          $ref: "#/components/schemas/purpose"
+        remittanceInformation:
+          $ref: "#/components/schemas/remittanceInformation"
+        additionalTransactionInformation:
+          description: |
+            Additional information provided by the bank. Only stated if it is included in the record. Additional info for SEPA DD is entered here (e.g., Creditor Identifier, Payment scheme, SEPA collection order, etc.)
+          type: string
+          example: "8201701069595 BIC: GIBACZPXXXX; #71A# SHA ZALOHA DLE SMLOUVY O DODAVKACH,zaloha dle smlouvy o dodavkach c. 45678/2017,VS0250117002/SS0000000000/KS0000SEPA převod"
+          
+
+    transactionInfo:
+      description: |
+        Tranasction info.
+      type: object
+      required:
+        - amount
+        - creditDebitIndicator
+        - status
+        - bookingDate
+        - valueDate
+        - bankTransactionCode
+      properties:
+        entryReference:
+          $ref: "#/components/schemas/entryReference"
+        amount:
+          $ref: "#/components/schemas/balanceAmount"
+        creditDebitIndicator:
+          $ref: "#/components/schemas/creditDebitIndicator"
+        reversalIndicator:
+          $ref: "#/components/schemas/reversalIndicator"
+        status:
+          $ref: "#/components/schemas/transactionStatus"
+        bookingDate:
+          $ref: "#/components/schemas/bookingDate"
+        valueDate:
+          $ref: "#/components/schemas/valueDate"
+        bankTransactionCode:
+          $ref: "#/components/schemas/bankTransactionCode"
+        entryDetails:
+          $ref: "#/components/schemas/entryDetails"
+
+
+    standingOrders:
+      description: |
+        Standing order
+      type: object
+      required: 
+        - standingOrderIdentification
+        - amount
+        - standingOrder
+        - debtorAccount
+      properties:
+        standingOrderIdentification:
+          $ref: "#/components/schemas/standingOrderIdentification"
+        amount:
+          $ref: "#/components/schemas/amount"
+        standingOrder:
+          $ref: "#/components/schemas/standingOrder"
+        debtorAccount:
+          $ref: "#/components/schemas/debtorAccountSO"
+          
+    execution:
+      description: |
+        Features of execution a standing order for payment.
+      type: object
+      required:
+        - mode
+        - modeDue
+        - interval
+        - intervalDue
+      properties:
+        mode:
+          description: |
+            The execution mode defines when or how standing order will be cancelled, processed the last time. Possible values: UNTIL_DATE (standing order is valid until specific date - field lastExecutionDate), UNTIL_CANCELLATION (standing order is valid forever and must be cancelled by client), AFTER_MAX_ITERATION_EXCEEDED (certain count of executions is specified - field maxIterations) or MAX_AMOUNT_EXCEEDED (maximum amount which can be transferred for this order is specified, if next iteration would exceed this amount it is not executed - field maxAmount).
+          maxLength: 35
+          type: string
+          enum:
+            - UNTIL_DATE
+            - UNTIL_CANCELLATION
+            - FTER_MAX_ITERATION_EXCEEDED
+            - MAX_AMOUNT_EXCEEDED
+          example: "UNTIL_CANCELLATION"
+        modeDue:
+          description: |
+            The execution due mode defines how the date when order should be executed is specified. Possible values: DUE_DAY_OF_MONTH (specific number of day in the month is defined) or DUE_OR_BEFORE_DAY_OF_MONTH (is defined as a specific day of the month or the previous day if the day falls on a non-banking day) or DUE_OR_NEXT_DAY_OF_MONTH (is defined as a specific day of the month or the next day if the day falls on a non-banking day) or  DUE_LAST_DAY_OF_MONTH (order is executed on last day of particular month).
+          maxLength: 35
+          type: string
+          enum:
+            - DUE_DAY_OF_MONTH
+            - DUE_OR_BEFORE_DAY_OF_MONTH
+            - DUE_OR_NEXT_DAY_OF_MONTH
+            - DUE_LAST_DAY_OF_MONTH
+          example: "DUE_DAY_OF_MONTH"
+        interval:
+          description: |
+            Execution interval defines how often order is executed. Possible values: DAILY, WEEKLY, MONTHLY, BI_MONTHLY, QUARTERLY, HALFYEARLY, YEARLY, IRREGULAR.
+          type: string
+          maxLength: 10
+          enum:
+            - DAILY
+            - WEEKLY
+            - MONTHLY
+            - BI_MONTHLY
+            - QUARTERLY
+            - HALFYEARLY
+            - YEARLY
+            - IRREGULAR
+          example: "MONTHLY"
+        intervalDue:
+          description: |
+            Value represents order number of the day within particular period when the standing order will be reqularly executed. Possible values: 1-7 (for WEEKLY interval), 1-28 for MONTHLY, 1-2 for BI_MONTHLY, 1-3 for QUARTERLY, 1-6 for HALFYEARLY, 1-12 for YEARLY.
+          type: number
+          example: 15
+          
+
+      
+
+    standingOrder:
+      description: |
+        Structure describing the parameters of the standing orders.
+      type: object
+      required:
+        - execution
+      properties:
+        alias:
+          description: |
+            Description resp. the user-defined standing order payment name.
+          type: string
+          maxLength: 250
+          example: "Payments for lunch - kindergarten Michal"
+        execution:
+          $ref: "#/components/schemas/execution"
+        debtorAccount:
+          $ref: "#/components/schemas/debtorAccount"
+          
+
+
+    transactionsList:
+      description: |
+        Set of transactions on clints account
+      type: array
+      items:
+        $ref: "#/components/schemas/transactionInfo"
+        
+        
+    standingorderList:
+      description: |
+        Set of clients standing orders
+      type: array
+      items:
+        $ref: "#/components/schemas/standingOrders"
+
+    exchangeIdentification:
+      description: |
+        Clear query identification
+      type: string
+      maxLength: 18
+      example: "658576010faf0a23dc"
+
+    card:
+      description: |
+        Transaction card
+      type: object
+      required:
+        - maskedPan
+      properties:
+        cardholderName:
+          description: Card holder name
+          type: string
+          maxLength: 45
+          example: "Jan Novák"
+        maskedPan:
+          description: Masked card number
+          type: string
+          maxLength: 30
+          example: "1234***********6789"
+
+    authenticationMethod:
+      description: |
+        Client verification method
+      type: string
+      maxLength: 4
+      enum:
+        - NPIN
+        - PPSG
+        - PSWD
+        - SCRT
+        - SCNL
+        - SNCT
+        - CPSG
+        - ADDB
+        - BIOM
+        - CDHI
+        - CRYP
+        - CSCV
+        - PSVE
+        - CSEC
+        - ADDS
+        - TOKP
+      example: "NPIN"
+
+    merchant:
+      description: |
+        Merchant executing the transaction
+      type: object
+      required:
+        - identification
+        - shortName
+        - commonName
+        - merchantCategoryCode
+      properties:
+        identification:
+          description: Merchant identification
+          type: string
+          maxLength: 35
+          example: "471 16 129"
+        type:
+          description: Merchant type
+          type: string
+        shortName:
+          description: Merchant name
+          type: string
+          maxLength: 35
+          example: "NEOLUXOR"
+        commonName:
+          description: Merchant name as stated in the payment receipt
+          type: string
+          maxLength: 70
+          example: "Neoluxor s.r.o."
+        address:
+          description: Merchant address
+          type: string
+          maxLength: 140
+          example: "Hlavní 5, Praha 1"
+        countryCode:
+          description: Merchant country
+          type: string
+          maxLength: 2
+          example: "CZ"
+        merchantCategoryCode:
+          description: Merchant code following the transaction type
+          type: string
+          minLength: 3
+          maxLength: 4
+          example: "5192"
+
+    transactionDetailsPIIS:
+      description: Transaction details
+      type: object
+      required:
+        - currency
+        - totalAmount
+      properties:
+        currency:
+          $ref: "#/components/schemas/currencyCode"
+        totalAmount:
+          $ref: "#/components/schemas/value"
+
+    paymentIdentification:
+      description: Payment identification
+      type: object
+      required:
+        - instructionIdentification
+      properties:
+        instructionIdentification:
+          $ref: "#/components/schemas/instructionIdentification"
+        endToEndIdentification:
+          $ref: '#/components/schemas/endToEndIdentification'
+        transactionIdentification:
+          $ref: '#/components/schemas/transactionIdentification'
+
+    serviceLevel:
+      description: Service level
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/serviceLevelCode'
+
+    categoryPurpose:
+      description: Category of the purpose of payment
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/categoryPurposeCode'
+        proprietary:
+          $ref: '#/components/schemas/categoryPurposeProprietary'
+
+    paymentTypeInformation:
+      description: Payment type information
+      type: object
+      properties:
+        instructionPriority:
+          $ref: '#/components/schemas/instructionPriority'
+        serviceLevel:
+          $ref: '#/components/schemas/serviceLevel'
+        categoryPurpose:
+          $ref: '#/components/schemas/categoryPurpose'
+
+    href:
+      description: Reference to call federated authorization
+      type: object
+      properties:
+        url:
+          $ref: '#/components/schemas/url'
+        id:
+          $ref: '#/components/schemas/id'
+
+    formData:
+      description: Optional element. For the method POST federated authorization (authorizationType=USERAGENT_REDIRECT) element. Contains data for sending in redirecting to federated authorization.
+      type: object
+      properties:
+        url:
+          $ref: '#/components/schemas/SAMLRequest'
+        id:
+          $ref: '#/components/schemas/relayState'
+
+    #####################################################
+  #                 Response Payloads
+  #####################################################
+
+    getAllAccounts:
+      description: Response message list of client payment accounts
+      type: object
+      required:
+        - pageNumber
+        - pageCount
+        - pageSize
+        - accounts
+      properties:
+        pageNumber:
+          $ref: "#/components/schemas/pageNumber"
+        pageCount:
+          $ref: "#/components/schemas/pageCount"
+        nextPage:
+          $ref: "#/components/schemas/nextPage"
+        pageSize:
+          $ref: "#/components/schemas/pageSize"
+        totalCount:
+          $ref: "#/components/schemas/totalCount"
+        accounts:
+          $ref: "#/components/schemas/accountsList"
+
+    getAccountsBalances:
+      description: Response message for account balances
+      type: object
+      required:
+        - balances
+      properties:
+        balances:
+          $ref: "#/components/schemas/balancesArray"
+
+    getAccountsTransactions:
+      description: Response message list of client payment accounts transactions
+      type: object
+      required:
+        - pageNumber
+        - pageCount
+        - pageSize
+        - transactions
+      properties:
+        pageNumber:
+          $ref: "#/components/schemas/pageNumber"
+        pageCount:
+          $ref: "#/components/schemas/pageCount"
+        nextPage:
+          $ref: "#/components/schemas/nextPage"
+        pageSize:
+          $ref: "#/components/schemas/pageSize"
+        totalCount:
+          $ref: "#/components/schemas/totalCount"
+        transactions:
+          $ref: "#/components/schemas/transactionsList"
+          
+          
+    getStandingorders:
+      description: Response message list of client standing orders
+      type: object
+      required:
+        - pageNumber
+        - pageCount
+        - pageSize
+        - transactions
+      properties:
+        pageNumber:
+          $ref: "#/components/schemas/pageNumber"
+        pageCount:
+          $ref: "#/components/schemas/pageCount"
+        nextPage:
+          $ref: "#/components/schemas/nextPage"
+        pageSize:
+          $ref: "#/components/schemas/pageSize"
+        totalCount:
+          $ref: "#/components/schemas/totalCount"
+        standingOrders:
+          $ref: "#/components/schemas/standingorderList"
+
+    PISBalanceCheck:
+      description: Response for Balance Check
+      type: object
+      required:
+        - responseIdentification
+        - exchangeIdentification
+        - response
+      properties:
+        responseIdentification:
+          description: Unique identification of response to query for Balance Check (from ASPSP).
+          type: number
+          example: 98765
+        exchangeIdentification:
+          $ref: "#/components/schemas/exchangeIdentification"
+        response:
+          description: |
+            Result code of query for Balance Check.
+              - APPR Enough funds on this account
+              - DECL Unsufficient funds on this account
+          type: string
+          example: "APPR"
+
+    postNewPayment:
+      description: Response for new payment initialization
+      type: object
+      required:
+        - paymentIdentification
+        - amount
+        - creditorAccount
+        - transactionIdentification
+        - serviceLevel
+        - signInfo
+      properties:
+        transactionIdentification:
+          $ref: '#/components/schemas/transactionIdentification'
+        serviceLevel:
+          $ref: '#/components/schemas/serviceLevel'
+        paymentIdentification:
+          $ref: "#/components/schemas/paymentIdentification"
+        paymentTypeInformation:
+          $ref: '#/components/schemas/paymentTypeInformation'
+        amount:
+          $ref: '#/components/schemas/paymentAmount'
+        requestedExecutionDate:
+          $ref: '#/components/schemas/requestedExecutionDate'
+        exchangeRateInformation:
+          $ref: '#/components/schemas/exchangeRateInformation'
+        chargeBearer:
+          $ref: '#/components/schemas/chargeBearer'
+        chargesAccount:
+          $ref: '#/components/schemas/chargesAccount'
+        ultimateDebtor:
+          $ref: '#/components/schemas/ultimateDebtor'
+        debtor:
+          $ref: '#/components/schemas/paymentDebtor'
+        debtorAccount:
+          $ref: '#/components/schemas/paymentDebtorAccount'
+        intermediaryAgent1:
+          $ref: '#/components/schemas/intermediaryAgent1'
+        creditorAgent:
+          $ref: '#/components/schemas/creditorAgent'
+        creditor:
+          $ref: '#/components/schemas/paymentCreditor'
+        creditorAccount:
+          $ref: '#/components/schemas/paymentCreditorAccount'
+        ultimateCreditor:
+          $ref: '#/components/schemas/ultimateCreditor'
+        purpose:
+          $ref: '#/components/schemas/purpose'
+        instructionForNextAgent:
+          $ref: '#/components/schemas/instructionForNextAgent'
+        remittanceInformation:
+          $ref: '#/components/schemas/remittanceInformation'
+        signInfo:
+          $ref: '#/components/schemas/signInfo_newPayment'
+
+    getPaymentStatus:
+      description: Response message of payments status.
+      type: object
+      required:
+        - instructionStatus
+      properties:
+        instructionStatus:
+          $ref: "#/components/schemas/instructionStatus"
+
+    getPaymentInfo:
+      description: Response message for payment information.
+      type: object
+      required:
+        - paymentIdentification
+        - amount
+        - debtorAccount
+        - creditor
+        - creditorAccount
+      properties:
+        transactionIdentification:
+          $ref: '#/components/schemas/transactionIdentification'
+        serviceLevel:
+          $ref: '#/components/schemas/serviceLevel'
+        paymentIdentification:
+          $ref: "#/components/schemas/paymentIdentification"
+        paymentTypeInformation:
+          $ref: '#/components/schemas/paymentTypeInformation'
+        amount:
+          $ref: '#/components/schemas/paymentAmount'
+        requestedExecutionDate:
+          $ref: '#/components/schemas/requestedExecutionDate'
+        exchangeRateInformation:
+          $ref: '#/components/schemas/exchangeRateInformation'
+        chargeBearer:
+          $ref: '#/components/schemas/chargeBearer'
+        chargesAccount:
+          $ref: '#/components/schemas/chargesAccount'
+        ultimateDebtor:
+          $ref: '#/components/schemas/ultimateDebtor'
+        debtor:
+          $ref: '#/components/schemas/paymentDebtor'
+        debtorAccount:
+          $ref: '#/components/schemas/paymentDebtorAccount'
+        intermediaryAgent1:
+          $ref: '#/components/schemas/intermediaryAgent1'
+        creditorAgent:
+          $ref: '#/components/schemas/creditorAgent'
+        creditor:
+          $ref: '#/components/schemas/paymentCreditor'
+        creditorAccount:
+          $ref: '#/components/schemas/paymentCreditorAccount'
+        ultimateCreditor:
+          $ref: '#/components/schemas/ultimateCreditor'
+        purpose:
+          $ref: '#/components/schemas/purpose'
+        instructionForNextAgent:
+          $ref: '#/components/schemas/instructionForNextAgent'
+        remittanceInformation:
+          $ref: '#/components/schemas/remittanceInformation'
+
+    postPaymentAuthorizationId:
+      description: Response with generated the authorization ID.
+      type: object
+      required:
+        - scenarios
+        - signInfo
+      properties:
+        scenarios:
+          $ref: '#/components/schemas/scenarios'
+        signInfo:
+          $ref: '#/components/schemas/signInfo'
+
+    postPaymentAuthorizationInitiation:
+      description: Response message for payment authorization initiation.
+      type: object
+      required:
+        - authorizationType
+        - signInfo
+      properties:
+        authorizationType:
+          $ref: '#/components/schemas/authorizationType'
+        href:
+          $ref: '#/components/schemas/href'
+        method:
+          $ref: '#/components/schemas/method'
+        formData:
+          $ref: '#/components/schemas/formData'
+        signInfo:
+          $ref: '#/components/schemas/signInfo'
+
+    putPaymentAuthorizationInitiation:
+      description: Response message for put Payment authorization initiation.
+      type: object
+      required:
+        - state
+        - pollInterval
+      properties:
+        state:
+          $ref: '#/components/schemas/state'
+        pollInterval:
+          $ref: '#/components/schemas/pollInterval'
+
+  #####################################################
+  #                 Request Payloads
+  #####################################################
+
+    requestBalanceCheck:
+      description: |
+        Payload of query for balance check
+      type: object
+      required:
+        - exchangeIdentification
+        - debtorAccount
+      properties:
+        exchangeIdentification:
+          $ref: "#/components/schemas/exchangeIdentification"
+        card:
+          $ref: "#/components/schemas/card"
+        debtorAccount:
+          $ref: "#/components/schemas/debtorAccountSO"
+        authenticationMethod:
+          $ref: "#/components/schemas/authenticationMethod"
+        merchant:
+          $ref: "#/components/schemas/merchant"
+        transactionDetails:
+          $ref: "#/components/schemas/transactionDetailsPIIS"
+
+    requestNewPayment:
+      description: |
+        Payload of query forn new payment initialization
+      type: object
+      required:
+        - paymentIdentification
+        - amount
+        - creditorAccount
+      properties:
+        paymentIdentification:
+          $ref: "#/components/schemas/paymentIdentification"
+        paymentTypeInformation:
+          $ref: '#/components/schemas/paymentTypeInformation'
+        amount:
+          $ref: '#/components/schemas/paymentAmount'
+        requestedExecutionDate:
+          $ref: '#/components/schemas/requestedExecutionDate'
+        exchangeRateInformation:
+          $ref: '#/components/schemas/exchangeRateInformation'
+        chargeBearer:
+          $ref: '#/components/schemas/chargeBearer'
+        chargesAccount:
+          $ref: '#/components/schemas/chargesAccount'
+        ultimateDebtor:
+          $ref: '#/components/schemas/ultimateDebtor'
+        debtor:
+          $ref: '#/components/schemas/paymentDebtor'
+        debtorAccount:
+          $ref: '#/components/schemas/paymentDebtorAccount'
+        intermediaryAgent1:
+          $ref: '#/components/schemas/intermediaryAgent1'
+        creditorAgent:
+          $ref: '#/components/schemas/creditorAgent'
+        creditor:
+          $ref: '#/components/schemas/paymentCreditor'
+        creditorAccount:
+          $ref: '#/components/schemas/paymentCreditorAccount'
+        ultimateCreditor:
+          $ref: '#/components/schemas/ultimateCreditor'
+        purpose:
+          $ref: '#/components/schemas/purpose'
+        instructionForNextAgent:
+          $ref: '#/components/schemas/instructionForNextAgent'
+        remittanceInformation:
+          $ref: '#/components/schemas/remittanceInformation'
+
+    requestPaymentAuthorizationInitiation:
+      description: |
+          Payload of query for payment authorization initiation
+      type: object
+      required:
+        - authorizationType
+      properties:
+        authorizationType:
+          $ref: '#/components/schemas/authorizationType'
+        redirectUrl:
+          $ref: '#/components/schemas/redirectUrl'
+
+    #####################################################
+    #                 Error Payloads
+    #####################################################
+
+    errorParameters:
+      description: |
+        The field of additional elements specific for the given error code. These parameters are always specified in the description of a specific error code.
+      type: object
+      example:
+        {
+          "AMOUNT_ENTERED": 10000,
+          "CURRENCY": "EUR",
+          "LIMIT": 500,
+        }
+
+    scope:
+      description: |
+        It determines the JSON path of the request element that caused the error status.
+      type: string
+      example: "account.amount.currency"
+
+    errorMessage:
+      description: |
+        Optional text description. It is not intended for interpretation to the end user but, for example, to enrich the error log.
+      type: string
+      example: "Requested amount is too large"
+
+
+    error400_getAllAccounts:
+      description: |
+        This is an invalid query that cannot be answered. E.g., if JSON content is not valid for this resource.
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/error_PARAMETER_INVALID_400"
+
+    error400_getAccountsBalances:
+      description: |
+        This is an invalid query that cannot be answered. E.g., if JSON content is not valid for this resource.
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/error_AC09_400"
+
+    error400_getAccountsTransactions:
+      description: |
+        This is an invalid query that cannot be answered. E.g., if JSON content is not valid for this resource.
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/error_DT01_400"
+
+    error400_postBalanceCheck:
+      description: |
+        This is an invalid query that cannot be answered. E.g., if JSON content is not valid for this resource.
+      properties:
+        errors:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/error_FIELD_MISSING_400"
+              - $ref: "#/components/schemas/error_FIELD_INVALID_400"
+              - $ref: "#/components/schemas/error_AC02_400"
+              - $ref: "#/components/schemas/error_AC09_400"
+              - $ref: "#/components/schemas/error_AC12_400"
+              - $ref: "#/components/schemas/error_AG01_400"
+              - $ref: "#/components/schemas/error_AM11_400"
+              - $ref: "#/components/schemas/error_AM12_400"
+              - $ref: "#/components/schemas/error_FF01_400"
+              - $ref: "#/components/schemas/error_NARR_400"
+              - $ref: "#/components/schemas/error_RF01_400"
+              - $ref: "#/components/schemas/error_RR10_400"
+
+    error400_postNewPayment:
+      description: |
+        This is an invalid query that cannot be answered. E.g., if JSON content is not valid for this resource.
+      properties:
+        errors:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/error_FIELD_MISSING_400"
+              - $ref: "#/components/schemas/error_FIELD_INVALID_400"
+              - $ref: "#/components/schemas/error_AC02_400"
+              - $ref: "#/components/schemas/error_AC03_400"
+              - $ref: "#/components/schemas/error_AC10_400"
+              - $ref: "#/components/schemas/error_AC12_400"
+              - $ref: "#/components/schemas/error_AG01_400"
+              - $ref: "#/components/schemas/error_AM05_400"
+              - $ref: "#/components/schemas/error_AM11_400"
+              - $ref: "#/components/schemas/error_AM12_400"
+              - $ref: "#/components/schemas/error_FF01_400"
+              - $ref: "#/components/schemas/error_BE19_400"
+              - $ref: "#/components/schemas/error_DT01_400"
+              - $ref: "#/components/schemas/error_NARR_400"
+              - $ref: "#/components/schemas/error_RC07_400"
+              - $ref: "#/components/schemas/error_RC10_400"
+              - $ref: "#/components/schemas/error_RR03_400"
+              - $ref: "#/components/schemas/error_RR10_400"
+              - $ref: "#/components/schemas/error_NO_PART_400"
+              - $ref: "#/components/schemas/error_REC_SEND_400"
+
+
+    error401:
+      description: |
+        Querying requires user authentication
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/error_UNAUTHORISED_401"
+
+    error403:
+      description: |
+        Authentication with an invalid certificate or expired access token, a call that does not match a third-party license.
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/error_FORBIDDEN_403"
+
+    error404:
+      description: |
+        The requested object / page does not exist or was not found.
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/error_NOT_FOUND_404"
+
+    error415:
+      description: |
+        Request contains a request for unsupported transmission type (e.g. in relation to headers Accept and Accept-Language).
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/error_UNSUPPORTED_MEDIA_TYPE_415"
+
+    error422:
+      description: |
+        This error can be used if the requested object cannot be processed, or the required query parameter is absent.
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/error_UNPROCESSABLE_ENTITY_422"
+
+
+    error_PARAMETER_INVALID_400:
+      description: |
+        The value of the parameter is not valid
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "PARAMETER_INVALID"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+          "error":"PARAMETER_INVALID",
+          "scope":"page",
+          "parameters": null,
+          "message": null
+        }]
+
+    error_AC09_400:
+      description: |
+        [InvalidAccountCurrency] – for multicurrency accounts, or currency not supported according to the table of exchanges.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "AC09"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+          "error":"AC09",
+          "scope":"currency",
+          "parameters": null,
+          "message": null
+        }]
+
+    error_AC12_400:
+      description: |
+        [InvalidAccountType] -  account type does not match allowed account types (e.g., a non-paying account).
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "AC12"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"AC12",
+           "scope":"debtorAccount.identification.iban",
+           "parameters": null,
+           "message": null
+         }]
+
+    error_AG01_400:
+      description: |
+        [TransactionForbidden] – absent consent to access to balance check at the account.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "AG01"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"AG01",
+           "scope": null,
+           "parameters": null,
+           "message": null
+         }]
+
+    error_AM11_400:
+      description: |
+        [InvalidTransactionCurrency] – the request contains a currency not trade/not supported.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "AM11"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"AM11",
+           "scope": "transactionDetails.currency",
+           "parameters": null,
+           "message": null
+         }]
+
+    error_AM12_400:
+      description: |
+        [InvalidAmount] – wrong amount. For instance, too low or high amount or wrong number format according to the number of decimal places according to the ISO 4217.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "AM12"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"AM12",
+           "scope": "transactionDetails.totalAmount",
+           "parameters": null,
+           "message": null
+         }]
+
+    error_FF01_400:
+      description: |
+        [Invalid File Format] – invalid JSON forma or other technical problem with the query processing.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "FF01"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"FF01",
+           "scope": null,
+           "parameters": null,
+           "message": null
+         }]
+
+    error_NARR_400:
+      description: |
+        Narrative – a general reason for rejecting the payment, with an addition of error-related information.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "NARR"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"NARR",
+           "scope": null,
+           "parameters": null,
+           "message": null
+         }]
+
+    error_RF01_400:
+      description: |
+        [NotUniqueTransactionReference] – not unique request identifier.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "RF01"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"RF01",
+           "scope": "X-Request-ID",
+           "parameters": null,
+           "message": null
+         }]
+
+    error_RR10_400:
+      description: |
+        [InvalidCharacterSet] – invalid character set in the request.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "RF01"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"RR01",
+           "scope": null,
+           "parameters": null,
+           "message": null
+         }]
+
+    error_DT01_400:
+      description: |
+        [InvalidDate] Invalid date.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "DT01"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+          "error":"DT01",
+          "scope":"fromDate",
+          "parameters": null,
+          "message": "The date will be in the future."
+        }]
+
+    error_UNAUTHORISED_401:
+      description: |
+        Invalid/missing access token = user is not authenticated
+          OR
+        Invalid/missing certificate = provider is not authenticated/authorised
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "UNAUTHORISED"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+          "error":"UNAUTHORISED"
+        }]
+
+    error_FORBIDDEN_403:
+      description: |
+        Authentication with an invalid certificate or expired access token, a call that does not match a third-party license.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "FORBIDDEN"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+          "error":"FORBIDDEN"
+        }]
+
+    error_NOT_FOUND_404:
+      description: |
+        The requested object / page does not exist or was not found.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "NOT_FOUND"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+          "error":"NOT_FOUND"
+        }]
+
+    error_FIELD_MISSING_400:
+      description: |
+        Missing mandatory field in the request.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "FIELD_MISSING"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+          "error":"FIELD_MISSING",
+          "scope":"transactionDetails.currency"
+        }]
+
+    error_FIELD_INVALID_400:
+      description: |
+        FIELD value is not valid.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "FIELD_INVALID"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"FIELD_INVALID",
+           "scope":"transactionDetails.currency"
+         }]
+
+    error_AC02_400:
+      description: |
+        [InvalidDebtorAccountNumber] – invalid account identifier in the request content..
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "AC02"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"AC02",
+           "scope":"debtorAccount.identification.iban"
+         }]
+
+    error_AC03_400:
+      description: |
+        [InvalidCreditorAccountNumber] -  recipient account number is closed, blocked, credit card are disabled for the account type, or the recipient's account number is in invalid format (note: only valid for in-house payments).
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "AC03"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"AC03",
+           "scope":"iban",
+           "parameters": null,
+           "message": "The date will be in the future."
+         }]
+
+    error_AC10_400:
+      description: |
+        [InvalidDebtorAccountCurrency] –  the specified payer account currency does not correspond to the client's account currency for the account number held in the bank (the account currency is optional, in the case of multicurrency accounts, the account currency must be specified - Raiffeisenbank).
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "AC10"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"AC10",
+           "scope":"currency",
+           "parameters": null,
+           "message": null
+         }]
+
+    error_AM05_400:
+      description: |
+        [Duplication] -  this is a duplicate. Universal code for a duplicate CISP query (validated by, for example, CSOB) or a duplicate payment via GIS (non-unique payment reference).
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "AM05"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"AM05",
+           "scope": null,
+           "parameters": null,
+           "message": null
+         }]
+
+    error_BE19_400:
+      description: |
+        [InvalidChargeBearerCode] - invalid fee type for the given transaction type.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "BE19"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"BE19",
+           "scope": "charges.bearer",
+           "parameters": null,
+           "message": null
+         }]
+
+    error_RC07_400:
+      description: |
+        [InvalidCreditorBICIdentifier] –  invalid recipient SWIFT / BIC code.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "RC07"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"RC07",
+           "scope": "bic",
+           "parameters": null,
+           "message": null
+         }]
+
+    error_RC10_400:
+      description: |
+        [InvalidCreditorClearingSystemMemberIdentifier] -  invalid recipient bank code identification.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "RC10"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"RC10",
+           "scope": "creditorAgent.financialInstitutionIdentification.clearingSystemMemberIdentification",
+           "parameters": null,
+           "message": null
+         }]
+
+    error_RR03_400:
+      description: |
+        [MissingCreditorNameOrAddress] -  the field is missing the required data about the recipient's name or address (or its part). If the data is in bad format, the error code FIELD_INVALID is used.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "RR03"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"RR03",
+           "scope": null,
+           "parameters": null,
+           "message": null
+         }]
+
+    error_NO_PART_400:
+      description: |
+        Unattainable Payment Method - The payer or payee bank does not provide the requested priority of the instruction (Instant Payment).
+        In this case, the bank can extend the error response by the "parameters" element and define a set of possible payment priorities. TPP resp. the PSU may be able to choose another type of priority.
+        …
+        "parameters": {
+                "ALLOWED_PRIORITY_TYPES" : ["NORM", "HIGH"]
+        }
+
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "NO_PART"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"NO_PART",
+           "scope": null,
+           "parameters": null,
+           "message": null
+         }]
+
+    error_REC_SEND_400:
+      description: |
+        [RECEIVER_SAME_AS_SENDER] –  Payer's account is the same as the payee's account (Applies to all types of payments)
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "REC_SEND"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"REC_SEND",
+           "scope": null,
+           "parameters": null,
+           "message": null
+         }]
+
+
+    error_UNSUPPORTED_MEDIA_TYPE_415:
+      description: |
+        Request contains a request for unsupported transmission type (e.g. in relation to headers Accept and Accept-Language).
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "UNSUPPORTED_MEDIA_TYPE"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+          "error":"UNSUPPORTED_MEDIA_TYPE"
+        }]
+
+    error_UNPROCESSABLE_ENTITY_422:
+      description: |
+        This error can be used if the requested object cannot be processed, or the required query parameter is absent.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: "UNPROCESSABLE_ENTITY"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+          "error":"UNPROCESSABLE_ENTITY"
+        }]
+
+    error_AUTH_LIMIT_EXCEEDED_400:
+      description: |
+        The resource may not be authorized with this method
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: "AUTH_LIMIT_EXCEEDED"
+        parameters:
+          $ref: "#/components/schemas/errorParameters"
+        scope:
+          $ref: "#/components/schemas/scope"
+        message:
+          $ref: "#/components/schemas/errorMessage"
+      example:
+        [{
+           "error":"AUTH_LIMIT_EXCEEDED"
+        }]
+
+  parameters:
+  #####################################################
+  #                  Path Params
+  #####################################################
+
+    accountId:
+      name: id
+      in: path
+      description: |
+        API payment account identifier from the response to a query on the list of accounts.
+      required: true
+      schema:
+        $ref: "#/components/schemas/accountId"
+
+    paymentId:
+      name: paymentId
+      in: path
+      description: |
+        The value of transactionIdentification from POST response payment initiation.
+      required: true
+      schema:
+        $ref: "#/components/schemas/transactionIdentification"
+
+    signId:
+      name: signId
+      in: path
+      description: |
+        Unique identifier for current transaction authorization
+      required: true
+      schema:
+        $ref: "#/components/schemas/signId"
+  #####################################################
+  #                Query Parameters
+  #####################################################
+
+    pageSizeParam:
+      name: size
+      in: query
+      description: |
+        It defines the required number of records on the page. If the parameter is not specified, the API returns the entire set.
+      required: false
+      schema:
+        $ref: "#/components/schemas/pageSizeParam"
+
+    pageParam:
+      name: page
+      in: query
+      description: |
+        It defines the required page number. Pages are numbered from 0. If the parameter is not specified, the API returns the first (zero) page.
+      required: false
+      schema:
+        $ref: "#/components/schemas/pageParam"
+
+    sortParam:
+      name: sort
+      in: query
+      description: |
+        It defines a list of fields for sorting. The individual fields in the list are separated by a comma
+      required: false
+      schema:
+        $ref: "#/components/schemas/sortParam"
+
+    orderParam:
+      name: order
+      in: query
+      description: |
+        A list of arrangement methods (ASC, DESC) separated by comma. The order corresponds to the order of fields in the sort parameter.
+      required: false
+      schema:
+        $ref: "#/components/schemas/orderParam"
+
+    currencyParam:
+      name: currency
+      in: query
+      description: |
+        Required account currency for multi-currency accounts.
+      required: false
+      schema:
+        $ref: "#/components/schemas/currencyCode"
+
+    fromDate:
+      name: fromDate
+      in: query
+      description: |
+        Date and time of the start of required transaction history.
+      required: false
+      schema:
+        $ref: "#/components/schemas/fromDate"
+
+    toDate:
+      name: toDate
+      in: query
+      description: |
+        Date and time of the end of required transaction history [inclusive].
+      required: false
+      schema:
+        $ref: "#/components/schemas/toDate"
+
+
+  #####################################################
+  #                 Request Headers
+  #####################################################
+
+    contentTypeReq:
+      name: Content-Type
+      in: header
+      description: |
+        Defines MIME media type of the resource. For example application/json or application/x-www-form-urlencoded (OAuth2 /auth resources) and application/xml in case of bulk payment initiation.
+      required: true
+      schema:
+        $ref: "#/components/schemas/contentType"
+
+    authorization:
+      name: Authorization
+      in: header
+      description: |
+        Contains the credentials to authenticate a user agent with a server. Element is defined in RFC 6750 In the case of this specification as Bearer Token Usage.
+      required: true
+      schema:
+        $ref: "#/components/schemas/authorization"
+
+    apiKey:
+      name: API-key
+      in: header
+      description: |
+        The API key issued for TPP is part of the communication configuration for better identification of third-party call access settings. In essence, this is not a security element.
+      required: false
+      schema:
+        $ref: "#/components/schemas/apiKey"
+
+    accept:
+      name: Accept
+      in: header
+      description: |
+        The Accept request HTTP header specifies which content types, expressed as MIME types, the client is able to understand.
+      required: false
+      schema:
+        $ref: "#/components/schemas/accept"
+
+    acceptLanguage:
+      name: Accept-Language
+      in: header
+      description: |
+        The Accept-Language request HTTP header specifies which languages the client is able to understand, and which locale variant is preferred. If no `Accept-Language:` is given, local country language is assumed.
+
+        For example:
+          - Accept-Language: *
+          - Accept-Language: en-US, en;q=0.8
+      required: false
+      schema:
+        $ref: "#/components/schemas/acceptLanguage"
+
+    xRequestIdReq:
+      name: X-Request-ID
+      in: header
+      description: |
+        Unique identifier for each request specified by TPP. It is recommended to use a UUID format with a length of 36 to 60 characters.
+      required: true
+      schema:
+        $ref: "#/components/schemas/xRequestId"
+
+    dateHeader:
+      name: Date
+      in: header
+      description: |
+        Each request of a transaction contains the date and time at which the message was originated. In timestamp format.
+      required: true
+      schema:
+        $ref: "#/components/schemas/dateHeader"
+
+    contentLength:
+      name: Content-Length
+      in: header
+      description: |
+        The Content-Length entity-header field indicates the size of the entity-body, in decimal bytes, sent to the recipient.
+      required: false
+      schema:
+        $ref: "#/components/schemas/contentLength"
+
+    transferEncoding:
+      name: Transfer-Encoding
+      in: header
+      description: |
+        The Transfer-Encoding general-header field specifies the form of encoding used to safely transfer the request payload to the ASPSP and back to TPP.
+      required: false
+      schema:
+        $ref: "#/components/schemas/transferEncoding"
+
+    actionIdReq:
+      name: Action-ID
+      in: header
+      description: |
+        IDs that identify the technical or business process within the call of each API request.
+
+        For example, it can be used to identify the process of retrieving a transaction history that is provided as a paged response available through multiple requests.
+      required: false
+      schema:
+        $ref: "#/components/schemas/actionId"
+
+    userInvolved:
+      name: User-Involved
+      in: header
+      description: |
+        The flag identifies if the end user is online and the request was made based on his activity.
+      required: true
+      schema:
+        $ref: "#/components/schemas/userInvolved"
+
+    userIpAddress:
+      name: User–IP-Address
+      in: header
+      description: |
+        Identifies the API's end-user IP address. The TPP should fill this value if the IP address can be detected. The address can be in IPv4 or IPv6 format.
+      required: false
+      schema:
+        $ref: "#/components/schemas/userIpAddress"
+
+    userIpPort:
+      name: User–IP-Port
+      in: header
+      description: |
+        An element used to pass on information about what end-user IP port is using.
+      required: false
+      schema:
+        $ref: "#/components/schemas/userIpPort"
+
+    userDeviceOs:
+      name: User-Device-OS
+      in: header
+      description: |
+        The element is used to forward information about the end user operating system used.
+      required: false
+      schema:
+        $ref: "#/components/schemas/userDeviceOs"
+
+    userUserAgent:
+      name: User-User-Agent
+      in: header
+      description: |
+        Contains information about the end-user web browser. The format should be the same as the standard HTTP parameter User-Agent.
+      required: false
+      schema:
+        $ref: "#/components/schemas/userUserAgent"
+
+    userTimestamp:
+      name: User-Timestamp
+      in: header
+      description: |
+        Local time on User's device.
+      required: false
+      schema:
+        $ref: "#/components/schemas/userTimestamp"
+
+    userGeoLocation:
+      name: User-Geo-Location
+      in: header
+      description: |
+        End-user GPS coordinates (if the coordinates can be reliably detected).
+
+        **Required format:** GEO:Latitude;Longitude
+
+        Based on [RFC2426] in signed degrees format (DDD.dddd)
+      required: false
+      schema:
+        $ref: "#/components/schemas/userGeoLocation"
+
+    userDeviceId:
+      name: User-Device-ID
+      in: header
+      description: |
+        It contains a unique identifier of end user equipment, if available. For example, a unique mobile device identifier (IMEI).
+      required: false
+      schema:
+        $ref: "#/components/schemas/userDeviceId"
+
+    tppName:
+      name: TPP-Name
+      in: header
+      description: |
+        The name of the original TPP that created the request. Eg. ‘Star corporation, a.s.’.
+      required: true
+      schema:
+        $ref: "#/components/schemas/tppName"
+
+    tppIdentification:
+      name: TPP-Identification
+      in: header
+      description: |
+        The identification (licence number) of the original TPP that created the request. Eg. ‘CZ013574-15’.
+      required: false
+      schema:
+        $ref: "#/components/schemas/tppIdentification"
+
+    signatureHeaderReq:
+      name: Signature
+      in: header
+      description: |
+        If the TPP signs the request, it contains a digital signature.
+      required: false
+      schema:
+        $ref: "#/components/schemas/signatureHeader"
+
+    digestHeaderReq:
+      name: Digest
+      in: header
+      description: |
+        When an TPP  includes a signature he also must include a "Digest" header as defined in [RFC3230].
+      required: false
+      schema:
+        $ref: "#/components/schemas/digestHeader"
+
+    tppSignatureCertificate:
+      name: TPP-Signature-Certificate
+      in: header
+      description: |
+        The public TPP certificate used for signing the request, In base64 encoding (with the "BEGIN CERTIFICATE" and "END CERTIFICATE" markers).
+      required: false
+      schema:
+        $ref: "#/components/schemas/tppSignatureCertificate"
+
+
+  #####################################################
+  #                 Response Headers
+  #####################################################
+  headers:
+    actionIdRes:
+      description: |
+        IDs that identify the technical or business process within the call of each API request. APSPS should have a return value in this case.
+      required: false
+      schema:
+        $ref: "#/components/schemas/actionId"
+
+    xRequestIdRes:
+      description: |
+        Unique identifier for each request specified by TPP returned in response header.
+      required: true
+      schema:
+        $ref: "#/components/schemas/xRequestId"
+
+    contentTypeRes:
+      description: |
+        Defines MIME media type of the response. For example application/json or application/xml in case of bulk payment initiation.
+      required: true
+      schema:
+        $ref: "#/components/schemas/contentType"
+
+    signatureHeaderRes:
+      description: |
+        If the ASPSP signs the response, it contains a digital signature.
+      required: false
+      schema:
+        $ref: "#/components/schemas/signatureHeader"
+
+    digestHeaderRes:
+      description: |
+        When the ASPS in response includes a signature he also must include a "Digest" header as defined in [RFC3230].
+      required: false
+      schema:
+        $ref: "#/components/schemas/digestHeader"
+
+    aspspSignatureCertificate:
+      description: |
+        The public ASPSP certificate used for signing the request, In base64 encoding.
+      required: false
+      schema:
+        $ref: "#/components/schemas/aspspSignatureCertificate"
+
+
+  #####################################################
+  #                 Payload Elements
+  #####################################################
+
+
+  #####################################################
+  #                  Errors Payload
+  #####################################################
+
+  requestBodies:
+  #####################################################
+  #               Defined Request Messages
+  #####################################################
+    requestBalanceCheck:
+      description: |
+        JSON request body for balance check within payment inition API
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/requestBalanceCheck"
+          example:
+            {
+              "exchangeIdentification": "658576010faf0a23dc",
+              "card": {
+                "cardHolderName": "Jan Novák",
+                "maskedPAN": "1234***********6789"
+              },
+              "debtorAccount": {
+                "identification": {
+                  "iban": "CZ0708000000001019382023"
+                },
+                "currency": "CZK"
+              },
+              "authenticationMethod": "NPIN",
+              "merchant": {
+                "identification": "471 16 129",
+                "shortName": "NEOLUXOR",
+                "commonName": "Neoluxor s.r.o.",
+                "address": "Hlavní 5, Praha 1",
+                "countryCode": "CZ",
+                "merchantCategoryCode": "5192"
+              },
+              "transactionDetails": {
+                "currency": "CZK",
+                "totalAmount": 10050.15
+              }
+            }
+
+    requestNewPayment:
+      description: |
+        JSON request body for new payment inition API
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/requestNewPayment"
+          example:
+            {
+              "paymentIdentification": {
+                "instructionIdentification": "NejakeID41785962314574"
+              },
+              "paymentTypeInformation": {
+                "instructionPriority": "NORM"
+              },
+              "amount": {
+                "instructedAmount": {
+                  "value": 1245.44,
+                  "currency": "CZK"
+                }
+              },
+              "requestedExecutionDate": "2017-01-31",
+              "debtorAccount": {
+                "identification": {
+                  "iban": "CZ7508000000002108589434"
+                },
+                "currency": "CZK"
+              },
+              "creditorAccount": {
+                "identification": {
+                  "iban": "CZ6330300000000000000123"
+                },
+                "currency": "CZK"
+              },
+              "remittanceInformation": {
+                "unstructured": "/VS/7418529630/SS/1234567890"
+              }
+            }
+
+    requestPaymentAuthorizationInitiation:
+      description: |
+        JSON request body for Payment Authorization Inititation
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/requestPaymentAuthorizationInitiation"
+          example:
+            {
+              "authorizationType": "SMS",
+              "redirectUrl": "http://my.sometpp.com/..."
+            }
+
+
+  responses:
+  #####################################################
+  #               Defined Response Messages
+  #####################################################
+    OK_200_AllAccountList:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/getAllAccounts"
+          example:
+            {
+              "pageNumber": 0,
+              "pageCount": 2,
+              "pageSize": 100,
+              "nextPage": 1,
+              "accounts": [ {
+                 "id": "D2C8C1DCC51A3738538A40A4863CA288E0225E52",
+                "identification": {
+                  "iban": "CZ0708000000001019382023",
+                   "other": "1019382023"
+                },
+                "currency": "CZK",
+                "servicer": {
+                  "bankCode": "0800",
+                  "countryCode": "CZ",
+                  "bic": "GIBACZPX"
+                },
+                "nameI18N": "Muj hlavni osobni ucet",
+                "productI18N": "Osobní účet ČS"
+              }
+              ]
+            }
+
+
+    OK_200_AccountsBalances:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/getAccountsBalances"
+          example:
+            {
+              "balances": [
+                {
+                  "type": {
+                    "codeOrProprietary": {
+                      "code": "PRCD"
+                    }
+                  },
+                  "creditLine": {
+                    "included": true,
+                    "amount": {
+                      "value": 10000.00,
+                      "currency": "CZK"
+                    }
+                  },
+                  "amount": {
+                    "value": 4520.15,
+                    "currency": "CZK"
+                  },
+                  "creditDebitIndicator": "DBIT",
+                  "date": {
+                    "dateTime": "2017-02-17T12:32:41.0Z"
+                  }
+                }
+              ]
+            }
+
+    OK_200_AccountsTransactions:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/getAccountsTransactions"
+            
+    OK_200_StandingOrders:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/getStandingorders"
+
+
+    OK_200_PISBalanceCheck:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PISBalanceCheck"
+
+
+    OK_200_newPayment:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/postNewPayment"
+
+    OK_200_PaymentStatus:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/getPaymentStatus"
+          example:
+            {
+              "instructionStatus": "ACTC"
+            }
+
+    OK_200_PaymentInfo:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/getPaymentInfo"
+          example:
+            {
+              "paymentIdentification": {
+                "instructionIdentification": "NOTPROVIDED",
+                "transactionIdentification": "048885570000001020045"
+              },
+                "paymentTypeInformation": {
+                  "instructionPriority": "NORM",
+                  "serviceLevel": {
+                    "code": "DMCT"
+                }
+              },
+                "amount": {
+                  "instructedAmount": {
+                    "value": 10050.15,
+                    "currency": "CZK"
+                }
+              },
+                "requestedExecutionDate": "2017-02-20",
+                "debtorAccount": {
+                  "identification": {
+                    "iban": "CZ0708000000001019382023"
+                },
+                  "currency": "CZK"
+              },
+                "creditorAccount": {
+                  "identification": {
+                    "iban": "CZ0708000000001019540081"
+                },
+                  "currency": "CZK"
+              },
+                "remittanceInformation": {
+                  "structured": {
+                    "creditorReferenceInformation": {
+                      "reference": [
+                    "VS:501",
+                    "KS:9",
+                    "SS:1005"
+                    ]
+                  }
+                }
+              },
+                "signInfo": {
+                  "state": "OPEN",
+                  "signId": "164298331754922"
+              },
+                "instructionStatus": "ACTC",
+                "statusChangeInfo": "TM01"
+            }
+
+    OK_200_deleteUnauthorisedPayment:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+
+    OK_200_PaymentAuthorizationId:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/postPaymentAuthorizationId"
+          example:
+            {
+              "scenarios": [
+              [
+                "CODE of The One of the methods ..."
+              ],
+              [
+                "CODE of The second method ..."
+              ]
+              ],
+              "signInfo": {
+                "state": "OPEN",
+                "signId": "164298331754922"
+              }
+            }
+    OK_200_postPaymentAuthorizationInitiation:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/postPaymentAuthorizationInitiation"
+          example:
+            {
+              "authorizationType": "USERAGENT_REDIRECT",
+              "href": {
+                "url": "http://www.bank.cz/authorization/164298331754922",
+                "id": "164298331754922"
+              },
+              "method": "GET",
+              "formData": {
+                "SAMLRequest": "45sa4d4e4e4fds5f6s4df4sd6f",
+                "relayState": "token"
+              },
+              "signInfo": {
+                "state": "OPEN",
+                "signId": "164298331754922"
+              }
+            }
+
+    OK_200_putPaymentAuthorizationInitiation:
+      description: OK
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+        Signature:
+          $ref: "#/components/headers/signatureHeaderRes"
+        Digest:
+          $ref: "#/components/headers/digestHeaderRes"
+        ASPSP-Signature-Certificate:
+          $ref: "#/components/headers/aspspSignatureCertificate"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/putPaymentAuthorizationInitiation"
+          example:
+            {
+              "state": "DONE",
+              "pollInterval": 5000
+            }
+
+    BAD_REQUEST_400_getAllAccounts:
+      description: Bad request
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error400_getAllAccounts"
+          example:
+            {
+              "errors": [
+                {
+                  "error": "PAGE_NOT_FOUND"
+                },
+                {
+                  "error": "PARAMETER_INVALID",
+                  "scope": "sort"
+                }
+              ]
+            }
+
+
+    BAD_REQUEST_400_getAccountsBalances:
+      description: Bad request
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error400_getAccountsBalances"
+          example:
+            {
+              "errors": [
+                {
+                  "error": "AC09",
+                  "scope": "currency"
+                }
+              ]
+            }
+
+    BAD_REQUEST_400_getAccountsTransactions:
+      description: Bad request
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error400_getAccountsTransactions"
+          example:
+            {
+              "errors": [
+                {
+                  "error": "AC09",
+                  "scope": "currency"
+                }
+              ]
+            }
+
+    BAD_REQUEST_400_postBalanceCheck:
+      description: Bad request
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error400_postBalanceCheck"
+          example:
+            {
+              "errors": [
+              {
+                "error": "FIELD_MISSING",
+                "scope": "merchant.identification"
+              }
+              ]
+            }
+
+    BAD_REQUEST_400_postNewPayment:
+      description: Bad request
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error400_postNewPayment"
+          example:
+            {
+              "errors": [
+              {
+                "error": "FIELD_MISSING",
+                "scope": "amount"
+              }
+              ]
+            }
+
+    FIELD_MISSING_400:
+      description: Bad Request
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error_FIELD_MISSING_400"
+
+    AUTH_LIMIT_EXCEEDED_400:
+      description: Bad request
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error_AUTH_LIMIT_EXCEEDED_400"
+          example:
+            {
+              "errors": [
+              {
+                "error": "AUTH_LIMIT_EXCEEDED"
+              }
+              ]
+            }
+
+    UNAUTHORIZED_401:
+      description: Unauthorised
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error401"
+
+    FORBIDDEN_403:
+      description: Forbidden
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error403"
+
+    NOT_FOUND_404:
+      description: Not Found
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error404"
+          example:
+            {
+              "errors": [
+                {
+                  "error": "ID_NOT_FOUND"
+                }
+              ]
+            }
+
+    TRANSACTION_MISSING_404:
+      description: Not Found
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error404"
+          example:
+            {
+              "errors": [
+                {
+                  "error": "TRANSACTION_MISSING"
+                }
+              ]
+            }
+
+    UNSUPPORTED_MEDIA_TYPE_415:
+      description: Unsupported Media Type
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error415"
+
+    UNPROCESSABLE_ENTITY_422:
+      description: Unprocessable Entity
+      headers:
+        Content-Type:
+          $ref: "#/components/headers/contentTypeRes"
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Action-ID:
+          $ref: "#/components/headers/actionIdRes"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error422"
+
+    INTERNAL_SERVER_ERROR_500:
+      description: Internal server error
+      headers:
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Process-ID:
+          $ref: "#/components/headers/actionIdRes"
+
+    NOT_IMPLEMENTED_501:
+      description: Not Implemented
+      headers:
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Process-ID:
+          $ref: "#/components/headers/actionIdRes"
+
+    SERVICE_UNAVAILABLE_503:
+      description: Service unavailable
+      headers:
+        X-Request-ID:
+          $ref: "#/components/headers/xRequestIdRes"
+        Process-ID:
+          $ref: "#/components/headers/actionIdRes"
+
+
+
+
+  #examples:
+  #####################################################
+  #                     Examples
+  #####################################################
+
+tags:
+#######################################################
+#                    Tags Definitions
+#######################################################
+  - name: Account information
+    description: |
+      Specification of API Information about the account contains a description of resources for the acquisition of  information about the payment account/accounts of the bank client.
+
+      **Overview of resources:**
+        *  GET list of client payment accounts
+        *  GET account balance
+        *  GET transaction overview
+        *  GET list of client’s standing orders
+        
+  - name: Payment Initiation
+    description: |
+      Specification of API Payment Initiation contains a description of resources for the payment initiation and the Balance Check of the payer (client) at a specific financial institution.
+      
+      **Overview of resources:**
+        *  POST query for balance check
+        *  POST new single payment (Payment Initiation)
+        *  GET status of entered/initiated single payment
+        *  DELETE deletion of the entered and not authorised single payment
+        *  POST generation of authorization ID for single payment
+        *  Single payment authorisation
+           * GET Step I. payment authorisation detail
+           * POST Step II. payment authorisation initiation - specific for each bank
+           * PUT Step III. payment authorisation finalization - specific for each bank
+        * POST new standing order
+        * GET standing order detail
+        * GET standing order status
+        * DELETE unauthorised standing order
+        * PUT standing order change
+        * Standing order authorization
+            * GET Step I. standing order authorization detail
+            * POST Step II. standing order authorization initiation - specific for each bank
+            * PUT Step III. Standing order authorization finalization - specific for each bank
+        * Batch payment - bulk authorization
+        * DELET Batch payment
+        *  GET Batch payment status
+        * Batch payment authorization
+            * GET Batch payment authorization step I
+            * POST Batch payment authorization step II
+            * PUT Batch payment authorization step III
+        *  GET List of PSU authorizations
+
+  - name: Balance check
+    description: |
+      Specification of API Balance Check contains a description of resources for the acquisition of information on sufficient funds of the payer (client) at a specific financial institucion.
+
+      **Overview of resources:**
+        * POST query for Balance Check

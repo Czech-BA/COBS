@@ -1,0 +1,11 @@
+error400_getAccountsTransactions:
+  title: error400_getAccountsTransactions
+  description: |
+    This is an invalid query that cannot be answered. E.g., if JSON content is not valid for this resource.
+  type: object
+  properties:
+    errors:
+      type: array
+      items:
+        anyOf:
+          - $ref: "error_DT01_400.yaml#/error_DT01_400"

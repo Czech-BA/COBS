@@ -1,0 +1,21 @@
+error_UNPROCESSABLE_ENTITY_422:
+  title: error_UNPROCESSABLE_ENTITY_422
+  description: |
+    This error can be used if the requested object cannot be processed, or the required query parameter is absent.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "UNPROCESSABLE_ENTITY"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"UNPROCESSABLE_ENTITY"
+     }]

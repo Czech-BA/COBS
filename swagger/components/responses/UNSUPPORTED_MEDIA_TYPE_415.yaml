@@ -1,0 +1,13 @@
+UNSUPPORTED_MEDIA_TYPE_415:
+  description: Unsupported Media Type
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorPayloads/error415.yaml#/error415"

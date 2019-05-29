@@ -1,0 +1,24 @@
+error_NARR_400:
+  title: error_NARR_400
+  description: |
+    Narrative – a general reason for rejecting the payment, with an addition of error-related information.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "NARR"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"NARR",
+       "scope": null,
+       "parameters": null,
+       "message": null
+     }]

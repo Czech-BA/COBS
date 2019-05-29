@@ -1,0 +1,6 @@
+scope:
+  title: scope
+  description: |
+    It determines the JSON path of the request element that caused the error status.
+  type: string
+  example: "account.amount.currency"

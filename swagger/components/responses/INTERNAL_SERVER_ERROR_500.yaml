@@ -1,0 +1,8 @@
+INTERNAL_SERVER_ERROR_500:
+  description: Internal server error
+  headers:
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Process-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+

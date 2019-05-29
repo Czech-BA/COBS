@@ -1,0 +1,24 @@
+error_RC10_400:
+  title: error_NRC10_400
+  description: |
+    [InvalidCreditorClearingSystemMemberIdentifier] -  invalid recipient bank code identification.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "RC10"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"RC10",
+       "scope": "creditorAgent.financialInstitutionIdentification.clearingSystemMemberIdentification",
+       "parameters": null,
+       "message": null
+     }]

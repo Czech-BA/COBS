@@ -1,0 +1,24 @@
+error_AM05_400:
+  title: error_AM05_400
+  description: |
+    [Duplication] -  this is a duplicate. Universal code for a duplicate CISP query (validated by, for example, CSOB) or a duplicate payment via GIS (non-unique payment reference).
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AM05"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"AM05",
+       "scope": null,
+       "parameters": null,
+       "message": null
+     }]

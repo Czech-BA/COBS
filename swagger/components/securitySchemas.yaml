@@ -1,0 +1,18 @@
+OAuth2:
+  description: |
+    Bearer OAuth2 Token.
+  type: http
+  scheme: bearer
+
+ClientCert:
+  description: |
+    Use of an x509 client certificate within mutual TLS
+  type: http
+  scheme: mutualTLS
+
+ApiKey:
+  description: |
+    An optional string issued to a communicating third party as the call identifier of that party primarily serving as a communication configuration element.
+  type: apiKey
+  in: header
+  name: API-key

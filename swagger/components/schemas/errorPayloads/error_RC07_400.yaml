@@ -1,0 +1,24 @@
+error_RC07_400:
+  title: error_RC07_400
+  description: |
+    [InvalidCreditorBICIdentifier] –  invalid recipient SWIFT / BIC code.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "RC07"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"RC07",
+       "scope": "bic",
+       "parameters": null,
+       "message": null
+     }]

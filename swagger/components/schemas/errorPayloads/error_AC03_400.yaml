@@ -1,0 +1,24 @@
+error_AC03_400:
+  title: error_AC03_400
+  description: |
+    [InvalidCreditorAccountNumber] -  recipient account number is closed, blocked, credit card are disabled for the account type, or the recipient's account number is in invalid format (note: only valid for in-house payments).
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AC03"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"AC03",
+       "scope":"iban",
+       "parameters": null,
+       "message": "The date will be in the future."
+     }]

@@ -1,0 +1,9 @@
+getAccountsBalances:
+  title: getAccountsBalances
+  description: Response message for account balances
+  type: object
+  required:
+    - balances
+  properties:
+    balances:
+      $ref: "../objects.yaml#/balancesArray"

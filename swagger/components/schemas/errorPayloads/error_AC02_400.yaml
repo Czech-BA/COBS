@@ -1,0 +1,22 @@
+error_AC02_400:
+  title: error_AC02_400
+  description: |
+    [InvalidDebtorAccountNumber] – invalid account identifier in the request content..
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AC02"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"AC02",
+       "scope":"debtorAccount.identification.iban"
+     }]

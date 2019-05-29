@@ -1,0 +1,1416 @@
+dateOfBalance:
+  title: dateOfBalance
+  description: |
+    Date (and time) of balance of the account for which the balance information is generated.
+  type: object
+  required:
+    - dateTime
+  properties:
+    dateTime:
+      description: Date or date and time of the balance according to ISO 8601
+      type: string
+      example: "2017-02-17T12:32:41.0Z"
+
+creditLineAmount:
+  title: creditLineAmount
+  description: |
+    Amount of agreed permitted debit
+  type: object
+  required:
+    - value
+    - currency
+  properties:
+    value:
+      $ref: "elements.yaml#/value"
+    currency:
+      $ref: "#/currencyCode"
+
+balanceAmount:
+  title: balanceAmount
+  description: |
+    Value/amount of account balance according to balance type. The currency corresponds to the currency of the account to which the balance information is generated.
+  type: object
+  required:
+    - value
+    - currency
+  properties:
+    value:
+      $ref: "elements.yaml#/value"
+    currency:
+      $ref: "#/currencyCode"
+
+creditLine:
+  title: creditLine
+  description:
+    Amount of agreed permitted debit/overdraft
+  type: object
+  required:
+    - included
+  properties:
+    included:
+      $ref: "elements.yaml#/included"
+    amount:
+      $ref: "#/creditLineAmount"
+
+codeOrProprietary:
+  title: codeOrProprietary
+  description: |
+    Codes of balance types.
+  type: object
+  required:
+    - code
+  properties:
+    code:
+      description: |
+        Indicates the type of balance to which the balance information relates.
+      type: string
+      enum:
+        - CLAV
+        - PRCD
+        - CLBD
+        - ITBD
+      example: "CLAV"
+
+balanceType:
+  title: balanceType
+  description: |
+    Determines the balance type to which information on account balance applies.
+  type: object
+  required:
+    - codeOrProprietary
+  properties:
+    codeOrProprietary:
+      $ref: "#/codeOrProprietary"
+
+identification:
+  title: identification
+  description: |
+    Account identifier
+  type: object
+  required:
+    - iban
+  properties:
+    iban:
+      $ref: "elements.yaml#/iban"
+    other:
+      $ref: "elements.yaml#/other"
+
+currencyCode:
+  title: currencyCode
+  description: |
+    Defined account currency.
+
+    Currency code according to ISO 4217 = 3 capital letters.
+  type: string
+  maxLength: 3
+  pattern: "[A-Z]{3}"
+  example: "CZK"
+
+chargeBearer:
+  title: chargeBearer
+  description: |
+    Provides the party (parties) that will pay fees associated with the payment transaction processing.
+  type: string
+  maxLength: 4
+  enum:
+    - DEBT
+    - CRED
+    - SHAR
+    - SLEV
+  example: "DEBT"
+
+sourceCurrency:
+  title: sourceCurrency
+  description: |
+    Client account currency (source/original currency/payer account currency for intrabank conversion payments).
+  type: string
+  maxLength: 3
+  pattern: "[A-Z]{3}"
+  example: "EUR"
+
+targetCurrency:
+  title: targetCurrency
+  description: |
+    Payment currency (End/target currency/payee account currency for intrabank conversion payments).
+  type: string
+  maxLength: 3
+  pattern: "[A-Z]{3}"
+  example: "CZK"
+
+exchangeRate:
+  title: exchangeRate
+  description: |
+    The exchange rate used to charge a payment. Only one rate is filled in, even in the case of cross conversion.
+  type: number
+  example: 25.89
+
+postalAddress:
+  title: postalAddress
+  description: |
+    Postal address
+  type: object
+  properties:
+    streetName:
+      $ref: "#/streetName"
+    buildingNumber:
+      $ref: "#/buildingNumber"
+    postCode:
+      $ref: "#/postCode"
+    townName:
+      $ref: "#/townName"
+    country:
+      $ref: "#/country"
+    addressLine:
+      $ref: "#/addressLine"
+
+otherIdentification:
+  title: otherIdentification
+  description: |
+    Other identification as the organization/legal entity.
+  type: object
+  properties:
+    identification:
+      description: |
+        Other payer identification as the organization/legal entity in unstructured form.
+      type: string
+      example: "48135283"
+    schemeName:
+      description: |
+        Code type for payer identification as the organization/legal entity.
+      type: object
+      properties:
+        code:
+          description: |
+            Code type for payer identification as the organization/legal entity in the free text format.
+          type: string
+        proprietary:
+          description: |
+            Code type for payer identification as the organization/legal entity in the free text format.
+          type: string
+          example: "RENWORTH s.r.o"
+        issuer:
+          description: |
+            Code issuer for the payer identification as the organization/legal entity.
+          type: string
+          example: "WIENA"
+
+accountIdentification:
+  title: accountIdentification
+  description: |
+    Identification of account
+  type: object
+  properties:
+    iban:
+      $ref: "elements.yaml#/iban"
+    other:
+      description: |
+        Account no. in other/local format of account no.
+      type: object
+      properties:
+        identification:
+          description: |
+            Account no. in other/local format of account no.
+          type: string
+          example: "1019382023"
+
+standingOrderIdentification:
+  title: standingOrderIdentification
+  description: |
+    Standing order identification
+  type: object
+  properties:
+    instructionIdentification:
+      $ref: "elements.yaml#/instructionIdentification"
+    transactionIdentification:
+      $ref: "elements.yaml#/transactionIdentification"
+
+
+streetName:
+  title: streetName
+  description: |
+    Street name used for postal address.
+  type: string
+  example: "Reisnerstrase"
+
+buildingNumber:
+  title: buildingNumber
+  description: |
+    Land registry no. used for postal address.
+  type: string
+  example: "20"
+
+postCode:
+  title: postCode
+  description: |
+    Postcode used for postal address.
+  type: string
+  example: "1030"
+
+townName:
+  title: townName
+  description: |
+    Town name used for postal address.
+  type: string
+  example: "Wiena"
+
+country:
+  title: country
+  description: |
+    CountryCode, ISO 3166 (2 alphanumeric characters code version)
+  type: string
+  example: "AT"
+
+addressLine:
+  title: addressLine
+  description: |
+    Unstructured record of payer postal address
+  type: string
+
+
+servicer:
+  title: servicer
+  description: Account servicer (bank)
+  type: object
+  properties:
+    bankCode:
+      $ref: "elements.yaml#/bankCode"
+    countryCode:
+      $ref: "elements.yaml#/countryCode"
+    bic:
+      $ref: "elements.yaml#/bicCode"
+
+accountInfo:
+  title: accountInfo
+  description: Info about client account
+  type: object
+  required:
+    - id
+    - identification
+    - servicer
+  properties:
+    id:
+      $ref: "elements.yaml#/accountId"
+    identification:
+      $ref: "#/identification"
+    currency:
+      $ref: "#/currencyCode"
+    servicer:
+      $ref: "#/servicer"
+    nameI18N:
+      $ref: "elements.yaml#/nameI18N"
+    productI18N:
+      $ref: "elements.yaml#/productI18N"
+
+
+accountsList:
+  title: accountsList
+  description: |
+    Set of client accounts
+  type: array
+  items:
+    $ref: "#/accountInfo"
+
+balanceInfo:
+  title: balanceInfo
+  description: |
+    Account balance information
+  type: object
+  required:
+    - type
+    - amount
+    - creditDebitIndicator
+    - date
+  properties:
+    type:
+      $ref: "#/balanceType"
+    creditLine:
+      $ref: "#/creditLine"
+    amount:
+      $ref: "#/balanceAmount"
+    creditDebitIndicator:
+      $ref: "elements.yaml#/creditDebitIndicator"
+    date:
+      $ref: "#/dateOfBalance"
+
+balancesArray:
+  title: balancesArray
+  description: |
+    Set of balances of client payment account
+  type: array
+  items:
+    $ref: "#/balanceInfo"
+
+bookingDate:
+  title: bookingDate
+  description: |
+    Date of processing/posting of payment by bank in the format ISODate, or ISODateTime, i.e. YYYY-MM-DD, or YYYY-MM-DDThh:mm:ss.sTZD.
+  type: object
+  properties:
+    date:
+      description: |
+        Date of processing/posting of payment by bank in the format ISODate, or ISODateTime, i.e. YYYY-MM-DD, or YYYY-MM-DDThh:mm:ss.sTZD, depending on the transaction type and method how the bank presents data (and time) of payment processing/posting. Mainly for card or cash transactions it is posted as ISODateTime.
+
+        where:
+          - **YYYY** = four-digit year
+          - **MM**   = two-digit month (01=January, etc.)
+          - **DD**   = two-digit day of month (01 through 31)
+          - **hh**   = two digits of hour (00 through 23) (am/pm NOT allowed)
+          - **mm**   = two digits of minute (00 through 59)
+          - **ss**   = two digits of second (00 through 59)
+          - **TZD**  = time zone designator (Z or +hh:mm or -hh:mm)
+      type: string
+      format: date-time
+      example: "2017-01-31T00:00:00.000+01"
+
+valueDate:
+  title: valueDate
+  description: |
+    Due date/payment foreign currency in the format ISODate, or ISODateTime, i.e. YYYY-MM-DD, or YYYY-MM-DDThh:mm:ss.sTZD.
+  type: object
+  properties:
+    date:
+      description: |
+        Due date/payment foreign currency in the format ISODate, , or ISODateTime, i.e. YYYY-MM-DD, or YYYY-MM-DDThh:mm:ss.sTZD, depending on the transaction type and method how the bank presents data (and time) of due date/ payment foreign currency. Mainly for card or cash transactions it is posted as ISODateTime.
+
+        where:
+          - **YYYY** = four-digit year
+          - **MM**   = two-digit month (01=January, etc.)
+          - **DD**   = two-digit day of month (01 through 31)
+          - **hh**   = two digits of hour (00 through 23) (am/pm NOT allowed)
+          - **mm**   = two digits of minute (00 through 59)
+          - **ss**   = two digits of second (00 through 59)
+          - **TZD**  = time zone designator (Z or +hh:mm or -hh:mm)
+      type: string
+      format: date-time
+      example: "2017-01-31T00:10:00.000+01"
+
+bankTransactionCodeProprietary:
+  title: bankTransactionCodeProprietary
+  description: |
+    The code of banking transaction according to the code list of the Czech Banking Association assigned to a specific payment. Each bank uses an own code list to identify payments, which is, however, based on the 1st to 3rd level of transaction code list according to the CBA Standard for camt.053.
+  type: object
+  properties:
+    code:
+      $ref: "elements.yaml#/bankTransactionCodeCode"
+    issuer:
+      $ref: "elements.yaml#/bankTransactionCodeIssuer"
+
+bankTransactionCode:
+  title: bankTransactionCode
+  description: |
+    The code of banking transaction according to the code list of the Czech Banking Association assigned to a specific payment. Each bank uses an own code list to identify payments, which is, however, based on the 1st to 3rd level of transaction code list according to the CBA Standard for camt.053.
+  type: object
+  properties:
+    proprietary:
+      $ref: "#/bankTransactionCodeProprietary"
+
+transactionReferences:
+  title: transactionReferences
+  description: |
+    Payment details. The level repeats only for the given item.
+  type: object
+  properties:
+    messageIdentification:
+      $ref: "elements.yaml#/messageIdentification"
+    accountServicerReference:
+      $ref: "elements.yaml#/accountServicerReference"
+    paymentInformationIdentification:
+      $ref: "elements.yaml#/paymentInformationIdentification"
+    instructionIdentification:
+      $ref: "elements.yaml#/instructionIdentification"
+    endToEndIdentification:
+      $ref: "elements.yaml#/endToEndIdentification"
+    chequeNumber:
+      $ref: "elements.yaml#/chequeNumber"
+    clearingSystemReference:
+      $ref: "elements.yaml#/clearingSystemReference"
+
+
+amountDetails:
+  title: amountDetails
+  description: |
+    Details of the payment amount, especially if it is a conversion payment or cashback.
+  type: object
+  properties:
+    instructedAmount:
+      $ref: "#/instructedAmount"
+    transactionAmount:
+      $ref: "#/transactionAmount"
+    counterValueAmount:
+      $ref: "#/counterValueAmount"
+    proprietaryAmount:
+      $ref: "#/proprietaryAmount"
+
+charges:
+  title: charges
+  description: |
+    Information on fees.
+  type: object
+  properties:
+    bearer:
+      description: |
+        payments will be charged to his debit (OUR, SHA, BEN).
+      type: string
+      enum:
+        - OUR
+        - SHA
+        - BEN
+
+relatedParties:
+  title: relatedParties
+  description: |
+    Information on the payer. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    debtor:
+      $ref: "#/debtor"
+    debtorAccount:
+      $ref: "#/debtorAccount"
+    ultimateDebtor:
+      $ref: "#/ultimateDebtor"
+    creditor:
+      $ref: "#/creditor"
+    creditorAccount:
+      $ref: "#/creditorAccount"
+    ultimateCreditor:
+      $ref: "#/ultimateCreditor"
+    proprietary:
+      description: |
+        For more detailed identification of on which ATM the card transaction occurred.
+      type: object
+      properties:
+        type:
+          description: |
+            For identification of whether for the card transaction it is own / external ATM.
+          type: string
+        party:
+          description: |
+            For identification of the ATM name/owner.
+          type: object
+          properties:
+            name:
+              description: |
+                For identification of ATM name/location.
+              type: string
+
+relatedAgents:
+  title: relatedAgents
+  description: |
+    Information on the payer bank and the payee bank in the payment.
+  type: object
+  properties:
+    debtorAgent:
+      $ref: '#/debtorAgent'
+    creditorAgent:
+      $ref: '#/creditorAgent'
+
+debtorAgent:
+  title: debtorAgent
+  description: |
+    Information on the payer bank. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    financialInstitutionIdentification:
+      $ref: "#/financialInstitutionIdentificationDebtor"
+
+creditorAgent:
+  title: creditorAgent
+  description: |
+    Information on the payee bank. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    financialInstitutionIdentification:
+      $ref: "#/financialInstitutionIdentificationCreditor"
+
+intermediaryAgent1:
+  title: intermediaryAgent1
+  description: |
+    Intermediate 1
+  type: object
+  properties:
+    financialInstitutionIdentification:
+      $ref: "#/financialInstitutionIdentificationDebtor"
+
+financialInstitutionIdentificationDebtor:
+  title: financialInstitutionIdentificationDebtor
+  description: |
+    Payer bank code in the international format BIC / SWIFT code.
+  type: object
+  properties:
+    bic:
+      description: |
+        BIC / SWIFT code of the payer bank
+      type: string
+      example: "ABNYUS33"
+    clearingSystemMemberIdentification:
+      description: |
+        Local format of the payer bank code – either in the code form or in the form of text description.
+      type: object
+      properties:
+        clearingSystemIdentification:
+          description: |
+            Payer bank identification in the local payment system in which the payer bank works.
+          type: object
+          properties:
+            code:
+              description: |
+                Payer bank identification in the local payment system in which the payer bank works in the form of payment system code.
+              type: string
+            proprietary:
+              description: |
+                Payer bank identification in the local payment system in which the payer bank works in unstructured form of descriptive text.
+              type: string
+            memberIdentification:
+              description: |
+                Local code format of the payer bank code.
+              type: string
+              example: "2700"
+    neme:
+      description: |
+        Payer bank code as stated in the code list of world banks (SWIFT Directory).
+      type: string
+      example: "New York Commercial Bank"
+    postalAddres:
+      $ref: "#/postalAddress"
+    other:
+      description: |
+        Other payee bank identification.
+      type: object
+      properties:
+        identification:
+          description: |
+            Other payer bank identification, mainly in the form of the so-called local bank code.
+          type: string
+
+financialInstitutionIdentificationCreditor:
+  title: financialInstitutionIdentificationCreditor
+  description: |
+    Code of the payee bank in the international format BIC / SWIFT code.
+  type: object
+  properties:
+    bic:
+      description: |
+        BIC / SWIFT code of the payer bank
+      type: string
+      example: "ABNYUS33"
+    clearingSystemMemberIdentification:
+      description: |
+        Local format of the payee bank code – either in the code form or in the form of text description.
+      type: object
+      properties:
+        clearingSystemIdentification:
+          description: |
+            Payee bank identification in the local payment system in which the payer bank works.
+          type: object
+          properties:
+            code:
+              description: |
+                Payee bank identification in the local payment system in which the payer bank works in the form of payment system code.
+              type: string
+            proprietary:
+              description: |
+                Payee bank identification in the local payment system in which the payer bank works in unstructured form of descriptive text.
+              type: string
+            memberIdentification:
+              description: |
+                Local code format of the payee bank code.
+              type: string
+              example: "2700"
+    neme:
+      description: |
+        Payee bank code as stated in the code list of world banks (SWIFT Directory).
+      type: string
+      example: "New York Commercial Bank"
+    postalAddres:
+      $ref: "#/postalAddress"
+    other:
+      description: |
+        Other payee bank identification.
+      type: object
+      properties:
+        identification:
+          description: |
+            Other payee bank identification, mainly in the form of the so-called local bank code.
+          type: string
+
+
+creditor:
+  title: creditor
+  description: |
+    Information on the payee. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    name:
+      description: |
+        Payee name.
+      type: string
+      example: "1. wiena investment"
+    postalAddress:
+      $ref: "#/postalAddress"
+    identification:
+      $ref: "#/payerIdentification"
+
+paymentCreditor:
+  title: paymentCreditor
+  description: |
+    Information on the payee. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    name:
+      description: |
+        Payee name.
+      type: string
+      example: "1. wiena investment"
+    postalAddress:
+      $ref: "#/postalAddress"
+
+ultimateCreditor:
+  title: ultimateCreditor
+  description: |
+    Information on the final payee. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    name:
+      description: |
+        Final payee name.
+      type: string
+      example: "Franz Schubert"
+    postalAddress:
+      $ref: "#/postalAddress"
+    identification:
+      $ref: "#/payerIdentification"
+
+
+ultimateDebtor:
+  title: ultimateDebtor
+  description: |
+    Information on the original/actual payer. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    name:
+      description: |
+        Name of the original/actual payer.
+      type: string
+      example: "Karel Novák"
+    postalAddress:
+      $ref: "#/postalAddress"
+    identification:
+      $ref: "#/payerIdentification"
+
+creditorAccount:
+  title: creditorAccount
+  description: |
+    Information on the payee account. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    identification:
+      $ref: "#/accountIdentification"
+    currency:
+      $ref: "#/currencyCode"
+    name:
+      description: |
+        Payee account name.
+      type: string
+
+paymentCreditorAccount:
+  title: paymentCreditorAccount
+  description: |
+    Information on the payee account. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    identification:
+      $ref: "#/accountIdentification"
+    currency:
+      $ref: "#/currencyCode"
+
+debtorAccount:
+  title: debtorAccount
+  description: |
+    Information on the account payer. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    identification:
+      $ref: "#/accountIdentification"
+    currency:
+      $ref: "#/currencyCode"
+    name:
+      description: |
+        Payer account name.
+      type: string
+
+paymentDebtorAccount:
+  title: paymentDebtorAccount
+  description: |
+    Information on the account payer. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  required:
+    - identification
+  properties:
+    identification:
+      $ref: "#/accountIdentification"
+    currency:
+      $ref: "#/currencyCode"
+
+debtorAccountSO:
+  title: debtorAccountSO
+  description: |
+    Payer's account
+  type: object
+  properties:
+    id:
+      $ref: "elements.yaml#/accountId"
+    identification:
+      description: |
+        Payer account identifier
+      type: object
+      properties:
+        iban:
+          $ref: "elements.yaml#/iban"
+    currency:
+      $ref: "#/currencyCode"
+
+
+debtor:
+  title: debtor
+  description: |
+    Information on the payer. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    name:
+      description: |
+        Payer name.
+      type: string
+      example: "RENWORTH s.r.o"
+    postalAddress:
+      $ref: "#/postalAddress"
+    identification:
+      $ref: "#/payerIdentification"
+
+paymentDebtor:
+  title: paymentDebtor
+  description: |
+    Information on the payer. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    name:
+      description: |
+        Payer name.
+      type: string
+      example: "RENWORTH s.r.o"
+
+payerIdentification:
+  title: payerIdentification
+  description: |
+    Identification.
+  type: object
+  properties:
+    organisationIdentification:
+      description: |
+        Clear identification as the organization/legal entity.
+      type: object
+      properties:
+        bicOrBei:
+          description: |
+            Identification as the organization/legal entity in the form of BIC or BEI code.
+          type: string
+        other:
+          description: |
+            Other identification as the organization/legal entity.
+          type: object
+          properties:
+            identification:
+              $ref: "#/otherIdentification"
+    privateIdentification:
+      description: |
+        Clear payer identification as the natural person.
+      type: object
+      properties:
+        other:
+          description: |
+            Other identification as the organization/legal entity.
+          type: object
+          properties:
+            identification:
+              $ref: "#/otherIdentification"
+
+instructedAmount:
+  title: instructedAmount
+  description: |
+    Amount and currency of payment in the currency that was required by the client for transfer. E.g., for intra-bank payments, the payer account currency and the payment currency if the client required the payment in the payer account currency.
+  type: object
+  properties:
+    amount:
+      description: |
+        The original amount and currency of payment that was required by the client for transfer.
+      type: object
+      properties:
+        value:
+          $ref: "elements.yaml#/value"
+        currency:
+          $ref: "#/currencyCode"
+
+amount:
+  title: amount
+  description: |
+    Payment amount
+  type: object
+  properties:
+    instructedAmount:
+      description: |
+        Amount and currency in the instruction
+      type: object
+      properties:
+        value:
+          $ref: "elements.yaml#/value"
+        currency:
+          $ref: "#/currencyCode"
+
+paymentAmount:
+  title: paymentAmount
+  description: |
+    Payment amount
+  type: object
+  required:
+    - instructedAmount
+  properties:
+    instructedAmount:
+      description: |
+        Amount and currency in the instruction
+      type: object
+      properties:
+        value:
+          $ref: "elements.yaml#/value"
+        currency:
+          $ref: "#/currencyCode"
+    equivalentAmount:
+      description: |
+        Equivalent amount and currency
+      type: object
+      properties:
+        value:
+          $ref: "elements.yaml#/value"
+        currency:
+          $ref: "#/currencyCode"
+
+transactionAmount:
+  title: transactionAmount
+  description: |
+    The amount and currency of payment for cumulated payments and Cashback.
+  type: object
+  properties:
+    amount:
+      description: |
+        The amount and currency of payment for cumulated payments and Cashback, where the total amount of payment including the part for Cashback is entered here.
+      type: object
+      properties:
+        value:
+          $ref: "elements.yaml#/value"
+        currency:
+          $ref: "#/currencyCode"
+
+counterValueAmount:
+  title: counterValueAmount
+  description: |
+    The amount and currency of payment in the client account currency after conversion of amount that was required by the client for transfer.
+  type: object
+  properties:
+    amount:
+      description: |
+        The final amount and payment currency that was required by the client for transfer.
+      type: object
+      properties:
+        value:
+          $ref: "elements.yaml#/value"
+        currency:
+          $ref: "#/currencyCode"
+    currencyExchange:
+      description: |
+        Information on currencies and exchange rates used.
+      type: object
+      properties:
+        sourceCurrency:
+          $ref: "#/sourceCurrency"
+        targetCurrency:
+          $ref: "#/targetCurrency"
+        exchangeRate:
+          $ref: "#/exchangeRate"
+
+proprietaryAmount:
+  title: proprietaryAmount
+  description: |
+    Amount of cash withdrawal through the Cashback service.
+  type: object
+  properties:
+    type:
+      description: |
+        The constant "CASHBACK" is to be filled in.
+      type: string
+      example: "CASHBACK"
+    amount:
+      description: |
+        Cashback amount and currency – only the part of total payment, to which the cash amount withdrawn falls within the Cashback service.
+      type: object
+      properties:
+        value:
+          $ref: "elements.yaml#/value"
+        currency:
+          $ref: "#/currencyCode"
+
+exchangeRateInformation:
+  title: exchangeRateInformation
+  description: Contractual course
+  type: object
+  properties:
+    exchangeRate:
+      description: Agreed exchange rate
+      type: string
+    rateType:
+      description: Type of agreed exchange rate
+      type: string
+    contractIdentification:
+      description: Identify the use of the agreed exchange rate
+      type: string
+      maxLength: 35
+
+chargesAccount:
+  title: chargesAccount
+  description: Account for fees
+  type: object
+  properties:
+    identification:
+      $ref: '#/identification'
+
+transactionDetails:
+  title: transactionDetails
+  description: |
+    Payment details. The level repeats only for the given item.
+  type: object
+  properties:
+    references:
+      $ref: "#/transactionReferences"
+
+signInfo:
+  title: signInfo
+  description: Status information and id of unauthorized transactions
+  type: object
+  required:
+    - state
+  properties:
+    state:
+      description: Transaction authorization status
+      type: string
+      example: "OPEN"
+    signId:
+      description: Identifier of the authorization process of a particular transaction.
+      type: string
+      example: "164298331754922"
+
+signInfo_generatingAuthorizationId:
+  title: signInfo_generatingAuthorizationId
+  description: Information on instruction authorization
+  type: object
+  required:
+    - state
+    - signId
+  properties:
+    state:
+      description: Status of transaction authorization in a format supported by bank
+      type: string
+      example: "OPEN"
+    signId:
+      description: Unique identifier for current transaction authorization.
+      type: string
+      example: "164298331754922"
+
+purpose:
+  title: purpose
+  description: |
+    Payment purpose.
+  type: object
+  properties:
+    code:
+      description: |
+        Payment purpose expressed as a code that was entered in the payment.
+      type: string
+    proprietary:
+      description: |
+        Payment purpose expressed as unstructured information that was entered in the payment.
+      type: string
+      example: "PLATBA ZA SLUŽBY"
+
+remittanceInformation:
+  title: remittanceInformation
+  description: |
+    Additional payment information.
+  type: object
+  properties:
+    unstructured:
+      description: |
+        Aditional payment information filled in in the payment as unstructured information.  If the payment states several repetitions of unstructured record supplementing payment information, then only the first of them will be considered.
+      type: string
+      example: "/VS/7418529630/SS/1234567890"
+    structured:
+      description: |
+        The completion of payment symbols (variable, specific and constant) is expected.
+
+        If the payment does not have a variable, specific or constant symbol, then the entire Structured Remittance Information will be left empty.
+      type: object
+      properties:
+        creditorReferenceInformation:
+          description: |
+            To display information on variable, specific and constant symbol.
+          type: object
+          properties:
+            reference:
+              description: |
+                | Start the field with the VS code: (for variable symbol), or SS: (for specific symbol) or KS: (for constant symbol). In one repetition of the reference field, all three symbols may be stated, each time maximum one repetition of each individual symbol. The method of recording symbols is VS:|KS:|SS:)[0-9]{1,10}.
+              type: string
+
+
+entryDetails:
+  title: entryDetails
+  description: |
+    Turnover details. The level repeats only for the given item.
+  type: object
+  properties:
+    transactionDetails:
+      $ref: "#/transactionDetails"
+    amountDetails:
+      $ref: "#/amountDetails"
+    charges:
+      $ref: "#/charges"
+    relatedParties:
+      $ref: "#/relatedParties"
+    relatedAgents:
+      $ref: "#/relatedAgents"
+    purpose:
+      $ref: "#/purpose"
+    remittanceInformation:
+      $ref: "#/remittanceInformation"
+    additionalTransactionInformation:
+      description: |
+        Additional information provided by the bank. Only stated if it is included in the record. Additional info for SEPA DD is entered here (e.g., Creditor Identifier, Payment scheme, SEPA collection order, etc.)
+      type: string
+      example: "8201701069595 BIC: GIBACZPXXXX; #71A# SHA ZALOHA DLE SMLOUVY O DODAVKACH,zaloha dle smlouvy o dodavkach c. 45678/2017,VS0250117002/SS0000000000/KS0000SEPA převod"
+
+
+transactionInfo:
+  title: transactionInfo
+  description: |
+    Tranasction info.
+  type: object
+  required:
+    - amount
+    - creditDebitIndicator
+    - status
+    - bookingDate
+    - valueDate
+    - bankTransactionCode
+  properties:
+    entryReference:
+      $ref: "elements.yaml#/entryReference"
+    amount:
+      $ref: "#/balanceAmount"
+    creditDebitIndicator:
+      $ref: "elements.yaml#/creditDebitIndicator"
+    reversalIndicator:
+      $ref: "elements.yaml#/reversalIndicator"
+    status:
+      $ref: "elements.yaml#/transactionStatus"
+    bookingDate:
+      $ref: "#/bookingDate"
+    valueDate:
+      $ref: "#/valueDate"
+    bankTransactionCode:
+      $ref: "#/bankTransactionCode"
+    entryDetails:
+      $ref: "#/entryDetails"
+
+standingOrders:
+  title: standingOrders
+  description: |
+    Standing order
+  type: object
+  required:
+    - standingOrderIdentification
+    - amount
+    - standingOrder
+    - debtorAccount
+  properties:
+    standingOrderIdentification:
+      $ref: "#/standingOrderIdentification"
+    amount:
+      $ref: "#/amount"
+    standingOrder:
+      $ref: "#/standingOrder"
+    debtorAccount:
+      $ref: "#/debtorAccountSO"
+
+execution:
+  title: execution
+  description: |
+    Features of execution a standing order for payment.
+  type: object
+  required:
+    - mode
+    - modeDue
+    - interval
+    - intervalDue
+  properties:
+    mode:
+      description: |
+        The execution mode defines when or how standing order will be cancelled, processed the last time. Possible values: UNTIL_DATE (standing order is valid until specific date - field lastExecutionDate), UNTIL_CANCELLATION (standing order is valid forever and must be cancelled by client), AFTER_MAX_ITERATION_EXCEEDED (certain count of executions is specified - field maxIterations) or MAX_AMOUNT_EXCEEDED (maximum amount which can be transferred for this order is specified, if next iteration would exceed this amount it is not executed - field maxAmount).
+      maxLength: 35
+      type: string
+      enum:
+        - UNTIL_DATE
+        - UNTIL_CANCELLATION
+        - FTER_MAX_ITERATION_EXCEEDED
+        - MAX_AMOUNT_EXCEEDED
+      example: "UNTIL_CANCELLATION"
+    modeDue:
+      description: |
+        The execution due mode defines how the date when order should be executed is specified. Possible values: DUE_DAY_OF_MONTH (specific number of day in the month is defined) or DUE_OR_BEFORE_DAY_OF_MONTH (is defined as a specific day of the month or the previous day if the day falls on a non-banking day) or DUE_OR_NEXT_DAY_OF_MONTH (is defined as a specific day of the month or the next day if the day falls on a non-banking day) or  DUE_LAST_DAY_OF_MONTH (order is executed on last day of particular month).
+      maxLength: 35
+      type: string
+      enum:
+        - DUE_DAY_OF_MONTH
+        - DUE_OR_BEFORE_DAY_OF_MONTH
+        - DUE_OR_NEXT_DAY_OF_MONTH
+        - DUE_LAST_DAY_OF_MONTH
+      example: "DUE_DAY_OF_MONTH"
+    interval:
+      description: |
+        Execution interval defines how often order is executed. Possible values: DAILY, WEEKLY, MONTHLY, BI_MONTHLY, QUARTERLY, HALFYEARLY, YEARLY, IRREGULAR.
+      type: string
+      maxLength: 10
+      enum:
+        - DAILY
+        - WEEKLY
+        - MONTHLY
+        - BI_MONTHLY
+        - QUARTERLY
+        - HALFYEARLY
+        - YEARLY
+        - IRREGULAR
+      example: "MONTHLY"
+    intervalDue:
+      description: |
+        Value represents order number of the day within particular period when the standing order will be reqularly executed. Possible values: 1-7 (for WEEKLY interval), 1-28 for MONTHLY, 1-2 for BI_MONTHLY, 1-3 for QUARTERLY, 1-6 for HALFYEARLY, 1-12 for YEARLY.
+      type: number
+      example: 15
+
+
+
+
+standingOrder:
+  title: standingOrder
+  description: |
+    Structure describing the parameters of the standing orders.
+  type: object
+  required:
+    - execution
+  properties:
+    alias:
+      description: |
+        Description resp. the user-defined standing order payment name.
+      type: string
+      maxLength: 250
+      example: "Payments for lunch - kindergarten Michal"
+    execution:
+      $ref: "#/execution"
+    debtorAccount:
+      $ref: "#/debtorAccount"
+
+transactionsList:
+  title: transactionsList
+  description: |
+    Set of transactions on clints account
+  type: array
+  items:
+    $ref: "#/transactionInfo"
+
+
+standingorderList:
+  title: standingorderList
+  description: |
+    Set of clients standing orders
+  type: array
+  items:
+    $ref: "#/standingOrders"
+
+exchangeIdentification:
+  title: exchangeIdentification
+  description: |
+    Clear query identification
+  type: string
+  maxLength: 18
+  example: "658576010faf0a23dc"
+
+card:
+  title: card
+  description: |
+    Transaction card
+  type: object
+  required:
+    - maskedPan
+  properties:
+    cardholderName:
+      description: Card holder name
+      type: string
+      maxLength: 45
+      example: "Jan Novák"
+    maskedPan:
+      description: Masked card number
+      type: string
+      maxLength: 30
+      example: "1234***********6789"
+
+authenticationMethod:
+  title: authenticationMethod
+  description: |
+    Client verification method
+  type: string
+  maxLength: 4
+  enum:
+    - NPIN
+    - PPSG
+    - PSWD
+    - SCRT
+    - SCNL
+    - SNCT
+    - CPSG
+    - ADDB
+    - BIOM
+    - CDHI
+    - CRYP
+    - CSCV
+    - PSVE
+    - CSEC
+    - ADDS
+    - TOKP
+  example: "NPIN"
+
+merchant:
+  title: merchant
+  description: |
+    Merchant executing the transaction
+  type: object
+  required:
+    - identification
+    - shortName
+    - commonName
+    - merchantCategoryCode
+  properties:
+    identification:
+      description: Merchant identification
+      type: string
+      maxLength: 35
+      example: "471 16 129"
+    type:
+      description: Merchant type
+      type: string
+    shortName:
+      description: Merchant name
+      type: string
+      maxLength: 35
+      example: "NEOLUXOR"
+    commonName:
+      description: Merchant name as stated in the payment receipt
+      type: string
+      maxLength: 70
+      example: "Neoluxor s.r.o."
+    address:
+      description: Merchant address
+      type: string
+      maxLength: 140
+      example: "Hlavní 5, Praha 1"
+    countryCode:
+      description: Merchant country
+      type: string
+      maxLength: 2
+      example: "CZ"
+    merchantCategoryCode:
+      description: Merchant code following the transaction type
+      type: string
+      minLength: 3
+      maxLength: 4
+      example: "5192"
+
+transactionDetailsPIIS:
+  title: transactionDetailsPIIS
+  description: Transaction details
+  type: object
+  required:
+    - currency
+    - totalAmount
+  properties:
+    currency:
+      $ref: "#/currencyCode"
+    totalAmount:
+      $ref: "elements.yaml#/value"
+
+paymentIdentification:
+  title: paymentIdentification
+  description: Payment identification
+  type: object
+  required:
+    - instructionIdentification
+  properties:
+    instructionIdentification:
+      $ref: "elements.yaml#/instructionIdentification"
+    endToEndIdentification:
+      $ref: 'elements.yaml#/endToEndIdentification'
+    transactionIdentification:
+      $ref: 'elements.yaml#/transactionIdentification'
+
+serviceLevel:
+  title: serviceLevel
+  description: Service level
+  type: object
+  properties:
+    code:
+      $ref: 'elements.yaml#/serviceLevelCode'
+
+categoryPurpose:
+  title: categoryPurpose
+  description: Category of the purpose of payment
+  type: object
+  properties:
+    code:
+      $ref: 'elements.yaml#/categoryPurposeCode'
+    proprietary:
+      $ref: 'elements.yaml#/categoryPurposeProprietary'
+
+paymentTypeInformation:
+  title: paymentTypeInformation
+  description: Payment type information
+  type: object
+  properties:
+    instructionPriority:
+      $ref: 'elements.yaml#/instructionPriority'
+    serviceLevel:
+      $ref: '#/serviceLevel'
+    categoryPurpose:
+      $ref: '#/categoryPurpose'
+
+href:
+  title: href
+  description: Reference to call federated authorization
+  type: object
+  properties:
+    url:
+      $ref: 'elements.yaml#/url'
+    id:
+      $ref: 'elements.yaml#/id'
+
+formData:
+  title: formData
+  description: Optional element. For the method POST federated authorization (authorizationType=USERAGENT_REDIRECT) element. Contains data for sending in redirecting to federated authorization.
+  type: object
+  properties:
+    url:
+      $ref: 'elements.yaml#/SAMLRequest'
+    id:
+      $ref: 'elements.yaml#/relayState'
+

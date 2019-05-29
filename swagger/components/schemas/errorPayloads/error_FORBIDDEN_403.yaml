@@ -1,0 +1,21 @@
+error_FORBIDDEN_403:
+  title: error_FORBIDDEN_403
+  description: |
+    Authentication with an invalid certificate or expired access token, a call that does not match a third-party license.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "FORBIDDEN"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"FORBIDDEN"
+     }]

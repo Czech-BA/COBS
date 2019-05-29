@@ -1,0 +1,24 @@
+error_RR10_400:
+  title: error_RR10_400
+  description: |
+    [InvalidCharacterSet] – invalid character set in the request.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "RF01"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"RR01",
+       "scope": null,
+       "parameters": null,
+       "message": null
+     }]

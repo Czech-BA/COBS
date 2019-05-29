@@ -1,0 +1,21 @@
+AUTH_LIMIT_EXCEEDED_400:
+  description: Bad request
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorPayloads/error_AUTH_LIMIT_EXCEEDED_400.yaml#/error_AUTH_LIMIT_EXCEEDED_400"
+      example:
+        {
+          "errors": [
+          {
+            "error": "AUTH_LIMIT_EXCEEDED"
+          }
+          ]
+        }

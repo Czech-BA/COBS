@@ -1,0 +1,21 @@
+requestBalanceCheck:
+  title: requestBalanceCheck
+  description: |
+    Payload of query for balance check
+  type: object
+  required:
+    - exchangeIdentification
+    - debtorAccount
+  properties:
+    exchangeIdentification:
+      $ref: "../objects.yaml#/exchangeIdentification"
+    card:
+      $ref: "../objects.yaml#/card"
+    debtorAccount:
+      $ref: "../objects.yaml#/debtorAccountSO"
+    authenticationMethod:
+      $ref: "../objects.yaml#/authenticationMethod"
+    merchant:
+      $ref: "../objects.yaml#/merchant"
+    transactionDetails:
+      $ref: "../objects.yaml#/transactionDetailsPIIS"

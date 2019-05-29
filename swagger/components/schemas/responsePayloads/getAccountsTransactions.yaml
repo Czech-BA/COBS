@@ -1,0 +1,22 @@
+getAccountsTransactions:
+  title: getAccountsTransactions
+  description: Response message list of client payment accounts transactions
+  type: object
+  required:
+    - pageNumber
+    - pageCount
+    - pageSize
+    - transactions
+  properties:
+    pageNumber:
+      $ref: "../elements.yaml#/pageNumber"
+    pageCount:
+      $ref: "../elements.yaml#/pageCount"
+    nextPage:
+      $ref: "../elements.yaml#/nextPage"
+    pageSize:
+      $ref: "../elements.yaml#/pageSize"
+    totalCount:
+      $ref: "../elements.yaml#/totalCount"
+    transactions:
+      $ref: "../objects.yaml#/transactionsList"

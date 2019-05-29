@@ -1,0 +1,11 @@
+error415:
+  title: error415
+  description: |
+    Request contains a request for unsupported transmission type (e.g. in relation to headers Accept and Accept-Language).
+  type: object
+  properties:
+    errors:
+      type: array
+      items:
+        anyOf:
+          - $ref: "error_UNSUPPORTED_MEDIA_TYPE_415.yaml#/error_UNSUPPORTED_MEDIA_TYPE_415"

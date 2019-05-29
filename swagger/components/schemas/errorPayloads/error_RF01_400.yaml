@@ -1,0 +1,24 @@
+error_RF01_400:
+  title: error_RF01_400
+  description: |
+    [NotUniqueTransactionReference] – not unique request identifier.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "RF01"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+      scope:
+        $ref: "scope.yaml#/scope"
+      message:
+        $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"RF01",
+       "scope": "X-Request-ID",
+       "parameters": null,
+       "message": null
+     }]

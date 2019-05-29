@@ -1,0 +1,22 @@
+PISBalanceCheck:
+  title: PISBalanceCheck
+  description: Response for Balance Check
+  type: object
+  required:
+    - responseIdentification
+    - exchangeIdentification
+    - response
+  properties:
+    responseIdentification:
+      description: Unique identification of response to query for Balance Check (from ASPSP).
+      type: number
+      example: 98765
+    exchangeIdentification:
+      $ref: "../objects.yaml#/paymentIdentification"
+    response:
+      description: |
+        Result code of query for Balance Check.
+          - APPR Enough funds on this account
+          - DECL Unsufficient funds on this account
+      type: string
+      example: "APPR"

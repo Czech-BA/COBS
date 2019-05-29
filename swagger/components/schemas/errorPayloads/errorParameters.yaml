@@ -1,0 +1,11 @@
+errorParameters:
+  title: errorParameters
+  description: |
+    The field of additional elements specific for the given error code. These parameters are always specified in the description of a specific error code.
+  type: object
+  example:
+    {
+      "AMOUNT_ENTERED": 10000,
+      "CURRENCY": "EUR",
+      "LIMIT": 500,
+    }

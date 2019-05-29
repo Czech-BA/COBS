@@ -1,0 +1,19 @@
+OK_200_newPayment:
+  description: OK
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+    Signature:
+      $ref: "../parameters/responseHeaders.yaml#/signatureHeaderRes"
+    Digest:
+      $ref: "../parameters/responseHeaders.yaml#/digestHeaderRes"
+    ASPSP-Signature-Certificate:
+      $ref: "../parameters/responseHeaders.yaml#/aspspSignatureCertificate"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/responsePayloads/postNewPayment.yaml#/postNewPayment"

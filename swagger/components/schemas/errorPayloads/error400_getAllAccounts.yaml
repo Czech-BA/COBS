@@ -1,0 +1,11 @@
+error400_getAllAccounts:
+  title: error400_getAllAccounts
+  description: |
+    This is an invalid query that cannot be answered. E.g., if JSON content is not valid for this resource.
+  type: object
+  properties:
+    errors:
+      type: array
+      items:
+        anyOf:
+          - $ref: "error_PARAMETER_INVALID_400.yaml#/error_PARAMETER_INVALID_400"

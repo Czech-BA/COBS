@@ -1,0 +1,22 @@
+getStandingorders:
+  title: getStandingorders
+  description: Response message list of client standing orders
+  type: object
+  required:
+    - pageNumber
+    - pageCount
+    - pageSize
+    - transactions
+  properties:
+    pageNumber:
+      $ref: "../elements.yaml#/pageNumber"
+    pageCount:
+      $ref: "../elements.yaml#/pageCount"
+    nextPage:
+      $ref: "../elements.yaml#/nextPage"
+    pageSize:
+      $ref: "../elements.yaml#/pageSize"
+    totalCount:
+      $ref: "../elements.yaml#/totalCount"
+    standingOrders:
+      $ref: "../objects.yaml#/standingorderList"

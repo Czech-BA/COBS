@@ -1,0 +1,7 @@
+SERVICE_UNAVAILABLE_503:
+  description: Service unavailable
+  headers:
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Process-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"

@@ -1,0 +1,68 @@
+OK_200_PaymentInfo:
+  description: OK
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+    Signature:
+      $ref: "../parameters/responseHeaders.yaml#/signatureHeaderRes"
+    Digest:
+      $ref: "../parameters/responseHeaders.yaml#/digestHeaderRes"
+    ASPSP-Signature-Certificate:
+      $ref: "../parameters/responseHeaders.yaml#/aspspSignatureCertificate"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/responsePayloads/getPaymentInfo.yaml#/getPaymentInfo"
+      example:
+        {
+          "paymentIdentification": {
+            "instructionIdentification": "NOTPROVIDED",
+            "transactionIdentification": "048885570000001020045"
+          },
+          "paymentTypeInformation": {
+            "instructionPriority": "NORM",
+            "serviceLevel": {
+              "code": "DMCT"
+            }
+          },
+          "amount": {
+            "instructedAmount": {
+              "value": 10050.15,
+              "currency": "CZK"
+            }
+          },
+          "requestedExecutionDate": "2017-02-20",
+          "debtorAccount": {
+            "identification": {
+              "iban": "CZ0708000000001019382023"
+            },
+            "currency": "CZK"
+          },
+          "creditorAccount": {
+            "identification": {
+              "iban": "CZ0708000000001019540081"
+            },
+            "currency": "CZK"
+          },
+          "remittanceInformation": {
+            "structured": {
+              "creditorReferenceInformation": {
+                "reference": [
+                  "VS:501",
+                  "KS:9",
+                  "SS:1005"
+                ]
+              }
+            }
+          },
+          "signInfo": {
+            "state": "OPEN",
+            "signId": "164298331754922"
+          },
+          "instructionStatus": "ACTC",
+          "statusChangeInfo": "TM01"
+        }

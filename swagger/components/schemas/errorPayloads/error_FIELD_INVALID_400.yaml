@@ -1,0 +1,22 @@
+error_FIELD_INVALID_400:
+  title: error_FIELD_INVALID_400
+  description: |
+    FIELD value is not valid.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "FIELD_INVALID"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"FIELD_INVALID",
+       "scope":"transactionDetails.currency"
+     }]

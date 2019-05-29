@@ -1,0 +1,24 @@
+error_AG01_400:
+  title: error_AG01_400
+  description: |
+    [TransactionForbidden] – absent consent to access to balance check at the account.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AG01"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"AG01",
+       "scope": null,
+       "parameters": null,
+       "message": null
+     }]

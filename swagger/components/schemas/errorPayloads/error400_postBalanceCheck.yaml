@@ -1,0 +1,21 @@
+error400_postBalanceCheck:
+  title: error400_postBalanceCheck
+  description: |
+    This is an invalid query that cannot be answered. E.g., if JSON content is not valid for this resource.
+  properties:
+    errors:
+      type: array
+      items:
+        anyOf:
+          - $ref: "error_FIELD_MISSING_400.yaml#/error_FIELD_MISSING_400"
+          - $ref: "error_FIELD_INVALID_400.yaml#/error_FIELD_INVALID_400"
+          - $ref: "error_AC02_400.yaml#/error_AC02_400"
+          - $ref: "error_AC09_400.yaml#/error_AC09_400"
+          - $ref: "error_AC12_400.yaml#/error_AC12_400"
+          - $ref: "error_AG01_400.yaml#/error_AG01_400"
+          - $ref: "error_AM11_400.yaml#/error_AM11_400"
+          - $ref: "error_AM12_400.yaml#/error_AM12_400"
+          - $ref: "error_FF01_400.yaml#/error_FF01_400"
+          - $ref: "error_NARR_400.yaml#/error_NARR_400"
+          - $ref: "error_RF01_400.yaml#/error_RF01_400"
+          - $ref: "error_RR10_400.yaml#/error_RR10_400"

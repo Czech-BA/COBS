@@ -1,0 +1,6 @@
+errorMessage:
+  title: errorMessage
+  description: |
+    Optional text description. It is not intended for interpretation to the end user but, for example, to enrich the error log.
+  type: string
+  example: "Requested amount is too large"

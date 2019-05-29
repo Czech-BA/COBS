@@ -1,0 +1,54 @@
+postNewPayment:
+  title: newPayment
+  description: Response for new payment initialization
+  type: object
+  required:
+    - paymentIdentification
+    - amount
+    - creditorAccount
+    - transactionIdentification
+    - serviceLevel
+    - signInfo
+  properties:
+    transactionIdentification:
+      $ref: '../elements.yaml#/transactionIdentification'
+    serviceLevel:
+      $ref: '../objects.yaml#/serviceLevel'
+    paymentIdentification:
+      $ref: "../objects.yaml#/paymentIdentification"
+    paymentTypeInformation:
+      $ref: '../objects.yaml#/paymentTypeInformation'
+    amount:
+      $ref: '../objects.yaml#/paymentAmount'
+    requestedExecutionDate:
+      $ref: '../elements.yaml#/requestedExecutionDate'
+    exchangeRateInformation:
+      $ref: '../objects.yaml#/exchangeRateInformation'
+    chargeBearer:
+      $ref: '../objects.yaml#/chargeBearer'
+    chargesAccount:
+      $ref: '../objects.yaml#/chargesAccount'
+    ultimateDebtor:
+      $ref: '../objects.yaml#/ultimateDebtor'
+    debtor:
+      $ref: '../objects.yaml#/paymentDebtor'
+    debtorAccount:
+      $ref: '../objects.yaml#/paymentDebtorAccount'
+    intermediaryAgent1:
+      $ref: '../objects.yaml#/intermediaryAgent1'
+    creditorAgent:
+      $ref: '../objects.yaml#/creditorAgent'
+    creditor:
+      $ref: '../objects.yaml#/paymentCreditor'
+    creditorAccount:
+      $ref: '../objects.yaml#/paymentCreditorAccount'
+    ultimateCreditor:
+      $ref: '../objects.yaml#/ultimateCreditor'
+    purpose:
+      $ref: '../objects.yaml#/purpose'
+    instructionForNextAgent:
+      $ref: '../elements.yaml#/instructionForNextAgent'
+    remittanceInformation:
+      $ref: '../objects.yaml#/remittanceInformation'
+    signInfo:
+      $ref: '../objects.yaml#/signInfo'

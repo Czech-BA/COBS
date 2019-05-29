@@ -1,0 +1,22 @@
+BAD_REQUEST_400_getAccountsTransactions:
+  description: Bad request
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorPayloads/error400_getAccountsTransactions.yaml#/error400_getAccountsTransactions"
+      example:
+        {
+          "errors": [
+            {
+              "error": "AC09",
+              "scope": "currency"
+            }
+          ]
+        }

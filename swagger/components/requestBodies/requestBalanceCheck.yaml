@@ -1,0 +1,35 @@
+requestBalanceCheck:
+  description: |
+    JSON request body for balance check within payment inition API
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/requestPayloads/requestBalanceCheck.yaml#/requestBalanceCheck"
+      example:
+        {
+          "exchangeIdentification": "658576010faf0a23dc",
+          "card": {
+            "cardHolderName": "Jan Novák",
+            "maskedPAN": "1234***********6789"
+          },
+          "debtorAccount": {
+            "identification": {
+              "iban": "CZ0708000000001019382023"
+            },
+            "currency": "CZK"
+          },
+          "authenticationMethod": "NPIN",
+          "merchant": {
+            "identification": "471 16 129",
+            "shortName": "NEOLUXOR",
+            "commonName": "Neoluxor s.r.o.",
+            "address": "Hlavní 5, Praha 1",
+            "countryCode": "CZ",
+            "merchantCategoryCode": "5192"
+          },
+          "transactionDetails": {
+            "currency": "CZK",
+            "totalAmount": 10050.15
+          }
+        }

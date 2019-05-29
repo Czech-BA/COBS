@@ -1,0 +1,24 @@
+error_AC12_400:
+  title: error_AC12_400
+  description: |
+    [InvalidAccountType] -  account type does not match allowed account types (e.g., a non-paying account).
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AC12"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"AC12",
+       "scope":"debtorAccount.identification.iban",
+       "parameters": null,
+       "message": null
+     }]

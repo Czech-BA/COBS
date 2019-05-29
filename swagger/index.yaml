@@ -1,0 +1,1121 @@
+openapi: 3.0.1
+info:
+  title: Czech Open Banking Standard
+  version: "2.0.1"
+  description: |
+
+  contact:
+    name: Petr Michalik, Andrea Lisá, Luisa Kadlecova
+    email: pmichalik@csas.cz
+
+servers:
+  - url: https://api.bank.cz
+    description: An openbanking test server
+
+paths:
+  /my/accounts:
+    get:
+      summary: List of client payment accounts
+      description: |
+        Paged list of client accounts. Each account contains a unique id usable for URI referencing, e.g. for the account detail.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** yes
+          * **Sorting:**  yes
+          * **Filtering:**  no
+      operationId: -getAllAccounts
+      tags:
+        - Account information
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+      #path
+      #query
+        - $ref: "./components/parameters/queries.yaml#/pageSizeParam"
+        - $ref: "./components/parameters/queries.yaml#/pageParam"
+        - $ref: "./components/parameters/queries.yaml#/sortParam"
+        - $ref: "./components/parameters/queries.yaml#/orderParam"
+      #header
+          #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_AllAccountList.yaml#/OK_200_AllAccountList"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_getAllAccounts.yaml#/BAD_REQUEST_400_getAllAccounts"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/accounts/{id}/balance:
+    get:
+      summary: Account balance
+      description: |
+        The balance of the specific client account according to the reference id account.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getAccountsBalances
+      tags:
+        - Account information
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+      #path
+        - $ref: "./components/parameters/paths.yaml#/accountId"
+      #query
+        - $ref: "./components/parameters/queries.yaml#/currencyParam"
+      #header
+          #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_AccountsBalances.yaml#/OK_200_AccountsBalances"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_getAccountsBalances.yaml#/BAD_REQUEST_400_getAccountsBalances"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/accounts/{id}/transactions:
+    get:
+      summary: Overview of transactions
+      description: |
+        Paged list of transactions of a selected client account.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** yes
+          * **Sorting:**  yes
+          * **Filtering:**  no
+      operationId: -getAccountsTransactions
+      tags:
+        - Account information
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+      #path
+        - $ref: "./components/parameters/paths.yaml#/accountId"
+      #query
+        - $ref: "./components/parameters/queries.yaml#/fromDate"
+        - $ref: "./components/parameters/queries.yaml#/toDate"
+        - $ref: "./components/parameters/queries.yaml#/currencyParam"
+        - $ref: "./components/parameters/queries.yaml#/pageSizeParam"
+        - $ref: "./components/parameters/queries.yaml#/pageParam"
+        - $ref: "./components/parameters/queries.yaml#/sortParam"
+        - $ref: "./components/parameters/queries.yaml#/orderParam"
+      #header
+          #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_AccountsTransactions.yaml#/OK_200_AccountsTransactions"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_getAccountsTransactions.yaml#/BAD_REQUEST_400_getAccountsTransactions"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/standingorders:
+    get:
+      summary: List of client’s standing orders
+      description: |
+        Paged list of client’s standing orders. Each standing order contains a unique id usable for URI referencing, e.g. for the standing order detail.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** yes
+          * **Sorting:**  yes
+          * **Filtering:**  no
+      operationId: -getStandingorders
+      tags:
+        - Account information
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+      #path
+      #query
+        - $ref: "./components/parameters/queries.yaml#/pageSizeParam"
+        - $ref: "./components/parameters/queries.yaml#/pageParam"
+        - $ref: "./components/parameters/queries.yaml#/sortParam"
+        - $ref: "./components/parameters/queries.yaml#/orderParam"
+
+      #header
+          #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_StandingOrders.yaml#/OK_200_StandingOrders"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/payments/balanceCheck:
+    post:
+      summary: Query for Balance Check
+      description: |
+        This is the resource for sending a request for balance check in a particular payer's payment account. This resource is authorized. Access to information must be granted by the client outside the interaction of this API before the resource is used.
+      operationId: -postBalanceCheck
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+      #path
+      #query
+        - $ref: "./components/parameters/queries.yaml#/fromDate"
+        - $ref: "./components/parameters/queries.yaml#/toDate"
+        - $ref: "./components/parameters/queries.yaml#/currencyParam"
+        - $ref: "./components/parameters/queries.yaml#/pageSizeParam"
+        - $ref: "./components/parameters/queries.yaml#/pageParam"
+        - $ref: "./components/parameters/queries.yaml#/sortParam"
+        - $ref: "./components/parameters/queries.yaml#/orderParam"
+
+          #header
+          #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestBalanceCheck.yaml#/requestBalanceCheck"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_PISBalanceCheck.yaml#/OK_200_PISBalanceCheck"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_postBalanceCheck.yaml#/BAD_REQUEST_400_postBalanceCheck"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/payments:
+    post:
+      summary: New payment - payment initiation
+      description: |
+        Resource for entering a new payment.
+      operationId: -postNewPayment
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+      #path
+      #query
+        - $ref: "./components/parameters/queries.yaml#/fromDate"
+        - $ref: "./components/parameters/queries.yaml#/toDate"
+        - $ref: "./components/parameters/queries.yaml#/currencyParam"
+        - $ref: "./components/parameters/queries.yaml#/pageSizeParam"
+        - $ref: "./components/parameters/queries.yaml#/pageParam"
+        - $ref: "./components/parameters/queries.yaml#/sortParam"
+        - $ref: "./components/parameters/queries.yaml#/orderParam"
+
+      #header
+          #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestNewPayment.yaml#/requestNewPayment"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_newPayment.yaml#/OK_200_newPayment"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_postNewPayment.yaml#/BAD_REQUEST_400_postNewPayment"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /payments/{paymentId}/status:
+    get:
+      summary: Payment status.
+      description: |
+        A resource to display the payment status. It is an entered payment which has not been authorised by the client yet or has already been authorised, and PISP requires its status
+
+        **Resource characteristics:**
+          * **Authorization:**  request does not require the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getPaymentStatus
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/paymentId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_PaymentStatus.yaml#/OK_200_PaymentStatus"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '404':
+          $ref: "./components/responses/TRANSACTION_MISSING_404.yaml#/TRANSACTION_MISSING_404"
+
+  /payments/{paymentId}:
+    get:
+      summary: Payment info.
+      description: |
+        A resource to display the information on the entered payment. It is payment which is received for authorisation, but has not been authorised by the client yet. The resource only works with transactions entered through a specific provider. The resource to find out the transaction detail. Information on the provider is taken from the certificate or information on licence.
+
+        **Resource characteristics:**
+          * **Authorization:**  request does not require the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getPaymentInfo
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/paymentId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_PaymentInfo.yaml#/OK_200_PaymentInfo"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '404':
+          $ref: "./components/responses/TRANSACTION_MISSING_404.yaml#/TRANSACTION_MISSING_404"
+
+        '501':
+          $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
+
+  /my/payments/{paymentId}:
+    delete:
+      summary: Deleting the entered unathorised payment
+      description: |
+        A resource for deleting the unauthorised payment. Deleting is not conditioned by the transaction authorisation as it is not a payment received by the bank.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -deleteUnauthorisedPayment
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/paymentId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_deleteUnauthorisedPayment.yaml#/OK_200_deleteUnauthorisedPayment"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/TRANSACTION_MISSING_404.yaml#/TRANSACTION_MISSING_404"
+
+        '501':
+          $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
+
+  /my/payments/{paymentId}/sign:
+    post:
+      summary: Generating Authorization ID.
+      description: |
+        - Generating the authorization ID for payment before the initiation of the authorization process. The resource is implemented by banks that do not want to generate authorization ID for payment in the response when entering a new (unauthorized) payment through the resource POST /my/payments.
+        - Each bank may define and describe in its documentation its own authorization scenarios. The CODE of authorization methods for these scenarios is used in the response of this resource.
+        - Part of the response is also the set of scenarios that may contain one or more authorisation scenarios. If more scenarios are returned, it is up to the client to select what scenario to choose. The power of verifying each scenario should correspond to the power of other scenarios, or the scenarios are mutually replaceable.
+        - Each scenario is defined as the sequence of codes of particular authorization methods. The code of authorization method is defined by the bank and should be described in its own API documentation outside the ČOBS standard.
+
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -postGeneratingAuthorizationId
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/paymentId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_PaymentAuthorizationId.yaml#/OK_200_PaymentAuthorizationId"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/TRANSACTION_MISSING_404.yaml#/TRANSACTION_MISSING_404"
+
+        '501':
+          $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
+
+
+  /my/payments/{paymentId}/sign/{signId}/:
+    get:
+      summary: Step I. Payment authorization detail
+      description: |
+        - To identify the status and scenarios of payment authorization.
+        - Part of the response is also the set of scenarios that may contain one or more authorisation scenarios. If more scenarios are returned, it is up to the client to select what scenario to choose. The power of verifying each scenario should correspond to the power of other scenarios, or the scenarios are mutually replaceable.
+        - Each scenario is defined as the sequence of codes of particular authorization methods.
+        - Each bank may define and describe in its documentation its own authorization scenarios.
+        - CODE of authorization methods of these scenarios is used in the response of this resource.
+
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getPaymentAuthorizationDetail
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/paymentId"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_PaymentAuthorizationId.yaml#/OK_200_PaymentAuthorizationId"
+
+        '400':
+          $ref: "./components/responses/AUTH_LIMIT_EXCEEDED_400.yaml#/AUTH_LIMIT_EXCEEDED_400"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '501':
+          $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
+
+    post:
+      summary: Step II. Payment authorization initiation - specific for each bank
+      description: |
+        - This resource is designed to **start a specific authorization method** from the selected scenario.
+        - The input is the JSON object containing the required type of authorization method - **CODE** and all elements specific for that step.
+        - The output of this resource is an overview of values required for completing the authorization.
+        - **E.g., for CODE corresponding to the federated authorization, the response will be URL and parameters for redirecting to the federated authorization page.**
+        - And, for instance, for CODE corresponding to authorization through the OTP code sent by SMS, the response will only be the confirmation of sending the code. The sending as such is initiated by the bank.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -postPaymentAuthorizationInitiation
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/paymentId"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestPaymentAuthorizationInitiation.yaml#/requestPaymentAuthorizationInitiation"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_postPaymentAuthorizationInitiation.yaml#/OK_200_postPaymentAuthorizationInitiation"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '400':
+          $ref: "./components/responses/AUTH_LIMIT_EXCEEDED_400.yaml#/AUTH_LIMIT_EXCEEDED_400"
+
+    put:
+      summary: Step III. Payment authorization initiation – specific for each bank
+      description: |
+        - An optional resource designed for the finalization of the authorization process. 
+        - The resource may be purely indicative or returns information on whether the authorization process was completed and with what result. 
+        - E.g., in the case of federated authorization.
+        - Or what input, e.g. for entering the received OTP for the SMS method.
+        - Then the output is information on the authorization and also OTP verification.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -putPaymentAuthorizationInitiation
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/paymentId"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_putPaymentAuthorizationInitiation.yaml#/OK_200_putPaymentAuthorizationInitiation"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '400':
+          $ref: "./components/responses/AUTH_LIMIT_EXCEEDED_400.yaml#/AUTH_LIMIT_EXCEEDED_400"
+
+        '501':
+          $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
+
+  /accounts/balanceCheck:
+    post:
+      summary: Query for Balance Check
+      description: |
+        This is a resource for sending a query for Balance Check in a specific payment account of the account payer. The resource is not authorized directly by the account holder, through the authorization resource. Access to information must be granted by the client outside the interaction of this API before the resource is used.
+      operationId: -postAccountsBalanceCheck
+      tags:
+        - Balance check
+
+      security:
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+      #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestBalanceCheck.yaml#/requestBalanceCheck"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_PISBalanceCheck.yaml#/OK_200_PISBalanceCheck"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_postBalanceCheck.yaml#/BAD_REQUEST_400_postBalanceCheck"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+tags:
+  #######################################################
+  #                    Tags Definitions
+  #######################################################
+  - name: Account information
+    description: |
+      Specification of API Information about the account contains a description of resources for the acquisition of  information about the payment account/accounts of the bank client.
+
+      **Overview of resources:**
+        *  GET list of client payment accounts
+        *  GET account balance
+        *  GET transaction overview
+        *  GET list of client’s standing orders
+
+  - name: Payment Initiation
+    description: |
+      Specification of API Payment Initiation contains a description of resources for the payment initiation and the Balance Check of the payer (client) at a specific financial institution.
+
+      **Overview of resources:**
+        *  POST query for balance check
+        *  POST new single payment (Payment Initiation)
+        *  GET status of entered/initiated single payment
+        *  DELETE deletion of the entered and not authorised single payment
+        *  POST generation of authorization ID for single payment
+        *  Single payment authorisation
+           * GET Step I. payment authorisation detail
+           * POST Step II. payment authorisation initiation - specific for each bank
+           * PUT Step III. payment authorisation finalization - specific for each bank
+        * POST new standing order
+        * GET standing order detail
+        * GET standing order status
+        * DELETE unauthorised standing order
+        * PUT standing order change
+        * Standing order authorization
+            * GET Step I. standing order authorization detail
+            * POST Step II. standing order authorization initiation - specific for each bank
+            * PUT Step III. Standing order authorization finalization - specific for each bank
+        * Batch payment - bulk authorization
+        * DELET Batch payment
+        *  GET Batch payment status
+        * Batch payment authorization
+            * GET Batch payment authorization step I
+            * POST Batch payment authorization step II
+            * PUT Batch payment authorization step III
+        *  GET List of PSU authorizations
+
+  - name: Balance check
+    description: |
+      Specification of API Balance Check contains a description of resources for the acquisition of information on sufficient funds of the payer (client) at a specific financial institucion.
+
+      **Overview of resources:**
+        * POST query for Balance Check

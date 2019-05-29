@@ -1,0 +1,27 @@
+BAD_REQUEST_400_getAllAccounts:
+  description: Bad request
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorPayloads/error400_getAllAccounts.yaml#/error400_getAllAccounts"
+      example:
+        {
+          "errors": [
+          {
+            "error": "PAGE_NOT_FOUND"
+          },
+          {
+            "error": "PARAMETER_INVALID",
+            "scope": "sort"
+          }
+          ]
+        }
+
+

@@ -1,0 +1,21 @@
+NOT_FOUND_404:
+  description: Not Found
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorPayloads/error404.yaml#/error404"
+      example:
+        {
+          "errors": [
+            {
+              "error": "ID_NOT_FOUND"
+            }
+          ]
+        }

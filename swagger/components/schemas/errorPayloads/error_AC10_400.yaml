@@ -1,0 +1,24 @@
+error_AC10_400:
+  title: error_AC10_400
+  description: |
+    [InvalidDebtorAccountCurrency] –  the specified payer account currency does not correspond to the client's account currency for the account number held in the bank (the account currency is optional, in the case of multicurrency accounts, the account currency must be specified - Raiffeisenbank).
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AC10"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"AC10",
+       "scope":"currency",
+       "parameters": null,
+       "message": null
+     }]

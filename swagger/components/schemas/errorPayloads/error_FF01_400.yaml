@@ -1,0 +1,24 @@
+error_FF01_400:
+  title: error_FF01_400
+  description: |
+    [Invalid File Format] – invalid JSON forma or other technical problem with the query processing.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "FF01"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"FF01",
+       "scope": null,
+       "parameters": null,
+       "message": null
+     }]

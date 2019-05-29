@@ -1,0 +1,24 @@
+error_PARAMETER_INVALID_400:
+  title: error_PARAMETER_INVALID_400
+  description: |
+    The value of the parameter is not valid
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "PARAMETER_INVALID"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"PARAMETER_INVALID",
+       "scope":"page",
+       "parameters": null,
+       "message": null
+     }]

@@ -1,0 +1,21 @@
+error_AUTH_LIMIT_EXCEEDED_400:
+  title: error_AUTH_LIMIT_EXCEEDED_400
+  description: |
+    The resource may not be authorized with this method
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AUTH_LIMIT_EXCEEDED"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"AUTH_LIMIT_EXCEEDED"
+     }]

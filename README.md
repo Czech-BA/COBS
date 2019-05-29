@@ -4,8 +4,9 @@
 
 Version | Note
 ------- | ----
-**3.0** | Common header parameters definitions and new resources for consent management, standing orders, batch payments and co-signing
-2.0 | Final document
+ - | **Added structured technical definition in OpenAPI 3.0 (swagger) format - [see](swagger/)**
+**3.0** | Common header parameters definitions and new resources for consent management, standing orders, batch payments and co-signing - required from 1.1.2020
+2.0 | Final document - actual version
 2.0_draft | Extended description of the use of certificates in chapter 1.4.8
 2.0_draft | Added new request header parameters for original TPP identification
 2.0_draft | Document v.2.0 -- An extension to initiate Instant Payment has been added to the standard. Any further processing of such initiated payment is done according to the rules of this scheme. Chapter 3.2.4, 4.24.1 and 4.25
@@ -37,7 +38,9 @@ The main benefits of the Czech Standard are the easier integration of TPP into s
   * Czech Standard for Open Banking v.1.2 [[EN](versions/v.1.2/CzechOpenBankingStandard_EN_1.2.pdf)] [[CZ](versions/v.1.2/CzechOpenBankingStandard_CZ_1.2.pdf)]
   * Czech Standard for Open Banking v.1.0 [[EN](versions/v.1.0/CzechOpenBankingStandard_EN_1.0.pdf)] [[CZ](versions/v.1.0/CzechOpenBankingStandard_CZ_1.0.pdf)]
 
+## OpenAPI definition of Czech Standard for Open Banking
 
+  * **[Structured OpenAPI 3.0 (Swagger) definition for COBS V2.0](swagger/)**
 
 ## Examples 
 Here you will find an overview of the requests and responses examples for each API resource contained in the standard

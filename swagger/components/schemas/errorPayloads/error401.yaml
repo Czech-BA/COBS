@@ -1,0 +1,11 @@
+error401:
+  title: error401
+  description: |
+    Querying requires user authentication
+  type: object
+  properties:
+    errors:
+      type: array
+      items:
+        anyOf:
+          - $ref: "error_UNAUTHORISED_401.yaml#/error_UNAUTHORISED_401"

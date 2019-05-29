@@ -1,0 +1,13 @@
+UNAUTHORIZED_401:
+  description: Unauthorised
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+      X-Request-ID:
+        $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+      Action-ID:
+        $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorPayloads/error401.yaml#/error401"

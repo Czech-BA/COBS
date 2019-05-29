@@ -1,0 +1,24 @@
+error_DT01_400:
+  title: error_DT01_400
+  description: |
+    [InvalidDate] Invalid date.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "DT01"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"DT01",
+       "scope":"fromDate",
+       "parameters": null,
+       "message": "The date will be in the future."
+     }]

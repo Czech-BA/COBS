@@ -1,0 +1,217 @@
+contentTypeReq:
+  name: Content-Type
+  in: header
+  description: |
+    Defines MIME media type of the resource. For example application/json or application/x-www-form-urlencoded (OAuth2 /auth resources) and application/xml in case of bulk payment initiation.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/contentType"
+
+authorization:
+  name: Authorization
+  in: header
+  description: |
+    Contains the credentials to authenticate a user agent with a server. Element is defined in RFC 6750 In the case of this specification as Bearer Token Usage.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/authorization"
+
+apiKey:
+  name: API-key
+  in: header
+  description: |
+    The API key issued for TPP is part of the communication configuration for better identification of third-party call access settings. In essence, this is not a security element.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/apiKey"
+
+accept:
+  name: Accept
+  in: header
+  description: |
+    The Accept request HTTP header specifies which content types, expressed as MIME types, the client is able to understand.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/accept"
+
+acceptLanguage:
+  name: Accept-Language
+  in: header
+  description: |
+    The Accept-Language request HTTP header specifies which languages the client is able to understand, and which locale variant is preferred. If no `Accept-Language:` is given, local country language is assumed.
+
+    For example:
+      - Accept-Language: *
+      - Accept-Language: en-US, en;q=0.8
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/acceptLanguage"
+
+xRequestIdReq:
+  name: X-Request-ID
+  in: header
+  description: |
+    Unique identifier for each request specified by TPP. It is recommended to use a UUID format with a length of 36 to 60 characters.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/xRequestId"
+
+dateHeader:
+  name: Date
+  in: header
+  description: |
+    Each request of a transaction contains the date and time at which the message was originated. In timestamp format.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/dateHeader"
+
+contentLength:
+  name: Content-Length
+  in: header
+  description: |
+    The Content-Length entity-header field indicates the size of the entity-body, in decimal bytes, sent to the recipient.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/contentLength"
+
+transferEncoding:
+  name: Transfer-Encoding
+  in: header
+  description: |
+    The Transfer-Encoding general-header field specifies the form of encoding used to safely transfer the request payload to the ASPSP and back to TPP.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/transferEncoding"
+
+actionIdReq:
+  name: Action-ID
+  in: header
+  description: |
+    IDs that identify the technical or business process within the call of each API request.
+
+    For example, it can be used to identify the process of retrieving a transaction history that is provided as a paged response available through multiple requests.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/actionId"
+
+userInvolved:
+  name: User-Involved
+  in: header
+  description: |
+    The flag identifies if the end user is online and the request was made based on his activity.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/userInvolved"
+
+userIpAddress:
+  name: User–IP-Address
+  in: header
+  description: |
+    Identifies the API's end-user IP address. The TPP should fill this value if the IP address can be detected. The address can be in IPv4 or IPv6 format.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/userIpAddress"
+
+userIpPort:
+  name: User–IP-Port
+  in: header
+  description: |
+    An element used to pass on information about what end-user IP port is using.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/userIpPort"
+
+userDeviceOs:
+  name: User-Device-OS
+  in: header
+  description: |
+    The element is used to forward information about the end user operating system used.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/userDeviceOs"
+
+userUserAgent:
+  name: User-User-Agent
+  in: header
+  description: |
+    Contains information about the end-user web browser. The format should be the same as the standard HTTP parameter User-Agent.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/userUserAgent"
+
+userTimestamp:
+  name: User-Timestamp
+  in: header
+  description: |
+    Local time on User's device.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/userTimestamp"
+
+userGeoLocation:
+  name: User-Geo-Location
+  in: header
+  description: |
+    End-user GPS coordinates (if the coordinates can be reliably detected).
+
+    **Required format:** GEO:Latitude;Longitude
+
+    Based on [RFC2426] in signed degrees format (DDD.dddd)
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/userGeoLocation"
+
+userDeviceId:
+  name: User-Device-ID
+  in: header
+  description: |
+    It contains a unique identifier of end user equipment, if available. For example, a unique mobile device identifier (IMEI).
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/userDeviceId"
+
+tppName:
+  name: TPP-Name
+  in: header
+  description: |
+    The name of the original TPP that created the request. Eg. ‘Star corporation, a.s.’.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/tppName"
+
+tppIdentification:
+  name: TPP-Identification
+  in: header
+  description: |
+    The identification (licence number) of the original TPP that created the request. Eg. ‘CZ013574-15’.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/tppIdentification"
+
+signatureHeaderReq:
+  name: Signature
+  in: header
+  description: |
+    If the TPP signs the request, it contains a digital signature.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/signatureHeader"
+
+digestHeaderReq:
+  name: Digest
+  in: header
+  description: |
+    When an TPP  includes a signature he also must include a "Digest" header as defined in [RFC3230].
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/digestHeader"
+
+tppSignatureCertificate:
+  name: TPP-Signature-Certificate
+  in: header
+  description: |
+    The public TPP certificate used for signing the request, In base64 encoding (with the "BEGIN CERTIFICATE" and "END CERTIFICATE" markers).
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/tppSignatureCertificate"
+

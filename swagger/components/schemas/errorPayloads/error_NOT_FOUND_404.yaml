@@ -1,0 +1,21 @@
+error_NOT_FOUND_404:
+  title: error_NOT_FOUND_404
+  description: |
+    The requested object / page does not exist or was not found.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "NOT_FOUND"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+       "error":"NOT_FOUND"
+     }]
