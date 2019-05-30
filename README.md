@@ -1,4 +1,4 @@
-# Czech Standard for Open Banking issue tracker
+# Czech Standard for Open Banking
 
 **_COBS overview of changes_**
 
