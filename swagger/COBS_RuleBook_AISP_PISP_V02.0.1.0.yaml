@@ -364,14 +364,6 @@ paths:
       parameters:
         #path
         #query
-        - $ref: "#/components/parameters/fromDate"
-        - $ref: "#/components/parameters/toDate"
-        - $ref: "#/components/parameters/currencyParam"
-        - $ref: "#/components/parameters/pageSizeParam"
-        - $ref: "#/components/parameters/pageParam"
-        - $ref: "#/components/parameters/sortParam"
-        - $ref: "#/components/parameters/orderParam"
-
           #header
           #common header parameter
         - $ref: "#/components/parameters/contentTypeReq"
@@ -443,14 +435,6 @@ paths:
       parameters:
         #path
         #query
-        - $ref: "#/components/parameters/fromDate"
-        - $ref: "#/components/parameters/toDate"
-        - $ref: "#/components/parameters/currencyParam"
-        - $ref: "#/components/parameters/pageSizeParam"
-        - $ref: "#/components/parameters/pageParam"
-        - $ref: "#/components/parameters/sortParam"
-        - $ref: "#/components/parameters/orderParam"
-
           #header
           #common header parameter
         - $ref: "#/components/parameters/contentTypeReq"

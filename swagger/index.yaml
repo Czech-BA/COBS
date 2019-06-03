@@ -355,14 +355,6 @@ paths:
       parameters:
       #path
       #query
-        - $ref: "./components/parameters/queries.yaml#/fromDate"
-        - $ref: "./components/parameters/queries.yaml#/toDate"
-        - $ref: "./components/parameters/queries.yaml#/currencyParam"
-        - $ref: "./components/parameters/queries.yaml#/pageSizeParam"
-        - $ref: "./components/parameters/queries.yaml#/pageParam"
-        - $ref: "./components/parameters/queries.yaml#/sortParam"
-        - $ref: "./components/parameters/queries.yaml#/orderParam"
-
           #header
           #common header parameter
         - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
@@ -434,14 +426,6 @@ paths:
       parameters:
       #path
       #query
-        - $ref: "./components/parameters/queries.yaml#/fromDate"
-        - $ref: "./components/parameters/queries.yaml#/toDate"
-        - $ref: "./components/parameters/queries.yaml#/currencyParam"
-        - $ref: "./components/parameters/queries.yaml#/pageSizeParam"
-        - $ref: "./components/parameters/queries.yaml#/pageParam"
-        - $ref: "./components/parameters/queries.yaml#/sortParam"
-        - $ref: "./components/parameters/queries.yaml#/orderParam"
-
       #header
           #common header parameter
         - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
