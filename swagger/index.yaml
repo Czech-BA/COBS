@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Czech Open Banking Standard
-  version: "2.0.1"
+  version: "7.0.1"
   description: |
 
   contact:
@@ -337,6 +337,588 @@ paths:
 
         '503':
           $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/accounts/{id}/directdebits:
+    get:
+      summary: List of client’s domestic direct debits Consents
+      description: |
+        Paged list of client’s domestic direct debits Consents. Each domestic direct debit Consent (Mandate) contains a unique id usable for URI referencing, e.g., for the domestic direct debit detail.
+        
+        Additionally, the debtorAccount contains an API account id to call the account details resource to which the payment order is issued.
+      operationId: -getDirectDebits
+      tags:
+        - Direct Debits
+
+      security:
+        - OAuth2: [ ]
+        - ClientCert: [ ]
+        - ApiKey: [ ]
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/accountId"
+        #query
+        - $ref: "./components/parameters/queries.yaml#/pageSizeParam"
+        - $ref: "./components/parameters/queries.yaml#/pageParam"
+        - $ref: "./components/parameters/queries.yaml#/sortParam"
+        - $ref: "./components/parameters/queries.yaml#/orderParam"
+        #header
+          #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_DirectDebits.yaml#/OK_200_DomesticDirectDebits"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+    post:
+      summary: Domestic direct debit consent - instruction initiation
+      description: |
+        Resource for entering a new domestic direct debit consent.
+      operationId: -postDirectDebit
+      tags:
+        - Direct Debits
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/accountId"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestDirectDebit.yaml#/requestDirectDebit"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_newDirectDebit.yaml#/OK_200_newDirectDebit"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_postNewDirectDebit.yaml#/BAD_REQUEST_400_postNewDirectDebit"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/accounts/{id}/directdebits/{mandateIdentification}:
+    get:
+      summary: Domestic direct debit Consent detail
+      description: |
+        Resource for get detail about the domestic direct debit Consent.
+        
+        It is at the choice of each bank whether to return details of any client’s direct debit Consent or just those that the client has established through a particular TPP.
+
+      operationId: -getDirectDebit
+      tags:
+        - Direct Debits
+
+      security:
+        - OAuth2: [ ]
+        - ClientCert: [ ]
+        - ApiKey: [ ]
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/accountId"
+        - $ref: "./components/parameters/paths.yaml#/mandateIdentification"
+        #query
+        #header
+          #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_DirectDebit.yaml#/OK_200_DomesticDirectDebit"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+    put:
+      summary: Domestic direct debit consent change
+      description: |
+        Resource for change of domestic direct debit Consent specification.
+      operationId: -putDirectDebit
+      tags:
+        - Direct Debits
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/accountId"
+        - $ref: "./components/parameters/paths.yaml#/mandateIdentification"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestPutDirectDebit.yaml#/requestPutDirectDebit"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_changeDirectDebit.yaml#/OK_200_changeDirectDebit"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_putDirectDebit.yaml#/BAD_REQUEST_400_putDirectDebit"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+    delete:
+      summary: Domestic direct debit Consent delete
+      description: |
+        Resource for delete of domestic direct debit Consent specification.
+        
+        
+        Deleting of an authorised domestic direct debit Consent must be followed by the authorization process which is identical with the new domestic direct debit Consent authorisation process.
+
+      operationId: -deleteDirectDebit
+      tags:
+        - Direct Debits
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/accountId"
+        - $ref: "./components/parameters/paths.yaml#/mandateIdentification"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_deleteDirectDebit.yaml#/OK_200_deleteDirectDebit"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/accounts/{id}/directdebits/{mandateIdentification}/sign/{signId}:
+    get:
+      summary: Domestic direct debit authorization Step I
+      description: |
+        First step of direct debit authorization.
+
+      operationId: -getSignDirectDebit
+      tags:
+        - Direct Debits
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/accountId"
+        - $ref: "./components/parameters/paths.yaml#/mandateIdentification"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_getSignDirectDebit.yaml#/OK_200_getSignDirectDebit"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+    post:
+      summary: Domestic direct debit authorization Step II
+      description: |
+        Second step of direct debit authorization.
+
+      operationId: -postSignDirectDebit
+      tags:
+        - Direct Debits
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/accountId"
+        - $ref: "./components/parameters/paths.yaml#/mandateIdentification"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestDirectDebitAuthorizationInitiation.yaml#/requestDirectDebitAuthorizationInitiation"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_postSignDirectDebit.yaml#/OK_200_postSignDirectDebit"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '400':
+          $ref: "./components/responses/AUTH_LIMIT_EXCEEDED_400.yaml#/AUTH_LIMIT_EXCEEDED_400"
+
+    put:
+      summary: Domestic direct debit authorization Step III
+      description: |
+        - An optional resource designed for the finalization of the authorization process. 
+        - The resource may be purely indicative or returns information on whether the authorization process was completed and with what result. 
+        - E.g., in the case of federated authorization.
+        - Or what input, e.g. for entering the received OTP for the SMS method.
+        - Then the output is information on the authorization and also OTP verification.
+        
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -putSignDirectDebit
+      tags:
+        - Direct Debits
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/paymentId"
+        - $ref: "./components/parameters/paths.yaml#/mandateIdentification"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestPutDirectDebitAuthorization.yaml#/requestPutDirectDebitAuthorization"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_putDirectDebitAuthorizationInitiation.yaml#/OK_200_putDirectDebitAuthorizationInitiation"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '400':
+          $ref: "./components/responses/AUTH_LIMIT_EXCEEDED_400.yaml#/AUTH_LIMIT_EXCEEDED_400"
+
+        '501':
+          $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
+
 
   /my/payments/balanceCheck:
     post:
@@ -1064,6 +1646,7 @@ tags:
         *  GET account balance
         *  GET transaction overview
         *  GET list of client’s standing orders
+        *  GET list of client’s domestic direct debits Consents
 
   - name: Payment Initiation
     description: |

@@ -1,0 +1,18 @@
+postDirectDebitAuthorizationInitiation:
+  title: postDirectDebitAuthorizationInitiation
+  description: Response message for direct debit authorization initiation.
+  type: object
+  required:
+    - authorizationType
+    - signInfo
+  properties:
+    authorizationType:
+      $ref: '../elements.yaml#/authorizationType'
+    href:
+      $ref: '../objects.yaml#/href'
+    method:
+      $ref: '../elements.yaml#/method'
+    formData:
+      $ref: '../objects.yaml#/formData'
+    signInfo:
+      $ref: '../objects.yaml#/signInfo'

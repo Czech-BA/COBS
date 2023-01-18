@@ -1,0 +1,12 @@
+requestDirectDebitAuthorizationInitiation:
+  title: requestDirectDebitAuthorizationInitiation
+  description: |
+    Payload of query for direct debit authorization initiation
+  type: object
+  required:
+    - authorizationType
+  properties:
+    authorizationType:
+      $ref: '../elements.yaml#/authorizationType'
+    redirectUrl:
+      $ref: '../elements.yaml#/redirectUrl'

@@ -1,0 +1,32 @@
+postNewDirectDebit:
+  title: New direct debit response
+  description: |
+    Direct Debit with identification and signInfo
+  type: object
+  required:
+    - directDebitIdentification
+    - limit
+    - directDebit
+    - debtorAccount
+    - creditorAccount
+    - signInfo
+    - instructionStatus
+  properties:
+    directDebitIdentification:
+      $ref: "../objects.yaml#/directDebitIdentification"
+    limit:
+      $ref: "../objects.yaml#/directDebitLimit"
+    directDebit:
+      $ref: "../objects.yaml#/directDebit"
+    debtorAccount:
+      $ref: "../objects.yaml#/directDebitDebtorAccount"
+    creditorAccount:
+      $ref: "../objects.yaml#/directDebitCreditorAccount"
+    remittanceInformation:
+      $ref: "../objects.yaml#/remittanceInformation"
+    signInfo:
+      $ref: "../objects.yaml#/signInfo"
+    instructionStatus:
+      $ref: "../elements.yaml#/directDebitInstructionStatus"
+    statusChangeInfo:
+      $ref: "../elements.yaml#/statusChangeInfo"

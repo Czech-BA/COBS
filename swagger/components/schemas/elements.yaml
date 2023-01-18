@@ -336,6 +336,12 @@ value:
   type: number
   example: 10000.00
 
+currency:
+  title: currency
+  description: Amount currency
+  type: string
+  example: "CZK"
+
 requestedExecutionDate:
   title: requestedExecutionDate
   description: |
@@ -569,6 +575,121 @@ mandateIdentification:
   maxLength: 35
   type: string
 
+directDebitMandateIdentification:
+  title: directDebitMandateIdentification
+  description: |
+    Unique Mandate Reference stated for the given direct debit.
+  maxLength: 35
+  type: string
+  example: "a15bbb80-cbc6-475f-8483-3d21788e4eaf"
+
+mandateRequestIdentification:
+  title: mandateRequestIdentification
+  description: |
+    Mandate request identification.
+  maxLength: 35
+  type: string
+
+direcDebitAlias:
+  title: direcDebitAlias
+  description: Description resp. the user-defined domestic direct debit payment name.
+  maxLength: 250
+  type: string
+  example: "Platba za plyn"
+
+directDebitValidFromDate:
+  title: directDebitValidFromDate
+  description: Date when the first domestic direct debit could be processed.
+  type: string
+  example: "2023-01-10"
+
+directDebitValidToDate:
+  title: directDebitValidToDate
+  description: Date when the last domestic direct debit could be processed.
+  type: string
+  example: "2025-01-10"
+
+directDebitMaxIterations:
+  title: directDebitMaxIterations
+  description: Maximum number of iterations of the domestic direct debit allowed against the Consent.
+  type: number
+  example: 100
+
+directDebitExecutionMode:
+  title: directDebitExecutionMode
+  description: |
+    The execution mode defines when or how direct debit will be cancelled, processed the last time.
+    
+    Possible values: 
+    
+      * UNTIL_DATE (direct debit is valid until specific date)  
+      * UNTIL_CANCELLATION (direct debit is valid forever and must be cancelled by client)
+      * AFTER_MAX_ITERATION_EXCEEDED (certain count of executions is specified - field max Iterations)
+      * MAX_AMOUNT_EXCEEDED (maximum amount which can be transferred for this direct debit consent is specified - field value).
+
+  maxLenght: 35
+  type: string
+  enum:
+    - UNTIL_DATE
+    - UNTIL_CANCELLATION
+    - AFTER_MAX_ITERATION_EXCEEDED
+    - MAX_AMOUNT_EXCEEDED
+  example: "UNTIL_DATE"
+
+
+directDebitExecutionInterval:
+  title: directDebitExecutionInterval
+  description: |
+    Execution interval defines how often direct debit is executed. 
+    
+    Possible values: 
+      * DAILY
+      * WEEKLY
+      * MONTHLY
+      * BI_MONTHLY
+      * QUARTERLY
+      * HALFYEARLY
+      * YEARLY
+      * SINGLE
+      * IRREGULAR (if the maximum allowed number of payments per time is not defined)
+
+  maxLenght: 10
+  type: string
+  enum:
+    - DAILY
+    - WEEKLY
+    - MONTHLY
+    - BI_MONTHLY
+    - QUARTERLY
+    - HALFYEARLY
+    - YEARLY
+    - SINGLE
+    - IRREGULAR
+  example: "MONTHLY"
+
+directDebitExecutionValuePeriodLimit:
+  title: directDebitExecutionValuePeriodLimit
+  description: |
+    Amount of interval period limit. A payment limit tied to a payment interval for a certain period of time.
+  type: number
+  example: 10000.00
+
+directDebitExecutionApprovalDirectDebits:
+  title: directDebitExecutionApprovalDirectDebits
+  description: |
+    Receive notifications about the approval of domestic direct debits. 
+
+    Possible values: Y/N
+
+    (Specific for “Smart direct debits” Air Bank)
+
+  maxLength: 250
+  type: string
+  enum:
+    - Y
+    - N
+  example: "N"
+
 chequeNumber:
   title: chequeNumber
   description: |
@@ -590,6 +711,19 @@ instructionStatus:
   maxLength: 35
   type: string
 
+directDebitInstructionStatus:
+  title: directDebitInstructionStatus
+  description: |
+    Status of entered direct debit consent.
+  maxLength: 35
+  type: string
+
+statusChangeInfo:
+  title: statusChangeInfo
+  description: |
+    Specifies the change which was made to the instruction. Used with istructionStatus "ACWC".
+  type: string
+
 scenarios:
   title: scenarios
   description: |
@@ -608,6 +742,13 @@ authorizationType:
   title: authorizationType
   description: |
     Code of required authorization (from authorization scenarios)
+  maxLength: 35
+  type: string
+
+oneTimePassword:
+  title: oneTimePassword
+  description: |
+    One-time password received e.g. in SMS.
   maxLength: 35
   type: string
 

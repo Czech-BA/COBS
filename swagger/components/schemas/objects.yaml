@@ -213,6 +213,16 @@ accountIdentification:
           type: string
           example: "1019382023"
 
+onlyIbanIdentification:
+  title: onlyIbanIdentification
+  description: |
+    Identification of account
+  type: object
+  properties:
+    iban:
+      $ref: "elements.yaml#/iban"
+  example: {"iban": "CZ0950518916425927369341"}
+
 standingOrderIdentification:
   title: standingOrderIdentification
   description: |
@@ -224,6 +234,86 @@ standingOrderIdentification:
     transactionIdentification:
       $ref: "elements.yaml#/transactionIdentification"
 
+directDebitIdentification:
+  title: directDebitIdentification
+  description: |
+    Domestic direct debit identification
+  type: object
+  required:
+    - mandateIdentification
+  properties:
+    mandateIdentification:
+      $ref: "elements.yaml#/directDebitMandateIdentification"
+    mandateRequestIdentification:
+      $ref: "elements.yaml#/mandateRequestIdentification"
+
+directDebit:
+  title: directDebit
+  description: |
+    Structure describing the parameters of domestic direct debit.
+  type: object
+  required:
+    - execution
+    - validity
+  properties:
+    alias:
+      $ref: "elements.yaml#/direcDebitAlias"
+    execution:
+      $ref: "#/directDebitExecution"
+    vlidity:
+      $ref: "#/directDebitValidity"
+
+directDebitValidity:
+  title: directDebitValidity
+  description: |
+    Elements restricting the validity of the domestic direct debit.
+  type: object
+  required:
+    - validFromDate
+  properties:
+    validFromDate:
+      $ref: "elements.yaml#/directDebitValidFromDate"
+    validToDate:
+      $ref: "elements.yaml#/directDebitValidToDate"
+    maxIterations:
+      $ref: "elements.yaml#/directDebitMaxIterations"
+
+directDebitExecution:
+  title: directDebitExecution
+  description: Features of execution a domestic direct debit for payment.
+  type: object
+  required:
+    - directDebitExecutionMode
+    - directDebitExecutionInterval
+  properties:
+    mode:
+      $ref: "elements.yaml#/directDebitExecutionMode"
+    interval:
+      $ref: "elements.yaml#/directDebitExecutionInterval"
+    valuePeriodLimit:
+      $ref: "elements.yaml#/directDebitExecutionValuePeriodLimit"
+    approvalDirectDebits:
+      $ref: "elements.yaml#/directDebitExecutionApprovalDirectDebits"
+
+directDebitLimit:
+  title: directDebitLimit
+  description: |
+    Limit of domestic direct debit
+  type: object
+  properties:
+    directDebitPaymentLimit:
+      $ref: "#/directDebitPaymentLimit"
+
+directDebitPaymentLimit:
+  title: directDebitPaymentLimit
+  description: |
+    Limit of domestic direct debit (not related to any period of time (e.g. monthly) - it is a limit of an individual payment)
+  type: object
+  properties:
+    value:
+      $ref: "elements.yaml#/value"
+    crrency:
+      $ref: "elements.yaml#/currency"
 
 streetName:
   title: streetName
@@ -723,6 +813,15 @@ paymentCreditorAccount:
     currency:
       $ref: "#/currencyCode"
 
+directDebitCreditorAccount:
+  title: directDebitCreditorAccount
+  description: |
+    Information on the payee account. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    identification:
+      $ref: "#/onlyIbanIdentification"
+
 debtorAccount:
   title: debtorAccount
   description: |
@@ -750,6 +849,17 @@ paymentDebtorAccount:
       $ref: "#/accountIdentification"
     currency:
       $ref: "#/currencyCode"
+
+directDebitDebtorAccount:
+  title: directDebitDebtorAccount
+  description: |
+    Information on the account payer. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  required:
+    - identification
+  properties:
+    identification:
+      $ref: "#/onlyIbanIdentification"
 
 debtorAccountSO:
   title: debtorAccountSO
@@ -1126,6 +1236,64 @@ transactionInfo:
     entryDetails:
       $ref: "#/entryDetails"
 
+domesticDirectDebit:
+  title: domesticDirectDebit
+  description: |
+    Direct Debit
+  type: object
+  required:
+    - directDebitIdentification
+    - directDebit
+    - debtorAccount
+    - creditorAccount
+  properties:
+    directDebitIdentification:
+      $ref: "#/directDebitIdentification"
+    limit:
+      $ref: "#/directDebitLimit"
+    directDebit:
+      $ref: "#/directDebit"
+    debtorAccount:
+      $ref: "#/directDebitDebtorAccount"
+    creditorAccount:
+      $ref: "#/directDebitCreditorAccount"
+    remittanceInformation:
+      $ref: "#/remittanceInformation"
+
+signetDomesticDirectDebit:
+  title: signetDomesticDirectDebit
+  description: |
+    Direct Debit with signInfo
+  type: object
+  required:
+    - directDebitIdentification
+    - limit
+    - directDebit
+    - debtorAccount
+    - creditorAccount
+    - signInfo
+    - instructionStatus
+  properties:
+    directDebitIdentification:
+      $ref: "#/directDebitIdentification"
+    limit:
+      $ref: "#/directDebitLimit"
+    directDebit:
+      $ref: "#/directDebit"
+    debtorAccount:
+      $ref: "#/directDebitDebtorAccount"
+    creditorAccount:
+      $ref: "#/directDebitCreditorAccount"
+    remittanceInformation:
+      $ref: "#/remittanceInformation"
+    signInfo:
+      $ref: "#/signInfo"
+    instructionStatus:
+      $ref: "elements.yaml#/directDebitInstructionStatus"
+    statusChangeInfo:
+      $ref: "elements.yaml#/statusChangeInfo"
+
+
 standingOrders:
   title: standingOrders
   description: |
@@ -1230,6 +1398,13 @@ transactionsList:
   items:
     $ref: "#/transactionInfo"
 
+directDebitsList:
+  title: directdebitsList
+  description: |
+    List of domestic direct debits
+  type: array
+  items:
+    $ref: "#/signetDomesticDirectDebit"
 
 standingorderList:
   title: standingorderList

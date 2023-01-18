@@ -24,3 +24,12 @@ signId:
   required: true
   schema:
     $ref: "../schemas/elements.yaml#/signId"
+
+mandateIdentification:
+  name: mandateIdentification
+  in: path
+  description: |
+    Identifier of domestic direct debit instruction.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/mandateIdentification"

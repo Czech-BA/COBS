@@ -1,0 +1,36 @@
+OK_200_postSignDirectDebit:
+  description: OK
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+    Signature:
+      $ref: "../parameters/responseHeaders.yaml#/signatureHeaderRes"
+    Digest:
+      $ref: "../parameters/responseHeaders.yaml#/digestHeaderRes"
+    ASPSP-Signature-Certificate:
+      $ref: "../parameters/responseHeaders.yaml#/aspspSignatureCertificate"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/responsePayloads/postDirectDebitAuthorizationInitiation.yaml#/postDirectDebitAuthorizationInitiation"
+      example:
+        {
+          "authorizationType": "USERAGENT_REDIRECT",
+          "href": {
+            "url": "http://www.bank.cz/authorization/164298331754922",
+            "id": "164298331754922"
+          },
+          "method": "GET",
+          "formData": {
+            "SAMLRequest": "45sa4d4e4e4fds5f6s4df4sd6f",
+            "relayState": "token"
+          },
+          "signInfo": {
+            "state": "OPEN",
+            "signId": "164298331754922"
+          }
+        }
