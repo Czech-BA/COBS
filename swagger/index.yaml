@@ -12,6 +12,10 @@ servers:
   - url: https://api.bank.cz
     description: An openbanking test server
 
+components:
+  securitySchemes:
+    $ref: "./components/securitySchemas.yaml"
+
 paths:
   /my/accounts:
     get:
@@ -865,7 +869,7 @@ paths:
 
       parameters:
         #path
-        - $ref: "./components/parameters/paths.yaml#/paymentId"
+        - $ref: "./components/parameters/paths.yaml#/accountId"
         - $ref: "./components/parameters/paths.yaml#/mandateIdentification"
         - $ref: "./components/parameters/paths.yaml#/signId"
         #header

@@ -1,5 +1,4 @@
 OK_200_changeDirectDebit:
-  title: Changet direct debit response
   description: OK
   headers:
     Content-Type:

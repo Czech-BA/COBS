@@ -1,5 +1,4 @@
 OK_200_newDirectDebit:
-  title: New direct debit response
   description: OK
   headers:
     Content-Type:

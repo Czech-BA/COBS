@@ -627,7 +627,7 @@ directDebitExecutionMode:
       * AFTER_MAX_ITERATION_EXCEEDED (certain count of executions is specified - field max Iterations)
       * MAX_AMOUNT_EXCEEDED (maximum amount which can be transferred for this direct debit consent is specified - field value).
 
-  maxLenght: 35
+  maxLength: 35
   type: string
   enum:
     - UNTIL_DATE
@@ -653,7 +653,7 @@ directDebitExecutionInterval:
       * SINGLE
       * IRREGULAR (if the maximum allowed number of payments per time is not defined)
 
-  maxLenght: 10
+  maxLength: 10
   type: string
   enum:
     - DAILY
