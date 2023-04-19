@@ -1589,3 +1589,14 @@ formData:
     id:
       $ref: 'elements.yaml#/relayState'
 
+rar:
+  title: rar
+  description: Optional element (authorizationType=RAR). For the method using rich authorization request to process the payment with a single SCA element. Contains data for sending in redirecting to federated authorization.
+  type: object
+  properties:
+    par_uri:
+      $ref: 'elements.yaml#/url'
+    scope:
+      $ref: 'elements.yaml#/scope'
+    authorization_details:
+      $ref: 'elements.yaml#/authorizationDetails'

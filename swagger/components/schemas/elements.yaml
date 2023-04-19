@@ -815,3 +815,17 @@ instructionForNextAgent:
     Other information related to the payment order processing which is to be executed by another bank.
   type: string
 
+scope:
+  title: scope
+  description: |
+    dynamic scope that has to be added to scope list of authorization request. The scope should contain id (e.g. signId) that can be used as a link between the authorization object and access token.
+  maxLength: 50
+  type: string
+  example: "signId7c44e312-5019-429a-841f-d9800be8688d"
+
+authorizationDetails:
+  title: authorization_details
+  description: |
+    Encrypted data (recommended JWE) that containt subject of authorization in base64 encoding.
+  type: string
+  example: "5000U2FsdGVkX1/xaq5hQD/PU6JHEncGMTkqtrWwyyzD0JESLsVIsNlm1f0zYYeJBHhg3ghWI3BuSm9eZeCYrMbj2VkmPW7rEFX0mI92bb7EZdQe9rmYfCO5nI+1Q7jow38seZAGe2xoaXbrf47YaDZTNdUfFNkHQoEQaa1CjuhXuj3/bvpcj3dtTzj4KExI/a1od6LmiiPP5xch/P0E3xGraclZW7QMNMqFSzCuZT7vWyHNAX9yKW8pPb.."

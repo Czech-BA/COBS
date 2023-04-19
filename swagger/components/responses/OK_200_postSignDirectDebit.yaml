@@ -29,6 +29,11 @@ OK_200_postSignDirectDebit:
             "SAMLRequest": "45sa4d4e4e4fds5f6s4df4sd6f",
             "relayState": "token"
           },
+          "rar": {
+            "par_uri": "http://www.bank.cz/authorization/par",
+            "scope": "signId164298331754922",
+            "authorization_details": "U2FsdGVkX1/xaq5hQD/PU6JHEncGMTkqtrWwyyzD0JESLsVIsNlm1f0zYYeJBHhg3ghWI3BuSm9eZeCYrMbj2VkmPW7rEFX0mI92bb7EZdQe9rmYfCO5nI+1Q7jow38seZAGe2xoaXbrf47YaDZTNdUfFNkHQoEQaa1CjuhXuj3/bvpcj3dtTzj4KExI/a1od6LmiiPP5xch/P0E3xGraclZW7QMNMqFSzCuZT7vWyHNAX9yKW8pPb+M0NudCCSvpdCE4hsjijhtIu0PqI0oNw75wEkYdt2UrWN2pB2aOrB/hZiuYnkjrABmeerAfit7pK4mLE9xr9KVqSpnMI/TFcmY/SUeAE1UBr1SI371GFbSuIPCaDk7KEYJeqJL9AibilMNH5jlniRrNt8gaHf6DmaInOsiBLwRM/s4Xprqgnm5PzoEEeWYu8Km05Z/kDtLLA9yHRFiA0oDSScD7bnsnRtSx4cTX1I1T3qIop8HfQFd/41hWZfStQFCpC53Ry/fPGfRazkJ5fg8M+RIRd/bOSfDJovF6cg/y1SQUW1FRQzBXwuPTxYT6kaSaoAaZeuhnMeQyhX25wmDBDLrUsVFjM0z3eTQWWnQa3jHpmWRlg2KlU9Rq6G+cBFQcUuq4Y6/r+aAyhjDE2JMk74SLCDqm3W7jTjMxkrq8KekIR8vhP1qxZcFFSmU/cIolICkkKUGsT+pMRtBjkIoWXT2ievQ0RHTQhQ8Z1NjHYVkRNMdcEB3Ckuf36890lgjC+RXEd2/85SBGYLAMiemq/wuWlRMVmzeFoeY9GkLm7ZKwUuTzKm3Y1+c7Jq/9NJ0Hen81FEec8GUR+23dXZdbwbPfNsFgtnQvYYBaMm0w4vrreKXdykKYGG3O0L55mp4NaaNkJ4L5nmrUUVf5fM5Y49KV66fqVk4rVnnaQOROseuyWQz5HoLVM4ePxKz4xEPZZtbanu+R8x6/lg5q839o6o56K9Um0nWVcP88UkqAULeQjabr8R89pcAsk7+SpGRqGL1gqeX+NasjsAO7oF5YrKBRqme1uwlFOP5KeHOJpAwoq5CTuRyJ7Gd2MjON4SWRk7vpEueJZYAVyIHabQZ6mBXcnspmIngqifD746JFC+kCu4QaeHEKM1MJyUvMRClzNJ/QLbcq6mFjk53HIMH6uibP3TyYg=="
+          },
           "signInfo": {
             "state": "OPEN",
             "signId": "164298331754922"

@@ -16,3 +16,5 @@ postDirectDebitAuthorizationInitiation:
       $ref: '../objects.yaml#/formData'
     signInfo:
       $ref: '../objects.yaml#/signInfo'
+    rar:
+      $ref: '../objects.yaml#/rar'      
