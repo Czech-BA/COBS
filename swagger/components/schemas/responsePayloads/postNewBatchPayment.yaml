@@ -1,0 +1,26 @@
+postNewBatchPayment:
+  title: newBatchPayment
+  description: Response for new payment initialization
+  type: object
+  required:
+    - transactionIdentification
+    - signInfo
+    - instructionStatus
+  properties:
+    transactionIdentification:
+      $ref: '../elements.yaml#/transactionIdentification'
+    signInfo:
+      $ref: '../objects.yaml#/signInfo'
+    instructionStatus:
+      $ref: "../elements.yaml#/batchPaymentsInstructionStatus"
+    statusChangeInfo:
+      $ref: "../elements.yaml#/statusChangeInfo"
+  example:
+    {
+      "transactionIdentification": "033225570000078020091",
+      "signInfo": {
+        "state": "OPEN",
+        "signId": "164298331754922"
+      },
+      "instructionStatus": "ACTC"
+    }

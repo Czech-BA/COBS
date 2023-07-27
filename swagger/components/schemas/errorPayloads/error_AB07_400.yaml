@@ -1,0 +1,21 @@
+error_AB07_400:
+  title: error_AB07_400
+  description: |
+    [Offline Agent] - The ČNB is not currently available for the Czech instant payments.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AB07"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"AB07"
+    }]

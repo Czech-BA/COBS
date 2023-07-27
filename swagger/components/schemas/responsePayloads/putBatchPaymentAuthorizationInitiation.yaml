@@ -1,0 +1,12 @@
+putBatchPaymentAuthorizationInitiation:
+  title: putBatchPaymentAuthorizationInitiation
+  description: Response message for put Batch payment authorization initiation.
+  type: object
+  required:
+    - state
+    - pollInterval
+  properties:
+    state:
+      $ref: '../elements.yaml#/state'
+    pollInterval:
+      $ref: '../elements.yaml#/pollInterval'

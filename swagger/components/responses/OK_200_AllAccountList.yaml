@@ -35,8 +35,16 @@ OK_200_AllAccountList:
               "countryCode": "CZ",
               "bic": "GIBACZPX"
             },
+            "relationship": {
+              "isOwner": true
+            },
             "nameI18N": "Muj hlavni osobni ucet",
-            "productI18N": "Osobní účet ČS"
+            "productI18N": "Osobní účet ČS",
+            "suitableScope": {
+              "AISP": "",
+              "PISP": "paymentOrders paymentOrders.instantPayment standingOrders",
+              "CISP": ""
+            }
           }
           ]
         }

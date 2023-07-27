@@ -1,0 +1,10 @@
+error400_postPaymentAuthorization:
+  title: error400_postPaymentAuthorization
+  description: Bad request
+  properties:
+    errors:
+      type: array
+      items:
+        anyOf:
+          - $ref: "error_AUTH_LIMIT_EXCEEDED_400.yaml#/error_AUTH_LIMIT_EXCEEDED_400"
+          - $ref: "error_INVALID_AUTHORIZATION_REDIRECT_URI_400.yaml#/error_INVALID_AUTHORIZATION_REDIRECT_URI_400"

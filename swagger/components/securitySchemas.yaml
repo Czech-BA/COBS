@@ -1,8 +1,14 @@
 OAuth2:
   description: |
-    Bearer OAuth2 Token.
-  type: http
-  scheme: bearer
+    This API uses OAuth 2 with the implicit grant flow.
+  type: oauth2
+  flows:
+    authorizationCode:
+      authorizationUrl: /oauth/authorize
+      tokenUrl: /oauth/token
+      scopes:
+        AISP: acount informations
+        PISP: payment initialization
 
 ClientCert:
   description: |

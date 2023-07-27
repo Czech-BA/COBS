@@ -16,6 +16,15 @@ paymentId:
   schema:
     $ref: "../schemas/elements.yaml#/transactionIdentification"
 
+transactionIdentification:
+  name: transactionIdentification
+  in: path
+  description: |
+    Identifier of order instruction
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/transactionIdentification"
+
 signId:
   name: signId
   in: path

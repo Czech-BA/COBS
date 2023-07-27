@@ -5,7 +5,7 @@ info:
   description: |
 
   contact:
-    name: Petr Michalik, Andrea Lisá, Luisa Kadlecova
+    name: Petr Michalik, Tomáš Rosa
     email: pmichalik@csas.cz
 
 servers:
@@ -262,6 +262,163 @@ paths:
         '503':
           $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
 
+  /my/payments/awaiting:
+    get:
+      summary: Overview of awaiting transactions
+      description: |
+        Paged list of client’s awaiting payments on all accounts. Each payment contains a unique id usable for URI referencing, e.g. for the payment detail.
+        Additionally, the debtorAccount contains an API account id to call the account details resource to which the payment order is issued.
+
+      operationId: -getAwaitingTransactions
+      tags:
+        - Account information
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+
+        #query
+        - $ref: "./components/parameters/queries.yaml#/pageSizeParam"
+        - $ref: "./components/parameters/queries.yaml#/pageParam"
+        - $ref: "./components/parameters/queries.yaml#/sortParam"
+        - $ref: "./components/parameters/queries.yaml#/orderParam"
+          #header
+          #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_AwaitingAccountsTransactions.yaml#/OK_200_AwaitingAccountsTransactions"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_getAccountsTransactions.yaml#/BAD_REQUEST_400_getAccountsTransactions"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/accounts/{id}/payments/awaiting:
+    get:
+      summary: Overview of awaiting transactions on specific user account
+      description: |
+        Paged list of client’s awaiting payments on specific accounts. Each payment contains a unique id usable for URI referencing, e.g. for the payment detail.
+        Additionally, the debtorAccount contains an API account id to call the account details resource to which the payment order is issued.
+
+      operationId: -getAccountAwaitingTransactions
+      tags:
+        - Account information
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/accountId"
+        #query
+        - $ref: "./components/parameters/queries.yaml#/pageSizeParam"
+        - $ref: "./components/parameters/queries.yaml#/pageParam"
+        - $ref: "./components/parameters/queries.yaml#/sortParam"
+        - $ref: "./components/parameters/queries.yaml#/orderParam"
+          #header
+          #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_AwaitingAccountsTransactions.yaml#/OK_200_AwaitingAccountsTransactions"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_getAccountsTransactions.yaml#/BAD_REQUEST_400_getAccountsTransactions"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+
   /my/standingorders:
     get:
       summary: List of client’s standing orders
@@ -276,7 +433,7 @@ paths:
           * **Filtering:**  no
       operationId: -getStandingorders
       tags:
-        - Account information
+        - Standing Orders
 
       security:
         - OAuth2: []
@@ -341,6 +498,612 @@ paths:
 
         '503':
           $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+    post:
+      summary: New standing order - instruction initiation
+      description: |
+        Resource for entering a new standingorder.
+      operationId: -postNewStandingOrder
+      tags:
+        - Standing Orders
+
+      security:
+        - OAuth2: [ ]
+        - ClientCert: [ ]
+        - ApiKey: [ ]
+
+      parameters:
+        #path
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestNewStandingOrder.yaml#/requestNewStandingOrder"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_newStandingOrder.yaml#/OK_200_newStandingOrder"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_postNewStandingOrder.yaml#/BAD_REQUEST_400_postNewStandingOrder"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+
+  /my/standingorders/{transactionIdentification}:
+    get:
+      summary: Detail about the standing order
+      description: |
+        Resource for get detail about the standing order. 
+        It is at the choice of each bank whether to return details of any client’s standing order or just those that the client has established through a particular TPP.
+  
+  
+          **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getStandingorder
+      tags:
+        - Standing Orders
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_StandingOrder.yaml#/OK_200_StandingOrder"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+    delete:
+      summary: Resource to delete standing order.
+      description: |
+        Resource to delete unauthorised and authorised standing orders. 
+
+        Deleting of an authorised standing order must be followed by the authorisation process which is identical with the new standing order authorisation process.
+        
+        
+          **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -deleteStandingorder
+      tags:
+        - Standing Orders
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_deleteStandingOrder.yaml#/OK_200_deleteStandingOrder"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+    put:
+      summary: Update standing order - instruction initiation
+      description: |
+        Resource for change of standing order specification.
+      operationId: -updateStandingOrder
+      tags:
+        - Standing Orders
+
+      security:
+        - OAuth2: [ ]
+        - ClientCert: [ ]
+        - ApiKey: [ ]
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestPutStandingOrder.yaml#/requestPutStandingOrder"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_putStandingOrder.yaml#/OK_200_putStandingOrder"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_postNewStandingOrder.yaml#/BAD_REQUEST_400_postNewStandingOrder"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+
+  /my/standingorders/{transactionIdentification}/status:
+    get:
+      summary: Resource for getting status of the standing order
+      description: |
+        Resource for getting status of the standing order.
+        
+          **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getStandingorderStatus
+      tags:
+        - Standing Orders
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_StandingOrderStatus.yaml#/OK_200_StandingOrderStatus"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/standingorders/{transactionIdentification}/sign/{signId}:
+    get:
+      summary: Step I. Standing Order authorization detail
+      description: |
+        - To identify the status and scenarios of Standing Order authorization.
+        - Part of the response is also the set of scenarios that may contain one or more authorisation scenarios. If more scenarios are returned, it is up to the client to select what scenario to choose. The power of verifying each scenario should correspond to the power of other scenarios, or the scenarios are mutually replaceable.
+        - Each scenario is defined as the sequence of codes of particular authorization methods.
+        - Each bank may define and describe in its documentation its own authorization scenarios.
+        - CODE of authorization methods of these scenarios is used in the response of this resource.
+        
+        
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getStandingOrderAuthorizationDetail
+      tags:
+        - Standing Orders
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_StandingOrderAuthorizationId.yaml#/OK_200_StandingOrderAuthorizationId"
+
+        '400':
+          $ref: "./components/responses/AUTH_LIMIT_EXCEEDED_400.yaml#/AUTH_LIMIT_EXCEEDED_400"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '501':
+          $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
+
+    post:
+      summary: Step II. Standing Order authorization initiation - specific for each bank
+      description: |
+        - This resource is designed to **start a specific authorization method** from the selected scenario.
+        - The input is the JSON object containing the required type of authorization method - **CODE** and all elements specific for that step.
+        - The output of this resource is an overview of values required for completing the authorization.
+        - **E.g., for CODE corresponding to the federated authorization, the response will be URL and parameters for redirecting to the federated authorization page.**
+        - And, for instance, for CODE corresponding to authorization through the OTP code sent by SMS, the response will only be the confirmation of sending the code. The sending as such is initiated by the bank.
+        
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -postStandingOrderAuthorizationInitiation
+      tags:
+        - Standing Orders
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestStandingOrderAuthorizationInitiation.yaml#/requestStandingOrderAuthorizationInitiation"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_postStandingOrderAuthorizationInitiation.yaml#/OK_200_postStandingOrderAuthorizationInitiation"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_postPaymentAuthorization.yaml#/BAD_REQUEST_400_postPaymentAuthorization"
+
+    put:
+      summary: Step III. Standing Order authorization initiation – specific for each bank
+      description: |
+        - An optional resource designed for the finalization of the authorization process. 
+        - The resource may be purely indicative or returns information on whether the authorization process was completed and with what result. 
+        - E.g., in the case of federated authorization.
+        - Or what input, e.g. for entering the received OTP for the SMS method.
+        - Then the output is information on the authorization and also OTP verification.
+        
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -putStandingOrderAuthorizationInitiation
+      tags:
+        - Standing Orders
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_putStandingOrderAuthorizationInitiation.yaml#/OK_200_putStandingOrderAuthorizationInitiation"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '400':
+          $ref: "./components/responses/AUTH_LIMIT_EXCEEDED_400.yaml#/AUTH_LIMIT_EXCEEDED_400"
+
+        '501':
+          $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
+
+
 
   /my/accounts/{id}/directdebits:
     get:
@@ -1066,7 +1829,7 @@ paths:
         '503':
           $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
 
-  /payments/{paymentId}/status:
+  /my/payments/{paymentId}/status:
     get:
       summary: Payment status.
       description: |
@@ -1130,7 +1893,7 @@ paths:
         '404':
           $ref: "./components/responses/TRANSACTION_MISSING_404.yaml#/TRANSACTION_MISSING_404"
 
-  /payments/{paymentId}:
+  /my/payments/{paymentId}:
     get:
       summary: Payment info.
       description: |
@@ -1196,7 +1959,6 @@ paths:
         '501':
           $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
 
-  /my/payments/{paymentId}:
     delete:
       summary: Deleting the entered unathorised payment
       description: |
@@ -1339,7 +2101,7 @@ paths:
           $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
 
 
-  /my/payments/{paymentId}/sign/{signId}/:
+  /my/payments/{paymentId}/sign/{signId}:
     get:
       summary: Step I. Payment authorization detail
       description: |
@@ -1491,7 +2253,7 @@ paths:
           $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
 
         '400':
-          $ref: "./components/responses/AUTH_LIMIT_EXCEEDED_400.yaml#/AUTH_LIMIT_EXCEEDED_400"
+          $ref: "./components/responses/BAD_REQUEST_400_postPaymentAuthorization.yaml#/BAD_REQUEST_400_postPaymentAuthorization"
 
     put:
       summary: Step III. Payment authorization initiation – specific for each bank
@@ -1569,6 +2331,73 @@ paths:
         '501':
           $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
 
+  /my/authorizations:
+    get:
+      summary: Get list of authorizations
+      description: |
+        Resource to obtain a list of authorization requests for authenticated user and TPP.
+
+      operationId: -getListOfAuthorizations
+      tags:
+        - Payment Initiation
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_ListOfAuthorizations.yaml#/OK_200_ListOfAuthorizations"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+
   /accounts/balanceCheck:
     post:
       summary: Query for Balance Check
@@ -1637,6 +2466,445 @@ paths:
         '503':
           $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
 
+  /my/batchpayments:
+    post:
+      summary: New batch payment - instruction initiation
+      description: |
+        Resource for entering a new batch payment.
+      operationId: -postNewBatchPayment
+      tags:
+        - Batch Payments
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+        #path
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestNewBatchPayment.yaml#/requestNewBatchPayment"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_newBatchPayment.yaml#/OK_200_newBatchPayment"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_postNewBatchPayment.yaml#/BAD_REQUEST_400_postNewBatchPayment"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/batchpayments/{transactionIdentification}:
+    delete:
+      summary: Delete batch payment
+      description: |
+        A resource for deleting the unauthorised batch payment. Deleting is not conditioned by the transaction authorisation as it is not a payment received by the bank.
+      operationId: -deleteBatchPayment
+      tags:
+        - Batch Payments
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        #query
+        - $ref: "./components/parameters/queries.yaml#/allInstructions"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          description: OK
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/batchpayments/{transactionIdentification}/status:
+    get:
+      summary: Batch payment status
+      description: |
+        Resource for entering a new batch payment.
+      operationId: -getBatchPaymentStatus
+      tags:
+        - Batch Payments
+
+      security:
+        - OAuth2: []
+        - ClientCert: []
+        - ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_getBatchPaymentStatus.yaml#/OK_200_getBatchPaymentStatus"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+
+  /my/batchpayments/{transactionIdentification}/sign/{signId}:
+    get:
+      summary: Step I. Batch payment authorization detail
+      description: |
+        - To identify the status and scenarios of batch payment authorization.
+        - Part of the response is also the set of scenarios that may contain one or more authorisation scenarios. If more scenarios are returned, it is up to the client to select what scenario to choose. The power of verifying each scenario should correspond to the power of other scenarios, or the scenarios are mutually replaceable.
+        - Each scenario is defined as the sequence of codes of particular authorization methods.
+        - Each bank may define and describe in its documentation its own authorization scenarios.
+        - CODE of authorization methods of these scenarios is used in the response of this resource.
+
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -getBatchPaymentAuthorizationDetail
+      tags:
+        - Batch Payments
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_BatchPaymentAuthorizationId.yaml#/OK_200_BatchPaymentAuthorizationId"
+
+        '400':
+          $ref: "./components/responses/AUTH_LIMIT_EXCEEDED_400.yaml#/AUTH_LIMIT_EXCEEDED_400"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '501':
+          $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
+
+    post:
+      summary: Step II. Batch Payment authorization initiation - specific for each bank
+      description: |
+        - This resource is designed to **start a specific authorization method** from the selected scenario.
+        - The input is the JSON object containing the required type of authorization method - **CODE** and all elements specific for that step.
+        - The output of this resource is an overview of values required for completing the authorization.
+        - **E.g., for CODE corresponding to the federated authorization, the response will be URL and parameters for redirecting to the federated authorization page.**
+        - And, for instance, for CODE corresponding to authorization through the OTP code sent by SMS, the response will only be the confirmation of sending the code. The sending as such is initiated by the bank.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of API calling
+          * **Use certificate:**  request requires the use of the qualified third-party certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -postBatchPaymentAuthorizationInitiation
+      tags:
+        - Batch Payments
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestBatchPaymentAuthorizationInitiation.yaml#/requestBatchPaymentAuthorizationInitiation"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_postBatchPaymentAuthorizationInitiation.yaml#/OK_200_postBatchPaymentAuthorizationInitiation"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_postPaymentAuthorization.yaml#/BAD_REQUEST_400_postPaymentAuthorization"
+
+    put:
+      summary: Step III. Batch Payment authorization initiation – specific for each bank
+      description: |
+        - An optional resource designed for the finalization of the authorization process. 
+        - The resource may be purely indicative or returns information on whether the authorization process was completed and with what result. 
+        - E.g., in the case of federated authorization.
+        - Or what input, e.g. for entering the received OTP for the SMS method.
+        - Then the output is information on the authorization and also OTP verification.
+
+        **Resource characteristics:**
+          * **Authorization:**  request requires the authorization of user/client as part of the API calling
+          * **Use certificate:**  request requires the use of the third-party qualified certificate
+          * **Paging:** no
+          * **Sorting:**  no
+          * **Filtering:**  no
+      operationId: -putBatchPaymentAuthorizationInitiation
+      tags:
+        - Batch Payments
+
+      security:
+        - OAuth2: []
+          ClientCert: []
+          ApiKey: []
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
+        - $ref: "./components/parameters/paths.yaml#/signId"
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_putBatchPaymentAuthorizationInitiation.yaml#/OK_200_putBatchPaymentAuthorizationInitiation"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '400':
+          $ref: "./components/responses/AUTH_LIMIT_EXCEEDED_400.yaml#/AUTH_LIMIT_EXCEEDED_400"
+
+        '501':
+          $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
+
+
 tags:
   #######################################################
   #                    Tags Definitions
@@ -1646,43 +2914,67 @@ tags:
       Specification of API Information about the account contains a description of resources for the acquisition of  information about the payment account/accounts of the bank client.
 
       **Overview of resources:**
-        *  GET list of client payment accounts
-        *  GET account balance
-        *  GET transaction overview
-        *  GET list of client’s standing orders
-        *  GET list of client’s domestic direct debits Consents
+        * GET list of client payment accounts
+        * GET account balance
+        * GET transaction overview
+        * GET list of client’s standing orders
+        * GET list of client’s domestic direct debits Consents
 
   - name: Payment Initiation
     description: |
       Specification of API Payment Initiation contains a description of resources for the payment initiation and the Balance Check of the payer (client) at a specific financial institution.
 
       **Overview of resources:**
-        *  POST query for balance check
-        *  POST new single payment (Payment Initiation)
-        *  GET status of entered/initiated single payment
-        *  DELETE deletion of the entered and not authorised single payment
-        *  POST generation of authorization ID for single payment
-        *  Single payment authorisation
+        * POST query for balance check
+        * POST new single payment (Payment Initiation)
+        * GET status of entered/initiated single payment
+        * DELETE deletion of the entered and not authorised single payment
+        * POST generation of authorization ID for single payment
+        * Single payment authorisation
            * GET Step I. payment authorisation detail
            * POST Step II. payment authorisation initiation - specific for each bank
            * PUT Step III. payment authorisation finalization - specific for each bank
-        * POST new standing order
-        * GET standing order detail
-        * GET standing order status
+        * GET List of PSU authorizations
+
+  - name: Standing Orders
+    description: |
+      Overview of resources for the establishment, authorization and administration of standing orders.
+
+      **Overview of resources:**
+        * POST New standing order - instruction initiation 
+          * GET Standing order authorization Step I
+          * POST Standing order authorization Step II
+          * PUT Standing order authorization Step III
+        * GET Standing order detail
+        * GET Standing order status
+        * PUT Existing standing order change
         * DELETE unauthorised standing order
-        * PUT standing order change
-        * Standing order authorization
-            * GET Step I. standing order authorization detail
-            * POST Step II. standing order authorization initiation - specific for each bank
-            * PUT Step III. Standing order authorization finalization - specific for each bank
-        * Batch payment - bulk authorization
-        * DELET Batch payment
-        *  GET Batch payment status
-        * Batch payment authorization
-            * GET Batch payment authorization step I
-            * POST Batch payment authorization step II
-            * PUT Batch payment authorization step III
-        *  GET List of PSU authorizations
+
+  - name: Direct Debits
+    description: |
+      Overview of resources for the establishment, authorization and administration of domestic direct debit consent.
+
+      **Overview of resources:**
+        * POST Domestic direct debit consent - instruction initiation
+          * GET Direct debit authorization Step I
+          * POST Direct debit authorization Step II
+          * PUT Direct debit authorization Step III
+        * GET Domestic direct debit Consent detail
+        * GET List of client’s domestic direct debits Consents
+        * PUT Change of existing Domestic direct debit Consent
+        * DELETE Domestic direct debit Consent delete
+
+  - name: Batch Payments
+    description: |
+      Overview of resources for the establishment, authorization and administration of batch payments.
+
+      **Overview of Batch payment - bulk authorization resources:**
+        * POST New batch payment - instruction initiation 
+          * GET Batch payment authorization Step I
+          * POST Batch payment authorization Step II
+          * PUT Batch payment authorization Step III
+        * DELETE Batch payment
+        * GET Batch payment status
 
   - name: Balance check
     description: |

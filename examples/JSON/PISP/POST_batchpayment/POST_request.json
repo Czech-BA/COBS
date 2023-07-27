@@ -1,13 +1,15 @@
 {
-   "exchangeIdentification": "658576010faf0a23dc",
-   "instructionName": "Some heap of confusion for my bank ...",
-"payments": {
-      "signId": "SomeID-1285673519924",
-     },
-             {
-      "signId": "SomeID-1285673519925",
-     },
-             {
-      "signId": "SomeID-1285673519929",
-     },
+  "exchangeIdentification": "658576010faf0a23dc",
+  "instructionName": "Some heap of confusion for my bank ...",
+  "payments": [
+    {
+      "signId": "SomeID-1285673519924"
+    },
+    {
+      "signId": "SomeID-1285673519925"
+    },
+    {
+      "signId": "SomeID-1285673519929"
+    }
+  ]
 }

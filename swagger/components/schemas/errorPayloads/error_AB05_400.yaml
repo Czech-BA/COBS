@@ -1,0 +1,21 @@
+error_AB05_400:
+  title: error_AB05_400
+  description: |
+    [Timeout Creditor Agent] - Transaction declined due to timeout.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AB05"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"AB05"
+    }]

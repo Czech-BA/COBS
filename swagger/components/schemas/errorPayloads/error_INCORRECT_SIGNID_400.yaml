@@ -1,0 +1,21 @@
+error_INCORRECT_SIGNID_400:
+  title: error_INCORRECT_SIGNID_400
+  description: |
+    One or more signIDs are missing or are incorrect or do not have open state.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "INCORRECT_SIGNID"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"INCORRECT_SIGNID"
+    }]

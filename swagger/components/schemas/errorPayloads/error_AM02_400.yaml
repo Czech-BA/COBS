@@ -1,0 +1,22 @@
+error_AM02_400:
+  title: error_AM02_400
+  description: |
+    [Not Allowed Amount] - Exceeded limit for single instant payment.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AM02"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"AM02",
+      "scope":"amount"
+    }]

@@ -1,0 +1,13 @@
+requestBatchPaymentAuthorizationInitiation:
+  description: |
+    JSON request body for Batch payment Authorization Inititation
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/requestPayloads/requestDirectDebitAuthorizationInitiation.yaml#/requestDirectDebitAuthorizationInitiation"
+      example:
+        {
+          "authorizationType": "SMS",
+          "redirectUrl": "http://my.sometpp.com/..."
+        }

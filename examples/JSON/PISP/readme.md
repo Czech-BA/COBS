@@ -30,3 +30,12 @@ Examples for API Payment Initiation contains the samples of request and response
    - [POST Authorization Step II. Batch payment Authorization Initiation ](POST_batchpayment_authorization/readme.md)
    - [PUT Authorization Step III. Batch payment Authorization Finalization](PUT_batchpayment_authorization/readme.md)
  - [GET list of authorizations - co-signing](GET_authorizations/readme.md)
+ - [POST new directdebit](POST_new_directdebit/readme.md)
+ - [GET directdebit detail](GET_directdebit_detail/readme.md)
+ - [GET directdebit list](GET_directdebit_list/readme.md)
+ - [PUT directdebit changes](PUT_directdebit/readme.md)
+ - [DELETE directdebit](DELETE_directdebit/readme.md)
+- **Direct Debit Consent Authorization:**
+   - [GET Authorization Step I. Direct Debit Consent Authorization Detail](GET_directdebit_authorization/readme.md)
+   - [POST Authorization Step II. Direct Debit Consent Authorization Initiation ](POST_directdebit_authorization/readme.md)
+   - [PUT Authorization Step III. Direct Debit Consent Authorization Finalization](PUT_directdebit_authorization/readme.md)

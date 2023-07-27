@@ -1,0 +1,44 @@
+getBatchPaymentStatus:
+  title: getBatchPaymentStatus
+  description: Response for batch payment status
+  type: object
+  required:
+    - transactionIdentification
+    - signInfo
+    - instructionStatus
+  properties:
+    transactionIdentification:
+      $ref: '../elements.yaml#/transactionIdentification'
+    payments:
+      $ref: '../objects.yaml#/bulkPayments'
+    signInfo:
+      $ref: '../objects.yaml#/signInfo'
+    instructionStatus:
+      $ref: "../elements.yaml#/batchPaymentsInstructionStatus"
+  example:
+    {
+      "instructionStatus": "ACSP",
+      "payments": [
+        {
+          "transactionIdentification": "someId56668746523322",
+          "signInfo": {
+            "state": "OPEN",
+            "signID": "SomeID-1285673519924"
+          }
+        },
+        {
+          "transactionIdentification": "someId56668746523322",
+          "signInfo": {
+            "state": "OPEN",
+            "signID": "SomeID-1285673519925"
+          }
+        },
+        {
+          "transactionIdentification": "someId56668746523322",
+          "signInfo": {
+            "state": "OPEN",
+            "signID": "SomeID-1285673519929"
+          }
+        }
+      ]
+    }

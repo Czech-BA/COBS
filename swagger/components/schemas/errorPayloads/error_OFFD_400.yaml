@@ -1,0 +1,21 @@
+error_OFFD_400:
+  title: error_OFFD_400
+  description: |
+    [Offline Debtor Agent] - The payer´s bank is currently  unavailable due to planned and unplanned outages of  the Czech instant payments scheme
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "OFFD"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"OFFD"
+    }]

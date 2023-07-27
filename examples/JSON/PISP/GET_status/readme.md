@@ -6,7 +6,7 @@ The resource returns the information only for transactions entered through a spe
 
 * **URL**
 
-  `/payments/{paymentId}/status`
+  `/my/payments/{paymentId}/status`
 
 * **Method:**
   
@@ -18,7 +18,7 @@ The resource returns the information only for transactions entered through a spe
 
 * **Request**
 
-  `/payments/048885570000001020045/status`
+  `/my/payments/048885570000001020045/status`
 
   **Header:**
   ```http

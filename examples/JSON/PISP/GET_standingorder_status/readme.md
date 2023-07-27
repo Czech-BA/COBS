@@ -1,10 +1,10 @@
-# PISP Standing order detail
+# PISP Standing order status
 
-Resource for get detail about the standing order
+Resource for getting status of the standing order.
 
 * **URL**
 
-  `/my/standingorders/{transactionIdentification}`
+  `/my/standingorders/{transactionIdentification}/status`
 
 * **Method:**
   
@@ -16,11 +16,11 @@ Resource for get detail about the standing order
 
 * **Request**
 
-  `/my/standingorders/033225570000078020091`
+  `/my/standingorders/033225570000078020091/status`
 
   **Header:**
   ```http
-  GET https://api.bank.cz/v1/my/standingorders/033225570000078020091
+  GET https://api.bank.cz/v1/my/standingorders/033225570000078020091/status
   Content-Type: application/json
   X-Request-ID: 55d4fffc-2634-44d4-9f2b-3aa94fbd51a4
   Date: Wed, 6 Jan 2019 07:39:01 GMT
@@ -47,70 +47,17 @@ Resource for get detail about the standing order
   **Payload: [200_response.json](200_response.json)**
   ```json
   {
-  "standingOrderIdentification": {
-      "instructionIdentification": "SomeID-1285673519924",
-     "transactionIdentification": "033225570000078020091"
-     },
-  "paymentTypeInformation": {
-      "serviceLevel": {
-          "code": "DMCT"
-     },
-  "amount": {
-      "instructedAmount": {
-          "value": 1500.00,
-          "currency": "CZK"
-         }
-     },
-  "requestedExecutionDate": "2018-09-08",
-     "standingOrder": {  
-  	     "alias": "Payments for lunch - kindergarten Michal",
-         "execution": {
-          "interval": "MONTHLY",
-      	    "intervalDue": "25",
-      	    "mode": "MAX_AMOUNT_EXCEEDED",
-      	    "modeDue": "DUE_OR_BEFORE_DAY_OF_MONTH"
-         },
-         "exceptions": {
-          "stoppages": ["JULY","AUGUST"],
-      	    "breaks": [
-                 {
-                  "validFromDate": "2018-11-01",
-                  "validToDate": "2019-01-30"
-                 },
-                 {
-                  "validFromDate": "2019-05-01",
-                     "validToDate": "2019-06-15"
-                 }
-             ]
-         },
-         "validity": {
-             "lastExecutionDate": null,
-      	    "maxAmount": {
-                 "value": 89000.00,
-              "currency": "CZK"
-             }
-         }
-     },
-  "debtorAccount": {
-      "identification": {
-          "iban": "CZ7508000000002108589434"
-         },
-      "currency": "CZK"
-     },
-  "creditorAccount": {
-      "identification": {
-          "iban": "CZ6330300000000000000123"
-         },
-      "currency": "CZK"
-     },
-  "remittanceInformation": {
-      "unstructured": "/VS/7418529630/SS/1234567890"
-     },
-  "signInfo": {
-      "state": "OPEN",
-      "signId": "164298331754922"
-     },
-  "instructionStatus": "ACTC"
+  "instructionStatus": "ACSP",
+  "realizedPayments": [
+        {
+          "transactionIdentification": "someId56668746523322",
+          "date": "2017-01-31T00:00:00.000+01"
+        },
+        {
+          "transactionIdentification": " otherId198568745569",
+          "date": "2017-01-31T00:00:00.000+01"
+        }
+     ]
   }
   ```
  

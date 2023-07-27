@@ -1,0 +1,21 @@
+error_AB08_400:
+  title: error_AB08_400
+  description: |
+    [Transaction Forbidden] - The payer's bank doesn´t allow instant payment from the payer's account.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AB08"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"AB08"
+    }]

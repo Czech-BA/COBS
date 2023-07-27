@@ -1,0 +1,16 @@
+deleteStandingOrder:
+  title: Delete Standing Order response
+  description: |
+    Standing Order with identification and signInfo
+  type: object
+  required:
+    - standingOrderIdentification
+    - signInfo
+    - instructionStatus
+  properties:
+    standingOrderIdentification:
+      $ref: "../objects.yaml#/standingOrderIdentification"
+    signInfo:
+      $ref: "../objects.yaml#/signInfo"
+    instructionStatus:
+      $ref: "../elements.yaml#/standingOrderInstructionStatus"
