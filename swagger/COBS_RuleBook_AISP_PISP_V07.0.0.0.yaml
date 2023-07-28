@@ -20,8 +20,19 @@ components:
           authorizationUrl: /oauth/authorize
           tokenUrl: /oauth/token
           scopes:
-            AISP: acount informations
-            PISP: payment initialization
+            AISP: Access to all services within AISP
+            aisp.accounts: Access to an overview of accounts
+            aisp.balances: Access to information about balances
+            aisp.transactions: Access to the overview of transactions
+            aisp.directdebits: Access to the direct debits
+            aisp.standingorders: Access to the standing orders
+            PISP: Access to all services within PIS
+            pisp.payments: Option to initiate payment
+            pisp.directdebits: Ability to initiate a direct debits
+            pisp.standingorders: Ability to initiate a standing order
+            pisp.accounts: >-
+              Ability to obtain a list of accounts from those ASPS that offer a
+              list of accounts together with PIS servicesA
     ClientCert:
       description: |
         Use of an x509 client certificate within mutual TLS
@@ -54,7 +65,9 @@ paths:
       tags:
         - Account information
       security:
-        - OAuth2: []
+        - OAuth2:
+            - AISP
+            - aisp.accounts
           ClientCert: []
           ApiKey: []
       parameters:
@@ -1292,7 +1305,9 @@ paths:
       tags:
         - Account information
       security:
-        - OAuth2: []
+        - OAuth2:
+            - AISP
+            - aisp.balances
           ClientCert: []
           ApiKey: []
       parameters:
@@ -2504,7 +2519,9 @@ paths:
       tags:
         - Account information
       security:
-        - OAuth2: []
+        - OAuth2:
+            - AISP
+            - aisp.transactions
           ClientCert: []
           ApiKey: []
       parameters:
@@ -5391,7 +5408,8 @@ paths:
       tags:
         - Account information
       security:
-        - OAuth2: []
+        - OAuth2:
+            - AISP
           ClientCert: []
           ApiKey: []
       parameters:
@@ -6948,7 +6966,8 @@ paths:
       tags:
         - Account information
       security:
-        - OAuth2: []
+        - OAuth2:
+            - AISP
           ClientCert: []
           ApiKey: []
       parameters:
@@ -8522,7 +8541,9 @@ paths:
       tags:
         - Standing Orders
       security:
-        - OAuth2: []
+        - OAuth2:
+            - AISP
+            - aisp.standingorders
           ClientCert: []
           ApiKey: []
       parameters:
@@ -9820,9 +9841,11 @@ paths:
       tags:
         - Standing Orders
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - PISP
+            - pisp.standingorders
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: Content-Type
           in: header
@@ -13951,7 +13974,11 @@ paths:
       tags:
         - Standing Orders
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - AISP
+            - pisp.standingorders
+            - aisp.standingorders
           ClientCert: []
           ApiKey: []
       parameters:
@@ -16077,7 +16104,9 @@ paths:
       tags:
         - Standing Orders
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PIS
+            - pisp.standingorders
           ClientCert: []
           ApiKey: []
       parameters:
@@ -17040,9 +17069,11 @@ paths:
       tags:
         - Standing Orders
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - PISP
+            - pisp.standingorders
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: transactionIdentification
           in: path
@@ -21173,7 +21204,9 @@ paths:
       tags:
         - Standing Orders
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.standingorders
           ClientCert: []
           ApiKey: []
       parameters:
@@ -22155,7 +22188,9 @@ paths:
       tags:
         - Standing Orders
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.standingorders
           ClientCert: []
           ApiKey: []
       parameters:
@@ -23093,7 +23128,9 @@ paths:
       tags:
         - Standing Orders
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.standingorders
           ClientCert: []
           ApiKey: []
       parameters:
@@ -24139,7 +24176,9 @@ paths:
       tags:
         - Standing Orders
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.standingorders
           ClientCert: []
           ApiKey: []
       parameters:
@@ -25044,9 +25083,11 @@ paths:
       tags:
         - Direct Debits
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - AISP
+            - aisp.directdebits
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: id
           in: path
@@ -26382,9 +26423,11 @@ paths:
       tags:
         - Direct Debits
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - PISP
+            - pisp.directdebits
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: id
           in: path
@@ -28464,9 +28507,11 @@ paths:
       tags:
         - Direct Debits
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - AISP
+            - aisp.directdebits
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: id
           in: path
@@ -29700,9 +29745,11 @@ paths:
       tags:
         - Direct Debits
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - PISP
+            - pisp.directdebits
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: id
           in: path
@@ -31881,9 +31928,11 @@ paths:
       tags:
         - Direct Debits
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - PISP
+            - pisp.directdebits
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: id
           in: path
@@ -32759,9 +32808,11 @@ paths:
       tags:
         - Direct Debits
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - PISP
+            - pisp.directdebits
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: id
           in: path
@@ -33624,9 +33675,11 @@ paths:
       tags:
         - Direct Debits
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - PISP
+            - pisp.directdebits
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: id
           in: path
@@ -34664,7 +34717,9 @@ paths:
       tags:
         - Direct Debits
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.directdebits
           ClientCert: []
           ApiKey: []
       parameters:
@@ -35607,9 +35662,12 @@ paths:
       tags:
         - Payment Initiation
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.accounts
+          ApiKey: []
         - ClientCert: []
-        - ApiKey: []
+          ApiKey: []
       parameters:
         - name: Content-Type
           in: header
@@ -37203,9 +37261,11 @@ paths:
       tags:
         - Payment Initiation
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: Content-Type
           in: header
@@ -41340,7 +41400,9 @@ paths:
       tags:
         - Payment Initiation
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
           ClientCert: []
           ApiKey: []
       parameters:
@@ -42035,7 +42097,9 @@ paths:
       tags:
         - Payment Initiation
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
           ClientCert: []
           ApiKey: []
       parameters:
@@ -43799,7 +43863,9 @@ paths:
       tags:
         - Payment Initiation
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
           ClientCert: []
           ApiKey: []
       parameters:
@@ -44595,7 +44661,9 @@ paths:
       tags:
         - Payment Initiation
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
           ClientCert: []
           ApiKey: []
       parameters:
@@ -45427,7 +45495,9 @@ paths:
       tags:
         - Payment Initiation
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
           ClientCert: []
           ApiKey: []
       parameters:
@@ -46364,7 +46434,9 @@ paths:
       tags:
         - Payment Initiation
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
           ClientCert: []
           ApiKey: []
       parameters:
@@ -47409,7 +47481,9 @@ paths:
       tags:
         - Payment Initiation
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
           ClientCert: []
           ApiKey: []
       parameters:
@@ -48310,7 +48384,8 @@ paths:
       tags:
         - Payment Initiation
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
           ClientCert: []
           ApiKey: []
       parameters:
@@ -49198,7 +49273,7 @@ paths:
         - Balance check
       security:
         - ClientCert: []
-        - ApiKey: []
+          ApiKey: []
       parameters:
         - name: Content-Type
           in: header
@@ -50792,9 +50867,11 @@ paths:
       tags:
         - Batch Payments
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: Content-Type
           in: header
@@ -52132,9 +52209,11 @@ paths:
       tags:
         - Batch Payments
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: transactionIdentification
           in: path
@@ -52968,9 +53047,11 @@ paths:
       tags:
         - Batch Payments
       security:
-        - OAuth2: []
-        - ClientCert: []
-        - ApiKey: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
+          ClientCert: []
+          ApiKey: []
       parameters:
         - name: transactionIdentification
           in: path
@@ -53884,7 +53965,9 @@ paths:
       tags:
         - Batch Payments
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
           ClientCert: []
           ApiKey: []
       parameters:
@@ -54820,7 +54903,9 @@ paths:
       tags:
         - Batch Payments
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
           ClientCert: []
           ApiKey: []
       parameters:
@@ -55866,7 +55951,9 @@ paths:
       tags:
         - Batch Payments
       security:
-        - OAuth2: []
+        - OAuth2:
+            - PISP
+            - pisp.payments
           ClientCert: []
           ApiKey: []
       parameters:
