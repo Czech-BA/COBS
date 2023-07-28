@@ -1,0 +1,21 @@
+error_CNOR_400:
+  title: error_CNOR_400
+  description: |
+    [Creditor bank is not registered] - The beneficiary's bank is not a participant in the Czech instant payments scheme.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "CNOR"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"CNOR"
+    }]

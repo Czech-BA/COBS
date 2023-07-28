@@ -1,0 +1,8 @@
+{
+  "errors": [
+    {
+      "error": "FIELD_MISSING",
+      "scope": "amount"
+    }
+  ]
+}

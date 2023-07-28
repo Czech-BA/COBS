@@ -1,0 +1,20 @@
+postBatchPaymentAuthorizationInitiation:
+  title: postBatchPaymentAuthorizationInitiation
+  description: Response message for batch payment authorization initiation.
+  type: object
+  required:
+    - authorizationType
+    - signInfo
+  properties:
+    authorizationType:
+      $ref: '../elements.yaml#/authorizationType'
+    href:
+      $ref: '../objects.yaml#/href'
+    method:
+      $ref: '../elements.yaml#/method'
+    formData:
+      $ref: '../objects.yaml#/formData'
+    signInfo:
+      $ref: '../objects.yaml#/signInfo'
+    rar:
+      $ref: '../objects.yaml#/rar'

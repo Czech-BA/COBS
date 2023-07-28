@@ -5,8 +5,9 @@
      },
   "paymentTypeInformation": {
       "serviceLevel": {
-          "code": "DMCT"
-     },
+        "code": "DMCT"
+      }
+  },
   "amount": {
       "instructedAmount": {
           "value": 1500.00,

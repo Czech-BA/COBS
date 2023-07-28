@@ -1,0 +1,24 @@
+error400_postNewDirectDebit:
+  title: error400_postNewDirectDebit
+  description: |
+    This is an invalid query that cannot be answered. E.g., if JSON content is not valid for this resource.
+  properties:
+    errors:
+      type: array
+      items:
+        anyOf:
+          - $ref: "error_FIELD_MISSING_400.yaml#/error_FIELD_MISSING_400"
+          - $ref: "error_FIELD_INVALID_400.yaml#/error_FIELD_INVALID_400"
+          - $ref: "error_AC02_400.yaml#/error_AC02_400"
+          - $ref: "error_AC03_400.yaml#/error_AC03_400"
+          - $ref: "error_AC10_400.yaml#/error_AC10_400"
+          - $ref: "error_AC12_400.yaml#/error_AC12_400"
+          - $ref: "error_AM11_400.yaml#/error_AM11_400"
+          - $ref: "error_AM12_400.yaml#/error_AM12_400"
+          - $ref: "error_FF01_400.yaml#/error_FF01_400"
+          - $ref: "error_BE19_400.yaml#/error_BE19_400"
+          - $ref: "error_DT01_400.yaml#/error_DT01_400"
+          - $ref: "error_RR10_400.yaml#/error_RR10_400"
+          - $ref: "error_NO_PART_400.yaml#/error_NO_PART_400"
+          - $ref: "error_REC_SEND_400.yaml#/error_REC_SEND_400"
+          - $ref: "error_EXECUTION_DATE_INVALID_400.yaml#/error_EXECUTION_DATE_INVALID_400"

@@ -1,0 +1,21 @@
+error_TYPE_DIFFERENT_400:
+  title: error_TYPE_DIFFERENT_400
+  description: |
+    Requested payments do not have the same serviceLevel.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "TYPE_DIFFERENT"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"TYPE_DIFFERENT"
+    }]

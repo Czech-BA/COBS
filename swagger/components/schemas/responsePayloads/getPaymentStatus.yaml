@@ -7,3 +7,5 @@ getPaymentStatus:
   properties:
     instructionStatus:
       $ref: "../elements.yaml#/instructionStatus"
+    statusChangeInfo:
+      $ref: "../elements.yaml#/statusChangeInfo"

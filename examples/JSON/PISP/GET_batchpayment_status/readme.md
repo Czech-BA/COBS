@@ -54,24 +54,24 @@ The resource returns the information only for transactions entered through a spe
         {
           "transactionIdentification": "someId56668746523322",
           "signInfo": {
-          "state": “OPEN",
-          "signID": "SomeID-1285673519924"
-        },
-        },
-        {
-          "transactionIdentification": "someId56668746523322",
-          "signInfo": {
-          "state": “OPEN",
-          "signID": "SomeID-1285673519925"
-        },
+            "state": "OPEN",
+            "signID": "SomeID-1285673519924"
+          }
         },
         {
           "transactionIdentification": "someId56668746523322",
           "signInfo": {
-          "state": “OPEN",
-          "signID": "SomeID-1285673519929"
+            "state": "OPEN",
+            "signID": "SomeID-1285673519925"
+          }
         },
-        },
+        {
+          "transactionIdentification": "someId56668746523322",
+          "signInfo": {
+            "state": "OPEN",
+            "signID": "SomeID-1285673519929"
+          }
+        }
      ]
   }
   ```

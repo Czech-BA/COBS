@@ -31,17 +31,19 @@ Examples of requests a responses for resource to POST new batch payment.
   **Payload: [POST_request.json](POST_request.json)**
   ```json
   {
-   "exchangeIdentification": "658576010faf0a23dc",
-   "instructionName": "Some heap of confusion for my bank ...",
-   "payments": {
-      "signId": "SomeID-1285673519924",
-     },
-             {
-      "signId": "SomeID-1285673519925",
-     },
-             {
-      "signId": "SomeID-1285673519929",
-     },
+  "exchangeIdentification": "658576010faf0a23dc",
+  "instructionName": "Some heap of confusion for my bank ...",
+  "payments": [
+      {
+        "signId": "SomeID-1285673519924"
+      },
+      {
+        "signId": "SomeID-1285673519925"
+      },
+      {
+        "signId": "SomeID-1285673519929"
+      }
+    ]
   }
   ```
  
@@ -59,11 +61,12 @@ Examples of requests a responses for resource to POST new batch payment.
   **Payload: [200_response.json](200_response.json)**
   ```json
   {
-   "transactionIdentification": "033225570000078020091"
+   "transactionIdentification": "033225570000078020091",
    "signInfo": {
       "state": "OPEN",
       "signId": "164298331754922"
      },
+   "instructionStatus": "ACTC"
   }
   ```
  
@@ -80,17 +83,18 @@ Examples of requests a responses for resource to POST new batch payment.
   **Payload: [400_response.json](400_response.json)**
   ```json
   {
-   "errors": [
+  "errors": [
     {
       "error": " ACC_DIFFERENT"
     },
     {
       "error": "INCORRECT_SIGNID",
       "parameters": {
-        "signID": " SomeID-1285673519924",
-        "error": "State CLOSED"
+          "signID": " SomeID-1285673519924",
+          "error": "State CLOSED"
+        }
       }
-   ]
+    ]
   }
   ```
   

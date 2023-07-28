@@ -1,0 +1,62 @@
+{
+   "pageNumber": 0,
+   "pageCount": 1,
+   "nextPage": 0,
+   "pageSize": 10,
+   "totalCount": 1,
+   "payments": [
+      {
+         "paymentIdentification": {
+            "instructionIdentification": "None",
+            "transactionIdentification": "CP151255555"
+         },
+         "paymentTypeInformation": {
+            "serviceLevel": {
+               "code": "DMCT"
+            }
+         },
+         "amount": {
+            "instructedAmount": {
+               "value": 3000,
+               "currency": "CZK"
+            }
+         },
+         "requestedExecutionDate": "2019-12-22",
+         "debtorAccount": {
+            "id": "CUA1234567899",
+            "identification": {
+               "iban": "CZ8858000000001234567899",
+               "other": {
+                  "identification": "1234567899"
+               }
+            }
+         },
+         "creditorAgent": {
+            "financialInstitutionIdentification": {
+               "clearingSystemMemberIdentification": {
+                  "clearingSystemIdentification": {
+                     "code": "0100"
+                  }
+               }
+            }
+         },
+         "creditorAccount": {
+            "identification": {
+               "other": {
+                  "identification": "000019-2784000277"
+               }
+            }
+         },
+         "remittanceInformation": {
+            "structured": {
+               "creditorReferenceInformation": {
+                  "reference": [
+                     "VS:20200312"
+                  ]
+               }
+            }
+         },
+         "awaitingStatus": "FUTURE"
+      }
+   ]
+}

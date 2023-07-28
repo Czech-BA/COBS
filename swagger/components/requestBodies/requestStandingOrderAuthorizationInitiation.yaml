@@ -1,0 +1,13 @@
+requestStandingOrderAuthorizationInitiation:
+  description: |
+    JSON request body for Standing Order Authorization Inititation
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/requestPayloads/requestPaymentAuthorizationInitiation.yaml#/requestPaymentAuthorizationInitiation"
+      example:
+        {
+          "authorizationType": "SMS",
+          "redirectUrl": "http://my.sometpp.com/..."
+        }

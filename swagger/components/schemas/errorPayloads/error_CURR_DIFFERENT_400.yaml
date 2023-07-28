@@ -1,0 +1,21 @@
+error_CURR_DIFFERENT_400:
+  title: error_CURR_DIFFERENT_400
+  description: |
+    Requested payments are not in the same currency.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "CURR_DIFFERENT"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"CURR_DIFFERENT"
+    }]

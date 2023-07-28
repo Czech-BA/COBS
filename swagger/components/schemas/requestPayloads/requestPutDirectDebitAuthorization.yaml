@@ -1,0 +1,12 @@
+requestPutDirectDebitAuthorization:
+  title: requestPutDirectDebitAuthorization
+  description: |
+    Payload of query for last step of Direct Debit authorization
+  type: object
+  required:
+    - authorizationType
+  properties:
+    authorizationType:
+      $ref: "../elements.yaml#/authorizationType"
+    oneTimePassword:
+      $ref: "../elements.yaml#/oneTimePassword"

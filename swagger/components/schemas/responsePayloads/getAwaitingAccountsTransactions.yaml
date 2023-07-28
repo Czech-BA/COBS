@@ -1,0 +1,22 @@
+getAwaitingAccountsTransactions:
+  title: getAwaitingAccountsTransactions
+  description: Response message list of client awaiting transactions
+  type: object
+  required:
+    - pageNumber
+    - pageCount
+    - pageSize
+    - transactions
+  properties:
+    pageNumber:
+      $ref: "../elements.yaml#/pageNumber"
+    pageCount:
+      $ref: "../elements.yaml#/pageCount"
+    nextPage:
+      $ref: "../elements.yaml#/nextPage"
+    pageSize:
+      $ref: "../elements.yaml#/pageSize"
+    totalCount:
+      $ref: "../elements.yaml#/totalCount"
+    payments:
+      $ref: "../objects.yaml#/awaitingTransactionsList"

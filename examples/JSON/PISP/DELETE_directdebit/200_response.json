@@ -1,0 +1,11 @@
+{
+  "directDebitIdentification": {
+    "mandateIdentification": "a15bbb80-cbc6-475f-8483-3d21788e4eaf",
+    "mandateRequestIdentification": "string"
+  },
+  "signInfo": {
+    "state": "OPEN",
+    "signId": "164298331754922"
+  },
+  "instructionStatus": "ACTC"
+}

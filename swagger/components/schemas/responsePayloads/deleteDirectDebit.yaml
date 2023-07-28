@@ -1,0 +1,18 @@
+deleteNewDirectDebit:
+  title: Delete direct debit response
+  description: |
+    Direct Debit with identification and signInfo
+  type: object
+  required:
+    - directDebitIdentification
+    - signInfo
+    - instructionStatus
+  properties:
+    directDebitIdentification:
+      $ref: "../objects.yaml#/directDebitIdentification"
+    signInfo:
+      $ref: "../objects.yaml#/signInfo"
+    instructionStatus:
+      $ref: "../elements.yaml#/directDebitInstructionStatus"
+    statusChangeInfo:
+      $ref: "../elements.yaml#/statusChangeInfo"

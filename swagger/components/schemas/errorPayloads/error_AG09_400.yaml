@@ -1,0 +1,21 @@
+error_AG09_400:
+  title: error_AG09_400
+  description: |
+    [Payment Not Received] - The beneficiary's bank rejected to accept instant payment to the beneficiary's account.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "AG09"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"AG09"
+    }]

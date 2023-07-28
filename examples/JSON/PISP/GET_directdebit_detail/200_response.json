@@ -1,0 +1,45 @@
+{
+  "directDebitIdentification": {
+    "mandateIdentification": "a15bbb80-cbc6-475f-8483-3d21788e4eaf",
+    "mandateRequestIdentification": "string"
+  },
+  "limit": {
+    "directDebitPaymentLimit": {
+      "value": 10000,
+      "crrency": "CZK"
+    }
+  },
+  "directDebit": {
+    "alias": "Platba za plyn",
+    "execution": {
+      "mode": "UNTIL_DATE",
+      "interval": "MONTHLY",
+      "valuePeriodLimit": 10000,
+      "approvalDirectDebits": "N"
+    },
+    "vlidity": {
+      "validFromDate": "2023-01-10",
+      "validToDate": "2025-01-10",
+      "maxIterations": 100
+    }
+  },
+  "debtorAccount": {
+    "identification": {
+      "iban": "CZ0950518916425927369341"
+    }
+  },
+  "creditorAccount": {},
+  "remittanceInformation": {
+    "unstructured": "/VS/7418529630/SS/1234567890",
+    "structured": {
+      "creditorReferenceInformation": {
+        "reference": "string"
+      }
+    }
+  },
+  "signInfo": {
+    "state": "OPEN",
+    "signId": "164298331754922"
+  },
+  "instructionStatus": "ACTC"
+}

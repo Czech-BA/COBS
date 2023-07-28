@@ -1,0 +1,24 @@
+requestNewBatchPayment:
+  description: |
+    JSON request body for new batch payment inition API
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/requestPayloads/requestNewBatchPayment.yaml#/requestNewBatchPayment"
+      example:
+        {
+          "exchangeIdentification": "658576010faf0a23dc",
+          "instructionName": "Some heap of confusion for my bank ...",
+          "payments": [
+            {
+              "signId": "SomeID-1285673519924"
+            },
+            {
+              "signId": "SomeID-1285673519925"
+            },
+            {
+              "signId": "SomeID-1285673519929"
+            }
+          ]
+        }
