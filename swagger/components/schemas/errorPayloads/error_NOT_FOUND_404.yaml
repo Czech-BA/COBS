@@ -8,7 +8,7 @@ error_NOT_FOUND_404:
   properties:
     error:
       type: string
-      example: "NOT_FOUND"
+      example: "ID_NOT_FOUND"
     parameters:
       $ref: "errorParameters.yaml#/errorParameters"
     scope:
@@ -17,5 +17,5 @@ error_NOT_FOUND_404:
       $ref: "errorMessage.yaml#/errorMessage"
   example:
     [{
-       "error":"NOT_FOUND"
+       "error":"ID_NOT_FOUND"
      }]

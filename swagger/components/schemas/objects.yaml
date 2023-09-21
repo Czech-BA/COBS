@@ -718,7 +718,7 @@ financialInstitutionIdentificationDebtor:
                 Local code format of the payer bank code.
               type: string
               example: "2700"
-    neme:
+    name:
       description: |
         Payer bank code as stated in the code list of world banks (SWIFT Directory).
       type: string
@@ -1530,7 +1530,7 @@ execution:
       enum:
         - UNTIL_DATE
         - UNTIL_CANCELLATION
-        - FTER_MAX_ITERATION_EXCEEDED
+        - AFTER_MAX_ITERATION_EXCEEDED
         - MAX_AMOUNT_EXCEEDED
       example: "UNTIL_CANCELLATION"
     modeDue:
