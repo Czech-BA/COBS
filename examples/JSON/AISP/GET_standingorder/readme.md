@@ -10,7 +10,7 @@ Resource for get detail about the standing order
   
   `GET`
   
-*  **URL Params**
+* **URL Params**
 
    - **transactionIdentification** - Identifier of standing order instruction
 
@@ -115,14 +115,14 @@ Resource for get detail about the standing order
       },
       "instructionStatus":"ACTC"
    }
-}
+  }
   ```
  
 * **Error Responses:**
 
   **Code:** 404 Not Found
   **Header:**
-  ```http
+  ```
   HTTP/1.1 404 Not Found
   Content-Type: application/json
   X-Request-ID: 55d4fffc-2634-44d4-9f2b-3aa94fbd51a4
