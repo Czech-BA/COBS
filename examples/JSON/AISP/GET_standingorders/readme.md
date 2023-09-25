@@ -1,6 +1,6 @@
-# AISP List of client’s standing orders 
+# AISP List of client's standing orders 
 
-Paged list of client’s standing orders. Each standing order contains a unique id usable for URI referencing, e.g. for the standing order detail.
+Paged list of client's standing orders. Each standing order contains a unique id usable for URI referencing, e.g. for the standing order detail.
 
 * **URL**
 
@@ -51,38 +51,40 @@ Paged list of client’s standing orders. Each standing order contains a unique id
   **Payload: [200_response.json](200_response.json)**
   ```json
   {
-	"pageNumber": 0,
-	"pageCount": 1,
-	"pageSize": 25,
-	"nextPage": 0,
-	"standingOrders": [{
-		"standingOrderIdentification": {
-			"instructionIdentification": "SomeID-1285673519924",
-			"transactionIdentification": "033225570000078020091"
-		},
-		"amount": {
-			"instructedAmount": {
-				"value": 1500.00,
-				"currency": "CZK"
-			}
-		},
-		"standingOrder": {
-			"alias": "Payments for lunch - kindergarten Michal",
-			"execution": {
-				"interval": "MONTHLY",
-				"intervalDue": "25",
-				"mode": "MAX_AMOUNT_EXCEEDED",
-				"modeDue": "DUE_OR_BEFORE_DAY_OF_MONTH"
-			}
-		},
-		"debtorAccount": {
-			"id": "0f45a992....",
-			"identification": {
-				"iban": "CZ7508000000002108589434"
-			},
-			"currency": "CZK"
-		}
-	}]
+   "pageNumber":0,
+   "pageCount":1,
+   "pageSize":25,
+   "nextPage":0,
+   "standingOrders":[
+      {
+         "standingOrderIdentification":{
+            "instructionIdentification":"SomeID-1285673519924",
+            "transactionIdentification":"033225570000078020091"
+         },
+         "amount":{
+            "instructedAmount":{
+               "value":1500.00,
+               "currency":"CZK"
+            }
+         },
+         "standingOrder":{
+            "alias":"Payments for lunch - kindergarten Michal",
+            "execution":{
+               "interval":"MONTHLY",
+               "intervalDue":"25",
+               "mode":"MAX_AMOUNT_EXCEEDED",
+               "modeDue":"DUE_OR_BEFORE_DAY_OF_MONTH"
+            }
+         },
+         "debtorAccount":{
+            "id":"0f45a992....",
+            "identification":{
+               "iban":"CZ7508000000002108589434"
+            },
+            "currency":"CZK"
+         }
+      }
+   ]
   }
   ```
  
