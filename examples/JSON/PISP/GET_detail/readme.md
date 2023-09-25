@@ -17,7 +17,7 @@ A example to display the information on the entered payment. It is payment which
 
 * **Request**
 
-  `/payments/048885570000001020045`
+  `/my/payments/048885570000001020045`
 
   **Header:**
   ```http

@@ -1,0 +1,22 @@
+getDomesticDirectDebits:
+  title: getDomesticDirectDebits
+  description: Response message of client’s domestic direct debits Consents
+  type: object
+  required:
+    - pageNumber
+    - pageCount
+    - pageSize
+    - directDebits
+  properties:
+    pageNumber:
+      $ref: "../elements.yaml#/pageNumber"
+    pageCount:
+      $ref: "../elements.yaml#/pageCount"
+    nextPage:
+      $ref: "../elements.yaml#/nextPage"
+    pageSize:
+      $ref: "../elements.yaml#/pageSize"
+    totalCount:
+      $ref: "../elements.yaml#/totalCount"
+    directDebits:
+      $ref: "../objects.yaml#/directDebitsList"

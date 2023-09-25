@@ -1,0 +1,12 @@
+postDirectDebitAuthorizationId:
+  title: DirectDebitAuthorizationId
+  description: Response with generated the authorization ID.
+  type: object
+  required:
+    - scenarios
+    - signInfo
+  properties:
+    scenarios:
+      $ref: '../elements.yaml#/scenarios'
+    signInfo:
+      $ref: '../objects.yaml#/signInfo'

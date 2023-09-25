@@ -1,0 +1,21 @@
+error_DNOR_400:
+  title: error_DNOR_400
+  description: |
+    [Debtor bank is not registered] - The payer's bank is not a participant in the Czech instant payments scheme.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "DNOR"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"DNOR"
+    }]

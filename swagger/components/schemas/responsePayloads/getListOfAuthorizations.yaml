@@ -1,0 +1,9 @@
+getListOfAuthorizations:
+  title: getListOfAuthorizations
+  description: Response to list of authorizations
+  type: object
+  required:
+    - authorizations
+  properties:
+    authorizations:
+      $ref: "../objects.yaml#/authorizations"

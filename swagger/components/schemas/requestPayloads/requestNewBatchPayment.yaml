@@ -1,0 +1,15 @@
+requestNewBatchPayment:
+  title: requestNewBatchPayment
+  description: |
+    Payload of query forn new batch payment initialization
+  type: object
+  required:
+    - exchangeIdentification
+    - payments
+  properties:
+      exchangeIdentification:
+        $ref: "../objects.yaml#/exchangeIdentification"
+      instructionName:
+        $ref: '../elements.yaml#/instructionName'
+      payments:
+        $ref: '../objects.yaml#/batchPayments'

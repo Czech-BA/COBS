@@ -1,0 +1,19 @@
+error400_postNewBatchPayment:
+  title: error400_postNewBatchPayments
+  description: |
+    This is an invalid query that cannot be answered. E.g., if JSON content is not valid for this resource.
+  properties:
+    errors:
+      type: array
+      items:
+        anyOf:
+          - $ref: "error_FIELD_MISSING_400.yaml#/error_FIELD_MISSING_400"
+          - $ref: "error_FIELD_INVALID_400.yaml#/error_FIELD_INVALID_400"
+          - $ref: "error_FF01_400.yaml#/error_FF01_400"
+          - $ref: "error_NARR_400.yaml#/error_NARR_400"
+          - $ref: "error_RR10_400.yaml#/error_RR10_400"
+          - $ref: "error_ACC_DIFFERENT_400.yaml#/error_ACC_DIFFERENT_400"
+          - $ref: "error_CURR_DIFFERENT_400.yaml#/error_CURR_DIFFERENT_400"
+          - $ref: "error_TYPE_DIFFERENT_400.yaml#/error_TYPE_DIFFERENT_400"
+          - $ref: "error_TOO_MANY_PMTS_400.yaml#/error_TOO_MANY_PMTS_400"
+          - $ref: "error_INCORRECT_SIGNID_400.yaml#/error_INCORRECT_SIGNID_400"

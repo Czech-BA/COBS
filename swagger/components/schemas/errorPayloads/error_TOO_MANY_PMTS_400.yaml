@@ -1,0 +1,21 @@
+error_TOO_MANY_PMTS_400:
+  title: error_TOO_MANY_PMTS_400
+  description: |
+    Maximum amount of payments in one batch exceeded.
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: string
+      example: "TOO_MANY_PMTS"
+    parameters:
+      $ref: "errorParameters.yaml#/errorParameters"
+    scope:
+      $ref: "scope.yaml#/scope"
+    message:
+      $ref: "errorMessage.yaml#/errorMessage"
+  example:
+    [{
+      "error":"TOO_MANY_PMTS"
+    }]

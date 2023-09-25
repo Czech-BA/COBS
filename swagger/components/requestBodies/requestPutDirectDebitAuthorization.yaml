@@ -1,0 +1,8 @@
+requestPutDirectDebitAuthorization:
+  description: |
+    JSON request body for updated direct debit authorization step.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/requestPayloads/requestPutDirectDebitAuthorization.yaml#/requestPutDirectDebitAuthorization"

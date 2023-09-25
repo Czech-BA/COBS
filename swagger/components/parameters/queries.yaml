@@ -64,3 +64,12 @@ toDate:
   required: false
   schema:
     $ref: "../schemas/elements.yaml#/toDate"
+
+allInstructions:
+  name: allInstructions
+  in: query
+  description: |
+    If this parameter is set to true, not only will the bulk authorization be deleted, but also all individual instructions which were a part of the bulk.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/allInstructions"

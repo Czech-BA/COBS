@@ -1,0 +1,12 @@
+putDirectDebitAuthorizationInitiation:
+  title: putDirectDebitAuthorizationInitiation
+  description: Response message for put Direct Debit authorization initiation.
+  type: object
+  required:
+    - state
+    - pollInterval
+  properties:
+    state:
+      $ref: '../elements.yaml#/state'
+    pollInterval:
+      $ref: '../elements.yaml#/pollInterval'

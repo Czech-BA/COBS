@@ -39,6 +39,20 @@ balanceAmount:
     currency:
       $ref: "#/currencyCode"
 
+standingOrderMaxAmount:
+  title: standingOrderMaxAmount
+  description: |
+    Maximum amount to be transferred using the standing order. Only applicable in combination with executionMode AFTER_MAX_AMOUNT_EXCEEDED.
+  type: object
+  required:
+    - value
+    - currency
+  properties:
+    value:
+      $ref: "elements.yaml#/value"
+    currency:
+      $ref: "#/currencyCode"
+
 creditLine:
   title: creditLine
   description:
@@ -94,6 +108,30 @@ identification:
       $ref: "elements.yaml#/iban"
     other:
       $ref: "elements.yaml#/other"
+
+relationship:
+  title: relationship
+  description: |
+    Account realtionship with user
+  type: object
+  required:
+    - isOwner
+  properties:
+    isOwner:
+      $ref: "elements.yaml#/isOwner"
+
+suitableScope:
+  title: suitableScope
+  description: |
+    Account suported services
+  type: object
+  properties:
+    AISP:
+      $ref: "elements.yaml#/suitableScopeAISP"
+    PISP:
+      $ref: "elements.yaml#/suitableScopePISP"
+    CISP:
+      $ref: "elements.yaml#/suitableScopeCISP"
 
 currencyCode:
   title: currencyCode
@@ -213,6 +251,16 @@ accountIdentification:
           type: string
           example: "1019382023"
 
+onlyIbanIdentification:
+  title: onlyIbanIdentification
+  description: |
+    Identification of account
+  type: object
+  properties:
+    iban:
+      $ref: "elements.yaml#/iban"
+  example: {"iban": "CZ0950518916425927369341"}
+
 standingOrderIdentification:
   title: standingOrderIdentification
   description: |
@@ -224,6 +272,86 @@ standingOrderIdentification:
     transactionIdentification:
       $ref: "elements.yaml#/transactionIdentification"
 
+directDebitIdentification:
+  title: directDebitIdentification
+  description: |
+    Domestic direct debit identification
+  type: object
+  required:
+    - mandateIdentification
+  properties:
+    mandateIdentification:
+      $ref: "elements.yaml#/directDebitMandateIdentification"
+    mandateRequestIdentification:
+      $ref: "elements.yaml#/mandateRequestIdentification"
+
+directDebit:
+  title: directDebit
+  description: |
+    Structure describing the parameters of domestic direct debit.
+  type: object
+  required:
+    - execution
+    - validity
+  properties:
+    alias:
+      $ref: "elements.yaml#/direcDebitAlias"
+    execution:
+      $ref: "#/directDebitExecution"
+    validity:
+      $ref: "#/directDebitValidity"
+
+directDebitValidity:
+  title: directDebitValidity
+  description: |
+    Elements restricting the validity of the domestic direct debit.
+  type: object
+  required:
+    - validFromDate
+  properties:
+    validFromDate:
+      $ref: "elements.yaml#/directDebitValidFromDate"
+    validToDate:
+      $ref: "elements.yaml#/directDebitValidToDate"
+    maxIterations:
+      $ref: "elements.yaml#/directDebitMaxIterations"
+
+directDebitExecution:
+  title: directDebitExecution
+  description: Features of execution a domestic direct debit for payment.
+  type: object
+  required:
+    - directDebitExecutionMode
+    - directDebitExecutionInterval
+  properties:
+    mode:
+      $ref: "elements.yaml#/directDebitExecutionMode"
+    interval:
+      $ref: "elements.yaml#/directDebitExecutionInterval"
+    valuePeriodLimit:
+      $ref: "elements.yaml#/directDebitExecutionValuePeriodLimit"
+    approvalDirectDebits:
+      $ref: "elements.yaml#/directDebitExecutionApprovalDirectDebits"
+
+directDebitLimit:
+  title: directDebitLimit
+  description: |
+    Limit of domestic direct debit
+  type: object
+  properties:
+    directDebitPaymentLimit:
+      $ref: "#/directDebitPaymentLimit"
+
+directDebitPaymentLimit:
+  title: directDebitPaymentLimit
+  description: |
+    Limit of domestic direct debit (not related to any period of time (e.g. monthly) - it is a limit of an individual payment)
+  type: object
+  properties:
+    value:
+      $ref: "elements.yaml#/value"
+    crrency:
+      $ref: "elements.yaml#/currency"
 
 streetName:
   title: streetName
@@ -300,6 +428,10 @@ accountInfo:
       $ref: "elements.yaml#/nameI18N"
     productI18N:
       $ref: "elements.yaml#/productI18N"
+    realtionship:
+      $ref: "#/relationship"
+    suitableScope:
+      $ref: "#/suitableScope"
 
 
 accountsList:
@@ -384,6 +516,23 @@ valueDate:
       format: date-time
       example: "2017-01-31T00:10:00.000+01"
 
+holdExpiration:
+  title: holdExpiration
+  description: |
+    Date when card transaction hold expire in the format ISODate. The element will present only in status code with the constant PDNG.
+  type: object
+  properties:
+    date:
+      description: |
+        The date when a card transaction hold will be expire.
+        
+        Format YYYY-MM-DD.
+
+      type: string
+      format: date-time
+      example: "2023-02-03T02:55:16.000+01"
+
+
 bankTransactionCodeProprietary:
   title: bankTransactionCodeProprietary
   description: |
@@ -412,6 +561,8 @@ transactionReferences:
   properties:
     messageIdentification:
       $ref: "elements.yaml#/messageIdentification"
+    paymentId:
+      $ref: "elements.yaml#/paymentId"
     accountServicerReference:
       $ref: "elements.yaml#/accountServicerReference"
     paymentInformationIdentification:
@@ -424,6 +575,8 @@ transactionReferences:
       $ref: "elements.yaml#/chequeNumber"
     clearingSystemReference:
       $ref: "elements.yaml#/clearingSystemReference"
+    mandateIdentification:
+      $ref: "elements.yaml#/mandateIdentification"
 
 
 amountDetails:
@@ -565,7 +718,7 @@ financialInstitutionIdentificationDebtor:
                 Local code format of the payer bank code.
               type: string
               example: "2700"
-    neme:
+    name:
       description: |
         Payer bank code as stated in the code list of world banks (SWIFT Directory).
       type: string
@@ -723,6 +876,15 @@ paymentCreditorAccount:
     currency:
       $ref: "#/currencyCode"
 
+directDebitCreditorAccount:
+  title: directDebitCreditorAccount
+  description: |
+    Information on the payee account. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    identification:
+      $ref: "#/onlyIbanIdentification"
+
 debtorAccount:
   title: debtorAccount
   description: |
@@ -738,6 +900,20 @@ debtorAccount:
         Payer account name.
       type: string
 
+awaitingDebtorAccount:
+  title: debtorAccount
+  description: |
+    Information on the account payer. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    id:
+      $ref: "elements.yaml#/accountId"
+    identification:
+      $ref: "#/accountIdentification"
+    currency:
+      $ref: "#/currencyCode"
+
+
 paymentDebtorAccount:
   title: paymentDebtorAccount
   description: |
@@ -750,6 +926,17 @@ paymentDebtorAccount:
       $ref: "#/accountIdentification"
     currency:
       $ref: "#/currencyCode"
+
+directDebitDebtorAccount:
+  title: directDebitDebtorAccount
+  description: |
+    Information on the account payer. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  required:
+    - identification
+  properties:
+    identification:
+      $ref: "#/onlyIbanIdentification"
 
 debtorAccountSO:
   title: debtorAccountSO
@@ -1121,10 +1308,141 @@ transactionInfo:
       $ref: "#/bookingDate"
     valueDate:
       $ref: "#/valueDate"
+    holdExpiration:
+      $ref: "#/holdExpiration"
     bankTransactionCode:
       $ref: "#/bankTransactionCode"
     entryDetails:
       $ref: "#/entryDetails"
+
+awaitingTransactionInfo:
+  title: awaitingTransactionInfo
+  description: |
+    Awaiting tranasction info.
+  type: object
+  required:
+    - paymentIdentification
+    - paymentTypeInformation
+    - amount
+  properties:
+    paymentIdentification:
+      $ref: "#/awaitingPaymentIdentification"
+    paymentTypeInformation:
+      $ref: "#/paymentTypeInformation"
+    amount:
+      $ref: "#/amount"
+    requestedExecutionDate:
+      $ref: "elements.yaml#/requestedExecutionDate"
+    debtorAccount:
+      $ref: "#/awaitingDebtorAccount"
+    creditorAgent:
+      $ref: "#/creditorAgent"
+    creditorAccount:
+      $ref: "#/creditorAccount"
+    remittanceInformation:
+      $ref: "#/remittanceInformation"
+    awaitingStatus:
+      $ref: "elements.yaml#/awaitingStatus"
+
+domesticDirectDebit:
+  title: domesticDirectDebit
+  description: |
+    Direct Debit
+  type: object
+  required:
+    - directDebitIdentification
+    - directDebit
+    - debtorAccount
+    - creditorAccount
+  properties:
+    directDebitIdentification:
+      $ref: "#/directDebitIdentification"
+    limit:
+      $ref: "#/directDebitLimit"
+    directDebit:
+      $ref: "#/directDebit"
+    debtorAccount:
+      $ref: "#/directDebitDebtorAccount"
+    creditorAccount:
+      $ref: "#/directDebitCreditorAccount"
+    remittanceInformation:
+      $ref: "#/remittanceInformation"
+
+signetDomesticDirectDebit:
+  title: signetDomesticDirectDebit
+  description: |
+    Direct Debit with signInfo
+  type: object
+  required:
+    - directDebitIdentification
+    - limit
+    - directDebit
+    - debtorAccount
+    - creditorAccount
+    - signInfo
+    - instructionStatus
+  properties:
+    directDebitIdentification:
+      $ref: "#/directDebitIdentification"
+    limit:
+      $ref: "#/directDebitLimit"
+    directDebit:
+      $ref: "#/directDebit"
+    debtorAccount:
+      $ref: "#/directDebitDebtorAccount"
+    creditorAccount:
+      $ref: "#/directDebitCreditorAccount"
+    remittanceInformation:
+      $ref: "#/remittanceInformation"
+    signInfo:
+      $ref: "#/signInfo"
+    instructionStatus:
+      $ref: "elements.yaml#/directDebitInstructionStatus"
+    statusChangeInfo:
+      $ref: "elements.yaml#/statusChangeInfo"
+
+standingOrdersStatus:
+  title: standingOrdersStatus
+  description: |
+    Status of entered/initiated standing order
+  type: object
+  required:
+    - instructionStatus
+  properties:
+    instructionStatus:
+      $ref: "elements.yaml#/standingOrderInstructionStatus"
+    realizedPayments:
+      $ref: "#/realizedPayments"
+
+realizedPayments:
+  description: |
+    Array of transaction identificators
+  type: array
+  required:
+    - transactionIdentification
+  items:
+    type: object
+    properties:
+      transactionIdentification:
+        $ref: "elements.yaml#/transactionIdentification"
+      date:
+        description: |
+          Due date/payment foreign currency in the format ISODate, , or ISODateTime, i.e. YYYY-MM-DD, or YYYY-MM-DDThh:mm:ss.sTZD, depending on the transaction type and method how the bank presents data (and time) of due date/ payment foreign currency. Mainly for card or cash transactions it is posted as ISODateTime.
+        type: string
+        format: date-time
+        example: "2023-02-03T05:50:00.000+01"
+  example:
+    [
+      {
+        "transactionIdentification": "6dae1cda-410f-4325-9f76-91dfdb9cce9d",
+        "date":"2023-06-13T01:21:22.000+01"
+      },
+      {
+        "transactionIdentification": "9421baf1-6b7c-4a5b-8dbd-7c8a64e88b5b",
+        "date":"2023-07-01T05:45:25.000+01"
+      }
+    ]
+
 
 standingOrders:
   title: standingOrders
@@ -1146,6 +1464,53 @@ standingOrders:
     debtorAccount:
       $ref: "#/debtorAccountSO"
 
+standingOrdersAISP:
+  title: standingOrders
+  description: |
+    Standing order
+  type: object
+  required:
+    - standingOrderIdentification
+    - paymentTypeInformation
+    - amount
+    - requestedExecutionDate
+    - standingOrder
+    - debtorAccount
+    - creditorAccount
+  properties:
+    standingOrderIdentification:
+      $ref: "#/standingOrderIdentification"
+    paymentTypeInformation:
+      $ref: "#/paymentTypeInformation"
+    amount:
+      $ref: "#/amount"
+    requestedExecutionDate:
+      $ref: "elements.yaml#/requestedExecutionDate"
+    standingOrder:
+      $ref: "#/standingOrder"
+    debtorAccount:
+      $ref: "#/debtorAccountSO"
+    exchangeRateInformation:
+      $ref: "#/exchangeRateInformation"
+    chargeBearer:
+      $ref: "#/chargeBearer"
+    chargesAccount:
+      $ref: "#/chargesAccount"
+    ultimateDebtor:
+      $ref: "#/ultimateDebtor"
+    debtor:
+      $ref: "#/debtor"
+    intermediaryAgent1:
+      $ref: "#/intermediaryAgent1"
+    creditorAgent:
+      $ref: "#/creditorAgent"
+    creditorAccount:
+      $ref: "#/creditorAccount"
+    ultimateCreditor:
+      $ref: "#/ultimateCreditor"
+    purpose:
+      $ref: "#/purpose"
+
 execution:
   title: execution
   description: |
@@ -1165,7 +1530,7 @@ execution:
       enum:
         - UNTIL_DATE
         - UNTIL_CANCELLATION
-        - FTER_MAX_ITERATION_EXCEEDED
+        - AFTER_MAX_ITERATION_EXCEEDED
         - MAX_AMOUNT_EXCEEDED
       example: "UNTIL_CANCELLATION"
     modeDue:
@@ -1200,9 +1565,6 @@ execution:
       type: number
       example: 15
 
-
-
-
 standingOrder:
   title: standingOrder
   description: |
@@ -1219,8 +1581,77 @@ standingOrder:
       example: "Payments for lunch - kindergarten Michal"
     execution:
       $ref: "#/execution"
-    debtorAccount:
-      $ref: "#/debtorAccount"
+    validity:
+      $ref: "#/standingOrderValidity"
+    exceptions:
+      $ref: "#/standingOrderExceptions"
+
+newStandingOrder:
+  title: standingOrder
+  description: |
+    Structure describing the parameters of the standing orders.
+  type: object
+  required:
+    - execution
+  properties:
+    alias:
+      description: |
+        Description resp. the user-defined standing order payment name.
+      type: string
+      maxLength: 250
+      example: "Payments for lunch - kindergarten Michal"
+    execution:
+      $ref: "#/execution"
+    validity:
+      $ref: "#/standingOrderValidity"
+    exceptions:
+      $ref: "#/standingOrderExceptions"
+
+standingOrderValidity:
+  title: newStandingOrder
+  description: |
+    Elements restricting the validity of the standing order.
+  type: object
+  properties:
+    lastExecutionDate:
+      $ref: "elements.yaml#/lastExecutionDate"
+    maxIterations:
+      $ref: "elements.yaml#/maxIterations"
+    maxAmount:
+      $ref: "#/standingOrderMaxAmount"
+
+standingOrderExceptions:
+  title: standingOrderExceptions
+  description: |
+    Elements defining exceptions to executing a standing order.
+  type: object
+  properties:
+    stopages:
+      $ref: "elements.yaml#/standingOrderStopages"
+    breaks:
+      $ref: "#/standingOrderBreaks"
+
+standingOrderBreaks:
+  title: standingOrderBreaks
+  description: |
+    Break periods.
+  type: object
+  required:
+    - validFromDate
+    - validToDate
+  properties:
+    validFromDate:
+      description: |
+        Start date of one break period. Standing order will not be processed from this date.
+      type: string
+      format: date
+      example: "2023-07-01"
+    validToDate:
+      description: |
+        End date of one break period. Standing order will
+      type: string
+      format: date
+      example: "2028-07-01"
 
 transactionsList:
   title: transactionsList
@@ -1230,6 +1661,21 @@ transactionsList:
   items:
     $ref: "#/transactionInfo"
 
+awaitingTransactionsList:
+  title: awaitingTransactionsList
+  description: |
+    Set of awaiting transactions on clints account
+  type: array
+  items:
+    $ref: "#/awaitingTransactionInfo"
+
+directDebitsList:
+  title: directdebitsList
+  description: |
+    List of domestic direct debits
+  type: array
+  items:
+    $ref: "#/signetDomesticDirectDebit"
 
 standingorderList:
   title: standingorderList
@@ -1246,6 +1692,69 @@ exchangeIdentification:
   type: string
   maxLength: 18
   example: "658576010faf0a23dc"
+
+bulkPayments:
+  title: bulkPayments
+  description: |
+    Collection of bulk payments
+  type: array
+  items:
+    type: object
+    properties:
+      transactionIdentification:
+        $ref: 'elements.yaml#/transactionIdentification'
+      signInfo:
+        $ref: '#/signInfo'
+
+batchPayments:
+  title: batchPaymentsCollection
+  description: |
+    Collection of payments
+  type: array
+  items:
+    type: object
+    properties:
+      signId:
+        title: signId
+        description: |
+          Identifier of the authorization process of a particular transaction.
+        example: "SomeID-1285673519929"
+  example:
+    [
+      {
+        "signId": "SomeID-1285673519924"
+      },
+      {
+        "signId": "SomeID-1285673519925"
+      },
+      {
+        "signId": "SomeID-1285673519929"
+      }
+    ]
+
+authorizations:
+  title: authorizations
+  description: |
+    Collection of pending authorizations of authenticated user
+  type: array
+  items:
+    type: object
+    required:
+      - type
+      - transactionIdentification
+      - scenarios
+      - signInfo
+    properties:
+      type:
+        $ref: 'elements.yaml#/transactionType'
+      transactionIdentification:
+        $ref: 'elements.yaml#/transactionIdentification'
+      validUntil:
+        $ref: 'elements.yaml#/validUntil'
+      scenarios:
+        $ref: 'elements.yaml#/scenarios'
+      signInfo:
+        $ref: '#/signInfo'
 
 card:
   title: card
@@ -1364,6 +1873,23 @@ paymentIdentification:
     transactionIdentification:
       $ref: 'elements.yaml#/transactionIdentification'
 
+awaitingPaymentIdentification:
+  title: awaitingPaymentIdentification
+  description: Awaiting Payment identification
+  type: object
+  required:
+    - instructionIdentification
+    - transactionIdentification
+  properties:
+    paymentId:
+      $ref: "elements.yaml#/paymentId"
+    instructionIdentification:
+      $ref: "elements.yaml#/instructionIdentification"
+    endToEndIdentification:
+      $ref: 'elements.yaml#/endToEndIdentification'
+    transactionIdentification:
+      $ref: 'elements.yaml#/transactionIdentification'
+
 serviceLevel:
   title: serviceLevel
   description: Service level
@@ -1414,3 +1940,14 @@ formData:
     id:
       $ref: 'elements.yaml#/relayState'
 
+rar:
+  title: rar
+  description: Optional element (authorizationType=RAR). For the method using rich authorization request to process the payment with a single SCA element. Contains data for sending in redirecting to federated authorization.
+  type: object
+  properties:
+    par_uri:
+      $ref: 'elements.yaml#/url'
+    scope:
+      $ref: 'elements.yaml#/scope'
+    authorization_details:
+      $ref: 'elements.yaml#/authorizationDetails'

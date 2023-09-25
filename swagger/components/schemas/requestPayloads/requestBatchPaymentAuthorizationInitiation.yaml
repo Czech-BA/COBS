@@ -1,0 +1,12 @@
+requestBatchPaymentAuthorizationInitiation:
+  title: requestBatchPaymentAuthorizationInitiation
+  description: |
+    Payload of query for batch payments authorization initiation
+  type: object
+  required:
+    - authorizationType
+  properties:
+    authorizationType:
+      $ref: '../elements.yaml#/authorizationType'
+    redirectUrl:
+      $ref: '../elements.yaml#/redirectUrl'

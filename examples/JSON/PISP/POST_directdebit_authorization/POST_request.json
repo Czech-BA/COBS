@@ -1,0 +1,4 @@
+{
+  "authorizationType": "SMS",
+  "redirectUrl": "http://my.sometpp.com/..."
+}

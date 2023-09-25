@@ -1,8 +1,24 @@
 OAuth2:
   description: |
-    Bearer OAuth2 Token.
-  type: http
-  scheme: bearer
+    This API uses OAuth 2 with the implicit grant flow.
+  type: oauth2
+  flows:
+    authorizationCode:
+      authorizationUrl: /oauth/authorize
+      tokenUrl: /oauth/token
+      scopes:
+        AISP: Access to all services within AISP
+        aisp.accounts: Access to an overview of accounts
+        aisp.balances: Access to information about balances
+        aisp.transactions: Access to the overview of transactions
+        aisp.directdebits: Access to the direct debits
+        aisp.standingorders: Access to the standing orders
+        PISP: Access to all services within PIS
+        pisp.payments: Option to initiate payment
+        pisp.directdebits: Ability to initiate a direct debits
+        pisp.standingorders: Ability to initiate a standing order
+        pisp.accounts: Ability to obtain a list of accounts from those ASPS that offer a list of accounts together with PIS servicesA
+
 
 ClientCert:
   description: |

@@ -3,7 +3,7 @@
    "pageCount":2,
    "pageSize":100,
    "nextPage":1,
-   "accounts":[
+   "accounts": [
       {
          "id":"D2C8C1DCC51A3738538A40A4863CA288E0225E52",
          "identification":{
@@ -16,8 +16,16 @@
             "countryCode":"CZ",
             "bic":"GIBACZPX"
          },
+         "relationship": {
+            "isOwner":true
+         },
          "nameI18N":"Muj hlavni osobni ucet",
-         "productI18N":"Osobní účet ČS"
+         "productI18N":"Osobní účet ČS",
+         "suitableScope": {
+            "AISP":"",
+            "PISP":"paymentOrders paymentOrders.instantPayment standingOrders",
+            "CISP":""
+         }
       }
    ]
 }

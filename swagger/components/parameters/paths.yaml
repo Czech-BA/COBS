@@ -16,6 +16,15 @@ paymentId:
   schema:
     $ref: "../schemas/elements.yaml#/transactionIdentification"
 
+transactionIdentification:
+  name: transactionIdentification
+  in: path
+  description: |
+    Identifier of order instruction
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/transactionIdentification"
+
 signId:
   name: signId
   in: path
@@ -24,3 +33,12 @@ signId:
   required: true
   schema:
     $ref: "../schemas/elements.yaml#/signId"
+
+mandateIdentification:
+  name: mandateIdentification
+  in: path
+  description: |
+    Identifier of domestic direct debit instruction.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/mandateIdentification"

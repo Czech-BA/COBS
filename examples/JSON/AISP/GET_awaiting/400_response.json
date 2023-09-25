@@ -1,0 +1,22 @@
+{
+   "errors":[
+      {
+         "error":"AM03",
+         "scope":"currency"
+      },
+      {
+         "error":"DT01",
+         "parameters":{
+            "DATE":"DATE_TO_OLD"
+         },
+         "scope":"fromDate"
+      },
+      {
+         "error":"DT01",
+         "parameters":{
+            "DATE":"DATE_IN_FUTURE"
+         },
+         "scope":"toDate"
+      }
+   ]
+}

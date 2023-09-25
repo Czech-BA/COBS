@@ -1,0 +1,9 @@
+requestDirectDebit:
+  description: |
+    JSON request body for new direct debit initialization.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/requestPayloads/requestDirectDebit.yaml#/requestNewDirectDebit"
+

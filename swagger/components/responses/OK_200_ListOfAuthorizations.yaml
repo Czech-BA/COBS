@@ -1,0 +1,58 @@
+OK_200_ListOfAuthorizations:
+  description: OK
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+    Signature:
+      $ref: "../parameters/responseHeaders.yaml#/signatureHeaderRes"
+    Digest:
+      $ref: "../parameters/responseHeaders.yaml#/digestHeaderRes"
+    ASPSP-Signature-Certificate:
+      $ref: "../parameters/responseHeaders.yaml#/aspspSignatureCertificate"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/responsePayloads/getListOfAuthorizations.yaml#/getListOfAuthorizations"
+      example:
+        {
+          "authorizations": [
+            {
+              "type": "payment",
+              "transactionIdentification": "048885570000001020045",
+              "validUntil": "2018-12-24T18:00:00+01:00",
+              "scenarios": [
+                [
+                    "CODE of The One of the methods ..."
+                ],
+                [
+                    "CODE of The second method ..."
+                ]
+              ],
+              "signInfo": {
+                "state": "OPEN",
+                "signId": "164298331754922"
+              }
+            },
+            {
+              "type": "standingorder",
+              "transactionIdentification": "71325680000009512001",
+              "validUntil": "2018-11-29T10:05:00+01:00",
+              "scenarios": [
+                [
+                    "CODE of The One of the methods ..."
+                ],
+                [
+                    "CODE of The second method ..."
+                ]
+              ],
+              "signInfo": {
+                "state": "OPEN",
+                "signId": "164298331548128"
+              }
+            }
+          ]
+        }
