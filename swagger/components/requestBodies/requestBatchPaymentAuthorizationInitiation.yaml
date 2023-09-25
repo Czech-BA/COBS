@@ -5,7 +5,7 @@ requestBatchPaymentAuthorizationInitiation:
   content:
     application/json:
       schema:
-        $ref: "../schemas/requestPayloads/requestDirectDebitAuthorizationInitiation.yaml#/requestDirectDebitAuthorizationInitiation"
+        $ref: "../schemas/requestPayloads/requestBatchPaymentAuthorizationInitiation.yaml#/requestBatchPaymentAuthorizationInitiation"
       example:
         {
           "authorizationType": "SMS",

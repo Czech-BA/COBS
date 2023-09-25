@@ -1084,6 +1084,9 @@ paths:
         - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
         - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
 
+      requestBody:
+        $ref: "./components/requestBodies/requestPutStandingOrderAuthorizationInitiation.yaml#/requestPutStandingOrderAuthorizationInitiation"
+
       responses:
         '200':
           $ref: "./components/responses/OK_200_putStandingOrderAuthorizationInitiation.yaml#/OK_200_putStandingOrderAuthorizationInitiation"
@@ -2313,6 +2316,9 @@ paths:
         - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
         - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
 
+      requestBody:
+        $ref: "./components/requestBodies/requestPutPaymentAuthorizationInitiation.yaml#/requestPutPaymentAuthorizationInitiation"
+
       responses:
         '200':
           $ref: "./components/responses/OK_200_putPaymentAuthorizationInitiation.yaml#/OK_200_putPaymentAuthorizationInitiation"
@@ -2885,6 +2891,9 @@ paths:
         - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
         - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
         - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestPutBatchPaymentAuthorizationInitiation.yaml#/requestPutBatchPaymentAuthorizationInitiation"        
 
       responses:
         '200':
