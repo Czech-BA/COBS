@@ -2292,7 +2292,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -2321,7 +2321,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -4597,7 +4597,7 @@ paths:
                                                     code.
                                                   type: string
                                                   example: '2700'
-                                        neme:
+                                        name:
                                           description: >
                                             Payer bank code as stated in the code
                                             list of world banks (SWIFT Directory).
@@ -5183,7 +5183,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -5212,7 +5212,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -6741,7 +6741,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -6770,7 +6770,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -8311,7 +8311,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -8340,7 +8340,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -9216,7 +9216,7 @@ paths:
                                   enum:
                                     - UNTIL_DATE
                                     - UNTIL_CANCELLATION
-                                    - FTER_MAX_ITERATION_EXCEEDED
+                                    - AFTER_MAX_ITERATION_EXCEEDED
                                     - MAX_AMOUNT_EXCEEDED
                                   example: UNTIL_CANCELLATION
                                 modeDue:
@@ -9622,7 +9622,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -9651,7 +9651,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -10421,7 +10421,7 @@ paths:
                           enum:
                             - UNTIL_DATE
                             - UNTIL_CANCELLATION
-                            - FTER_MAX_ITERATION_EXCEEDED
+                            - AFTER_MAX_ITERATION_EXCEEDED
                             - MAX_AMOUNT_EXCEEDED
                           example: UNTIL_CANCELLATION
                         modeDue:
@@ -10887,7 +10887,7 @@ paths:
                                     Local code format of the payer bank code.
                                   type: string
                                   example: '2700'
-                        neme:
+                        name:
                           description: >
                             Payer bank code as stated in the code list of world
                             banks (SWIFT Directory).
@@ -11722,7 +11722,7 @@ paths:
                             enum:
                               - UNTIL_DATE
                               - UNTIL_CANCELLATION
-                              - FTER_MAX_ITERATION_EXCEEDED
+                              - AFTER_MAX_ITERATION_EXCEEDED
                               - MAX_AMOUNT_EXCEEDED
                             example: UNTIL_CANCELLATION
                           modeDue:
@@ -12196,7 +12196,7 @@ paths:
                                       Local code format of the payer bank code.
                                     type: string
                                     example: '2700'
-                          neme:
+                          name:
                             description: >
                               Payer bank code as stated in the code list of
                               world banks (SWIFT Directory).
@@ -14635,7 +14635,7 @@ paths:
                             enum:
                               - UNTIL_DATE
                               - UNTIL_CANCELLATION
-                              - FTER_MAX_ITERATION_EXCEEDED
+                              - AFTER_MAX_ITERATION_EXCEEDED
                               - MAX_AMOUNT_EXCEEDED
                             example: UNTIL_CANCELLATION
                           modeDue:
@@ -15253,7 +15253,7 @@ paths:
                                       Local code format of the payer bank code.
                                     type: string
                                     example: '2700'
-                          neme:
+                          name:
                             description: >
                               Payer bank code as stated in the code list of
                               world banks (SWIFT Directory).
@@ -15872,7 +15872,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -15901,7 +15901,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -16850,7 +16850,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -16879,7 +16879,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -17661,7 +17661,7 @@ paths:
                           enum:
                             - UNTIL_DATE
                             - UNTIL_CANCELLATION
-                            - FTER_MAX_ITERATION_EXCEEDED
+                            - AFTER_MAX_ITERATION_EXCEEDED
                             - MAX_AMOUNT_EXCEEDED
                           example: UNTIL_CANCELLATION
                         modeDue:
@@ -18127,7 +18127,7 @@ paths:
                                     Local code format of the payer bank code.
                                   type: string
                                   example: '2700'
-                        neme:
+                        name:
                           description: >
                             Payer bank code as stated in the code list of world
                             banks (SWIFT Directory).
@@ -18957,7 +18957,7 @@ paths:
                             enum:
                               - UNTIL_DATE
                               - UNTIL_CANCELLATION
-                              - FTER_MAX_ITERATION_EXCEEDED
+                              - AFTER_MAX_ITERATION_EXCEEDED
                               - MAX_AMOUNT_EXCEEDED
                             example: UNTIL_CANCELLATION
                           modeDue:
@@ -19431,7 +19431,7 @@ paths:
                                       Local code format of the payer bank code.
                                     type: string
                                     example: '2700'
-                          neme:
+                          name:
                             description: >
                               Payer bank code as stated in the code list of
                               world banks (SWIFT Directory).
@@ -21944,7 +21944,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -21973,7 +21973,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -23026,7 +23026,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -23055,7 +23055,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -24114,7 +24114,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -24143,7 +24143,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -24999,7 +24999,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -25028,7 +25028,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -26204,7 +26204,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -26233,7 +26233,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -29526,7 +29526,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -29555,7 +29555,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -31703,7 +31703,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -31732,7 +31732,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -32694,7 +32694,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -32723,7 +32723,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -33562,7 +33562,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -33591,7 +33591,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -34657,7 +34657,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -34686,7 +34686,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -35581,7 +35581,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -35610,7 +35610,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -38129,7 +38129,7 @@ paths:
                                     Local code format of the payer bank code.
                                   type: string
                                   example: '2700'
-                        neme:
+                        name:
                           description: >
                             Payer bank code as stated in the code list of world
                             banks (SWIFT Directory).
@@ -39263,7 +39263,7 @@ paths:
                                       Local code format of the payer bank code.
                                     type: string
                                     example: '2700'
-                          neme:
+                          name:
                             description: >
                               Payer bank code as stated in the code list of
                               world banks (SWIFT Directory).
@@ -42042,7 +42042,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -42071,7 +42071,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: TRANSACTION_MISSING
@@ -43098,7 +43098,7 @@ paths:
                                       Local code format of the payer bank code.
                                     type: string
                                     example: '2700'
-                          neme:
+                          name:
                             description: >
                               Payer bank code as stated in the code list of
                               world banks (SWIFT Directory).
@@ -43776,7 +43776,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -43805,7 +43805,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: TRANSACTION_MISSING
@@ -44555,7 +44555,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -44584,7 +44584,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: TRANSACTION_MISSING
@@ -45393,7 +45393,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -45422,7 +45422,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: TRANSACTION_MISSING
@@ -46334,7 +46334,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -46363,7 +46363,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -47421,7 +47421,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -47450,7 +47450,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -48305,7 +48305,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -48334,7 +48334,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -52827,7 +52827,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -52856,7 +52856,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -54803,7 +54803,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -54832,7 +54832,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -55300,9 +55300,9 @@ paths:
         content:
           application/json:
             schema:
-              title: requestDirectDebitAuthorizationInitiation
+              title: requestBatchPaymentAuthorizationInitiation
               description: |
-                Payload of query for direct debit authorization initiation
+                Payload of query for batch payments authorization initiation
               type: object
               required:
                 - authorizationType
@@ -55889,7 +55889,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -55918,7 +55918,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
@@ -56776,7 +56776,7 @@ paths:
                           properties:
                             error:
                               type: string
-                              example: NOT_FOUND
+                              example: ID_NOT_FOUND
                             parameters:
                               title: errorParameters
                               description: >
@@ -56805,7 +56805,7 @@ paths:
                               type: string
                               example: Requested amount is too large
                           example:
-                            - error: NOT_FOUND
+                            - error: ID_NOT_FOUND
               example:
                 errors:
                   - error: ID_NOT_FOUND
