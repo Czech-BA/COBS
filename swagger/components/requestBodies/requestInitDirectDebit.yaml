@@ -1,0 +1,33 @@
+requestInitDirectDebit:
+  description: |
+    JSON request body for direct debit initiation API
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/requestPayloads/requestInitDirectDebit.yaml#/requestInitDirectDebit"
+      example:
+        {
+          "paymentIdentification": {
+            "instructionIdentification": "048885570000001020045"
+          },
+          "amount": {
+            "value": 10050.15,
+            "currency": "CZK"
+          },
+          "requestedExecutionDate": "2020-02-20",
+          "creditorAccount": {
+            "iban": "CZ0708000000001019540081"
+          },
+          "debtorAccount": {
+            "iban": "CZ0708000000001019382023"
+          },
+          "reference": {
+            "vs": "501",
+            "ks": "9",
+            "ss": "1005",
+            "unstructured": "String"
+          },
+          "recipientNote": "recipient",
+          "senderNote": "sender"
+        }

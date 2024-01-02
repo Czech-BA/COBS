@@ -486,6 +486,20 @@ entryReference:
   maxLength: 35
   type: string
 
+recipientNote:
+  title: recipientNote
+  description: |
+    Note for the recipient of the payment.
+  maxLength: 140
+  type: string
+
+senderNote:
+  title: senderNote
+  description: |
+    Note for the sender of the payment.
+  maxLength: 140
+  type: string
+
 paymentIdentification:
   title: paymentIdentification
   description: |

@@ -1225,6 +1225,33 @@ purpose:
       type: string
       example: "PLATBA ZA SLUŽBY"
 
+directDebitRemittanceInformation:
+  title: directDebitRemittanceInformation
+  description: |-
+    Additional direct debit payment information.
+  type: object
+  properties:
+    unstructured:
+      description: |
+        Additional payment information filled in in the payment as unstructured information.  If the payment states several repetitions of unstructured record supplementing payment information, then only the first of them will be considered.
+      type: string
+      example: "/VS/7418529630/SS/1234567890"
+    vs:
+      description: |
+        Variable symbol
+      type: string
+      example: "7418529630"
+    ss:
+      description: |
+          Specific symbol
+      type: string
+      example: "1234567890"
+    ks:
+      description: |
+          Constant symbol
+      type: string
+      example: "1234"
+
 remittanceInformation:
   title: remittanceInformation
   description: |
@@ -1367,6 +1394,36 @@ domesticDirectDebit:
       $ref: "#/directDebitCreditorAccount"
     remittanceInformation:
       $ref: "#/remittanceInformation"
+
+initDomesticDirectDebit:
+  title: initDomesticDirectDebit
+  description: |
+    Direct debit init with optional signInfo
+  type: object
+  required:
+    - paymentIdentification
+    - amount
+    - requestedExecutionDate
+    - creditorAccount
+    - debtorAccount
+  properties:
+    paymentIdentification:
+      $ref: "#/paymentIdentification"
+    amount:
+      $ref: '#/amount'
+    requestedExecutionDate:
+      $ref: 'elements.yaml#/requestedExecutionDate'
+    creditorAccount:
+      $ref: '#/directDebitCreditorAccount'
+    debtorAccount:
+      $ref: '#/directDebitDebtorAccount'
+    reference:
+      $ref: '#/directDebitRemittanceInformation'
+    recipientNote:
+      $ref: 'elements.yaml#/recipientNote'
+    senderNote:
+      $ref: 'elements.yaml#/senderNote'
+
 
 signetDomesticDirectDebit:
   title: signetDomesticDirectDebit
