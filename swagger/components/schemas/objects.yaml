@@ -1458,6 +1458,17 @@ signetDomesticDirectDebit:
     statusChangeInfo:
       $ref: "elements.yaml#/statusChangeInfo"
 
+directDebitStatus:
+  title: directDebitStatus
+  description: |
+    Status of entered/initiated direct debit order
+  type: object
+  required:
+    - instructionStatus
+  properties:
+    instructionStatus:
+      $ref: "elements.yaml#/directDebitInstructionStatus"
+
 standingOrdersStatus:
   title: standingOrdersStatus
   description: |
