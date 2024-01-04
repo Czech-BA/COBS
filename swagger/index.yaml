@@ -3169,6 +3169,9 @@ tags:
         * DELETE Domestic direct debit Consent delete
       
         * POST Domestic direct debit - instruction initiation
+        * GET Domestic direct debit detail
+        * DELETE Domestic direct debit
+        * GET Domestic direct debit status
 
   - name: Batch Payments
     description: |
