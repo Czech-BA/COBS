@@ -1,4 +1,4 @@
-OK_200_DirectDebitStatus:
+OK_200_DirectDebitOrderDetail:
   description: OK
   headers:
     Content-Type:
@@ -16,4 +16,4 @@ OK_200_DirectDebitStatus:
   content:
     application/json:
       schema:
-        $ref: "../schemas/objects.yaml#/directDebitStatus"
+        $ref: "../schemas/objects.yaml#/directDebitDetail"

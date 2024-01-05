@@ -1755,6 +1755,7 @@ paths:
 
       parameters:
         #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
         #query
         #header
         #common header parameter
@@ -1787,7 +1788,7 @@ paths:
 
       responses:
         '200':
-          $ref: "./components/responses/OK_200_InitDomesticDirectDebit.yaml#/OK_200_InitDomesticDirectDebit"
+          $ref: "./components/responses/OK_200_DirectDebitOrderDetail.yaml#/OK_200_DirectDebitOrderDetail"
 
     delete:
       summary: Resource to delete the direct debit order
@@ -1804,6 +1805,7 @@ paths:
 
       parameters:
         #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
         #query
         #header
         #common header parameter
@@ -1854,6 +1856,7 @@ paths:
 
       parameters:
         #path
+        - $ref: "./components/parameters/paths.yaml#/transactionIdentification"
         #query
         #header
         #common header parameter
@@ -1886,7 +1889,7 @@ paths:
 
       responses:
         '200':
-          $ref: "./components/responses/OK_200_DirectDebitStatus.yaml#/OK_200_DirectDebitStatus"
+          $ref: "./components/responses/OK_200_DirectDebitOrderStatus.yaml#/OK_200_DirectDebitOrderStatus"
 
 
 
