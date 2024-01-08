@@ -12,8 +12,13 @@ OK_200_DirectDebitOrderStatus:
     Digest:
       $ref: "../parameters/responseHeaders.yaml#/digestHeaderRes"
     ASPSP-Signature-Certificate:
-      $ref: "../parameters/responseHeaders.yaml#/aspspSignatureCertificate"
+      $ref: "../schemas/responsePayloads/getDirectDebitOrderStatus.yaml#/getDirectDebitOrderStatus"
   content:
     application/json:
       schema:
-        $ref: "../schemas/objects.yaml#/directDebitStatus"
+        $ref: "../schemas/responsePayloads/getDirectDebitOrderStatus.yaml#/getDirectDebitOrderStatus"
+      example:
+        {
+          "instructionStatus": "ACTC",
+          "statusChangeInfo": "string"
+        }

@@ -1,0 +1,12 @@
+deleteDirectDebitOrder:
+  title: deleteDirectDebit
+  description: |
+    Delete direct debit order with optional signInfo, depending on whether the bank requires authorization of this action.
+  type: object
+  required:
+    - paymentIdentification
+  properties:
+    paymentIdentification:
+      $ref: "../objects.yaml#/directDebitPaymentIdentification"
+    signInfo:
+      $ref: "../objects.yaml#/signInfo"

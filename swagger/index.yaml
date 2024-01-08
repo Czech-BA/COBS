@@ -1838,7 +1838,7 @@ paths:
 
       responses:
         '200':
-          $ref: "./components/responses/OK_200_InitDomesticDirectDebit.yaml#/OK_200_InitDomesticDirectDebit"
+          $ref: "./components/responses/OK_200_DirectDebitOrderDelete.yaml#/OK_200_DirectDebitOrderDelete"
 
   /my/payments/directdebit/{transactionIdentification}/status:
     get:

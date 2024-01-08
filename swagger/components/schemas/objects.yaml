@@ -1496,47 +1496,6 @@ signetDomesticDirectDebit:
     statusChangeInfo:
       $ref: "elements.yaml#/statusChangeInfo"
 
-directDebitDetail:
-  title: directDebitDetail
-  description: |
-    Direct Debit Order detail
-  type: object
-  required:
-    - directDebitIdentification
-    - limit
-    - directDebit
-    - debtorAccount
-    - creditorAccount
-    - instructionStatus
-  properties:
-    directDebitIdentification:
-      $ref: "#/directDebitIdentification"
-    limit:
-      $ref: "#/directDebitLimit"
-    directDebit:
-      $ref: "#/directDebit"
-    debtorAccount:
-      $ref: "#/directDebitDebtorAccount"
-    creditorAccount:
-      $ref: "#/directDebitCreditorAccount"
-    remittanceInformation:
-      $ref: '#/directDebitRemittanceInformation'
-    instructionStatus:
-      $ref: "elements.yaml#/directDebitInstructionStatus"
-    statusChangeInfo:
-      $ref: "elements.yaml#/statusChangeInfo"
-
-directDebitStatus:
-  title: directDebitStatus
-  description: |
-    Status of entered/initiated direct debit order
-  type: object
-  required:
-    - instructionStatus
-  properties:
-    instructionStatus:
-      $ref: "elements.yaml#/directDebitInstructionStatus"
-
 standingOrdersStatus:
   title: standingOrdersStatus
   description: |
