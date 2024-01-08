@@ -3171,10 +3171,10 @@ tags:
         * PUT Change of existing Domestic direct debit Consent
         * DELETE Domestic direct debit Consent delete
       
-        * POST Domestic direct debit - instruction initiation
-        * GET Domestic direct debit detail
-        * DELETE Domestic direct debit
-        * GET Domestic direct debit status
+        * POST Domestic direct debit order - instruction initiation
+        * GET Domestic direct debit order detail
+        * DELETE Domestic direct debit order
+        * GET Domestic direct debit order status
 
   - name: Batch Payments
     description: |
