@@ -12,7 +12,7 @@ OK_200_DirectDebitOrderStatus:
     Digest:
       $ref: "../parameters/responseHeaders.yaml#/digestHeaderRes"
     ASPSP-Signature-Certificate:
-      $ref: "../schemas/responsePayloads/getDirectDebitOrderStatus.yaml#/getDirectDebitOrderStatus"
+      $ref: "../parameters/responseHeaders.yaml#/aspspSignatureCertificate"
   content:
     application/json:
       schema:
