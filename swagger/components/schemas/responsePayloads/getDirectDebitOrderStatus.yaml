@@ -1,0 +1,12 @@
+getDirectDebitOrderStatus:
+  title: directDebitStatus
+  description: |
+    Status of entered/initiated direct debit order
+  type: object
+  required:
+    - instructionStatus
+  properties:
+    instructionStatus:
+      $ref: "../elements.yaml#/directDebitInstructionStatus"
+    statusChangeInfo:
+      $ref: "../elements.yaml#/statusChangeInfo"

@@ -1,4 +1,4 @@
-OK_200_InitDomesticDirectDebit:
+OK_200_DirectDebitOrderDetail:
   description: OK
   headers:
     Content-Type:
@@ -16,7 +16,7 @@ OK_200_InitDomesticDirectDebit:
   content:
     application/json:
       schema:
-        $ref: "../schemas/responsePayloads/postInitDirectDebit.yaml#/postInitDirectDebit"
+        $ref: "../schemas/responsePayloads/getDirectDebitOrderDetail.yaml#/getDirectDebitOrderDetail"
       example:
         {
           "paymentIdentification": {
@@ -43,10 +43,6 @@ OK_200_InitDomesticDirectDebit:
             },
             "unstructured": "Message about the transaction",
             "additionalRemittanceInformation": "Message for the sender of the request"
-          },
-          "signInfo": {
-            "state": "OPEN",
-            "signId": "164298331754922"
           },
           "instructionStatus": "ACTC",
           "statusChangeInfo": "string"

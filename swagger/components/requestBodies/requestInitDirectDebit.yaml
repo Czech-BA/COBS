@@ -9,25 +9,27 @@ requestInitDirectDebit:
       example:
         {
           "paymentIdentification": {
-            "instructionIdentification": "048885570000001020045"
+            "instructionIdentification": "SomeID-1285673519924",
+            "endToEndIdentification": "1q2w3e4r5t6y7u8i9o0p"
           },
           "amount": {
-            "value": 10050.15,
+            "value": 1500.00,
             "currency": "CZK"
           },
-          "requestedExecutionDate": "2020-02-20",
+          "requestedExecutionDate": "2018-09-08",
           "creditorAccount": {
-            "iban": "CZ0708000000001019540081"
+            "iban": "CZ6330300000000000000123"
           },
           "debtorAccount": {
-            "iban": "CZ0708000000001019382023"
+            "iban": "CZ7508000000002108589434"
           },
-          "reference": {
-            "vs": "501",
-            "ks": "9",
-            "ss": "1005",
-            "unstructured": "String"
-          },
-          "recipientNote": "recipient",
-          "senderNote": "sender"
+          "remittanceInformation": {
+            "structured": {
+              "vs": "501",
+              "ks": "9",
+              "ss": "1005"
+            },
+            "unstructured": "Message about the transaction",
+            "additionalRemittanceInformation": "Message for the sender of the request"
+          }
         }
