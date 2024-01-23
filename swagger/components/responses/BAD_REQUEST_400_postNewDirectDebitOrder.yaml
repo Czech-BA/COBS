@@ -1,0 +1,22 @@
+BAD_REQUEST_400_postNewDirectDebitOrder:
+  description: Bad request
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+      X-Request-ID:
+        $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+      Action-ID:
+        $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorPayloads/error400_postNewDirectDebitOrder.yaml#/error400_postNewDirectDebitOrder"
+      example:
+        {
+          "errors": [
+            {
+              "error": "FIELD_MISSING",
+              "scope": "amount"
+            }
+          ]
+        }
