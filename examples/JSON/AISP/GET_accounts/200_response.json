@@ -8,7 +8,7 @@
          "id":"D2C8C1DCC51A3738538A40A4863CA288E0225E52",
          "identification":{
             "iban":"CZ0708000000001019382023",
-            "other":"1019382023"
+            "other":"101938202333"
          },
          "currency":"CZK",
          "servicer":{
@@ -19,7 +19,7 @@
          "relationship": {
             "isOwner":true
          },
-         "nameI18N":"Muj hlavni osobni ucet",
+         "nameI18N":"Muj hlavni person ucet",
          "productI18N":"Osobní účet ČS",
          "suitableScope": {
             "AISP":"",

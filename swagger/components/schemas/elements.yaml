@@ -282,7 +282,7 @@ transactionType:
     - STANDINGORDER
     - DIRECTDEBIT
     - BATCHPAYMENT
-  example: "PAYENT"
+  example: "PAYMENT"
 
 allInstructions:
   title: allInstructions
@@ -484,6 +484,20 @@ entryReference:
   description: |
     Identification no. of the payment assigned by the bank.
   maxLength: 35
+  type: string
+
+recipientNote:
+  title: recipientNote
+  description: |
+    Note for the recipient of the payment.
+  maxLength: 140
+  type: string
+
+senderNote:
+  title: senderNote
+  description: |
+    Note for the sender of the payment.
+  maxLength: 140
   type: string
 
 paymentIdentification:
@@ -849,9 +863,14 @@ instructionStatus:
 directDebitInstructionStatus:
   title: directDebitInstructionStatus
   description: |
-    Status of entered direct debit consent.
-  maxLength: 35
+    Status of entered direct debit order. 'ACTC' - Accepted and validated, 'ACSP' - Sent to debtor's bank, 'ACSC' - Settlement on the debtor´s account has been completed, 'RJCT' - Direct debit order initiation has been rejected
   type: string
+  enum:
+    - ACTC
+    - ACSP
+    - ACSC
+    - RJCT
+  example: "ACTC"
 
 standingOrderInstructionStatus:
   title: standingOrderInstructionStatus
@@ -870,7 +889,7 @@ batchPaymentsInstructionStatus:
 statusChangeInfo:
   title: statusChangeInfo
   description: |
-    Specifies the change which was made to the instruction. Used with istructionStatus "ACWC".
+    Specifies the change which was made to the instruction. Used with instructionStatus "ACWC".
   type: string
 
 scenarios:
