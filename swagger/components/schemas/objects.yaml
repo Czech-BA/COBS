@@ -885,6 +885,24 @@ directDebitCreditorAccount:
     identification:
       $ref: "#/onlyIbanIdentification"
 
+directDebitOrderCreditorAccount:
+  title: creditorAccount
+  description: |
+    Information on the payee account. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    iban:
+         $ref: "elements.yaml#/iban"
+
+directDebitOrderDebtorAccount:
+  title: debtorAccount
+  description: |
+    Information on the account payer. It is according to the payment direction, and filled in in the case of counterparty.
+  type: object
+  properties:
+    iban:
+      $ref: "elements.yaml#/iban"
+
 debtorAccount:
   title: debtorAccount
   description: |
@@ -1051,6 +1069,17 @@ amount:
           $ref: "elements.yaml#/value"
         currency:
           $ref: "#/currencyCode"
+
+directDebitAmount:
+  title: amount
+  description: |
+    Payment amount
+  type: object
+  properties:
+    value:
+      $ref: "elements.yaml#/value"
+    currency:
+      $ref: "elements.yaml#/currency"
 
 paymentAmount:
   title: paymentAmount
@@ -1225,6 +1254,43 @@ purpose:
       type: string
       example: "PLATBA ZA SLUŽBY"
 
+directDebitRemittanceInformation:
+  title: remittanceInformation
+  description: |-
+    Additional direct debit order information.
+  type: object
+  properties:
+    unstructured:
+      description: |
+        Additional payment information filled in in the payment as unstructured information. If the payment states several repetitions of unstructured record supplementing payment information, then only the first of them will be considered.
+      type: string
+      example: "/VS/7418529630/SS/1234567890"
+    structured:
+      description: |
+        Symbols.
+      type: object
+      properties:
+        vs:
+          description: |
+            Variable symbol
+          type: string
+          example: "7418529630"
+        ss:
+          description: |
+              Specific symbol
+          type: string
+          example: "1234567890"
+        ks:
+          description: |
+              Constant symbol
+          type: string
+          example: "1234"
+    additionalRemittanceInformation:
+        description: |
+          Message for the sender of the request.
+        type: string
+        example: "Message for the sender of the request"
+
 remittanceInformation:
   title: remittanceInformation
   description: |
@@ -1367,6 +1433,35 @@ domesticDirectDebit:
       $ref: "#/directDebitCreditorAccount"
     remittanceInformation:
       $ref: "#/remittanceInformation"
+
+initDomesticDirectDebit:
+  title: initDomesticDirectDebit
+  description: |
+    Direct debit init with optional signInfo
+  type: object
+  required:
+    - paymentIdentification
+    - amount
+    - requestedExecutionDate
+    - creditorAccount
+    - debtorAccount
+  properties:
+    paymentIdentification:
+      $ref: "#/paymentIdentification"
+    amount:
+      $ref: '#/amount'
+    requestedExecutionDate:
+      $ref: 'elements.yaml#/requestedExecutionDate'
+    creditorAccount:
+      $ref: '#/directDebitCreditorAccount'
+    debtorAccount:
+      $ref: '#/directDebitDebtorAccount'
+    reference:
+      $ref: '#/directDebitRemittanceInformation'
+    recipientNote:
+      $ref: 'elements.yaml#/recipientNote'
+    senderNote:
+      $ref: 'elements.yaml#/senderNote'
 
 signetDomesticDirectDebit:
   title: signetDomesticDirectDebit
@@ -1872,6 +1967,18 @@ paymentIdentification:
       $ref: 'elements.yaml#/endToEndIdentification'
     transactionIdentification:
       $ref: 'elements.yaml#/transactionIdentification'
+
+directDebitPaymentIdentification:
+  title: paymentIdentification
+  description: Payment identification
+  type: object
+  required:
+    - instructionIdentification
+  properties:
+    instructionIdentification:
+      $ref: "elements.yaml#/instructionIdentification"
+    endToEndIdentification:
+      $ref: 'elements.yaml#/endToEndIdentification'
 
 awaitingPaymentIdentification:
   title: awaitingPaymentIdentification

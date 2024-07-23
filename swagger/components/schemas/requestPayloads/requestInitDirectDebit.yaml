@@ -1,0 +1,24 @@
+requestInitDirectDebit:
+  title: requestInitDirectDebit
+  description: |
+    Payload of query for new direct debit order initialization
+  type: object
+  required:
+    - paymentIdentification
+    - amount
+    - requestedExecutionDate
+    - creditorAccount
+    - debtorAccount
+  properties:
+    paymentIdentification:
+      $ref: "../objects.yaml#/directDebitPaymentIdentification"
+    amount:
+      $ref: '../objects.yaml#/directDebitAmount'
+    requestedExecutionDate:
+      $ref: '../elements.yaml#/requestedExecutionDate'
+    creditorAccount:
+      $ref: '../objects.yaml#/directDebitOrderCreditorAccount'
+    debtorAccount:
+      $ref: '../objects.yaml#/directDebitOrderDebtorAccount'
+    remittanceInformation:
+      $ref: '../objects.yaml#/directDebitRemittanceInformation'

@@ -1,0 +1,31 @@
+postInitDirectDebit:
+  title: initDirectDebit
+  description: |
+    Direct debit order initiation with optional signInfo, depending on whether the bank requires authorization of this action.
+  type: object
+  required:
+    - paymentIdentification
+    - amount
+    - requestedExecutionDate
+    - creditorAccount
+    - debtorAccount
+    - instructionStatus
+  properties:
+    paymentIdentification:
+      $ref: "../objects.yaml#/directDebitPaymentIdentification"
+    amount:
+      $ref: '../objects.yaml#/directDebitAmount'
+    requestedExecutionDate:
+      $ref: '../elements.yaml#/requestedExecutionDate'
+    creditorAccount:
+      $ref: '../objects.yaml#/directDebitOrderCreditorAccount'
+    debtorAccount:
+      $ref: '../objects.yaml#/directDebitOrderDebtorAccount'
+    remittanceInformation:
+      $ref: '../objects.yaml#/directDebitRemittanceInformation'
+    signInfo:
+      $ref: "../objects.yaml#/signInfo"
+    instructionStatus:
+      $ref: "../elements.yaml#/directDebitInstructionStatus"
+    statusChangeInfo:
+      $ref: "../elements.yaml#/statusChangeInfo"

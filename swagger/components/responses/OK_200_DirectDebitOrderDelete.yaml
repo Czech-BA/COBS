@@ -1,0 +1,31 @@
+OK_200_DirectDebitOrderDelete:
+  description: OK
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+    Signature:
+      $ref: "../parameters/responseHeaders.yaml#/signatureHeaderRes"
+    Digest:
+      $ref: "../parameters/responseHeaders.yaml#/digestHeaderRes"
+    ASPSP-Signature-Certificate:
+      $ref: "../parameters/responseHeaders.yaml#/aspspSignatureCertificate"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/responsePayloads/deleteDirectDebitOrder.yaml#/deleteDirectDebitOrder"
+      example:
+        {
+          "paymentIdentification": {
+            "instructionIdentification": "SomeID-1285673519924",
+            "endToEndIdentification": "1q2w3e4r5t6y7u8i9o0p",
+            "transactionIdentification": "033225570000078020091"
+          },
+          "signInfo": {
+            "state": "OPEN",
+            "signId": "164298331754922"
+          }
+        }
