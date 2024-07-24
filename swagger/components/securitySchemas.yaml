@@ -13,6 +13,7 @@ OAuth2:
         aisp.transactions: Access to the overview of transactions
         aisp.directdebits: Access to the direct debits
         aisp.standingorders: Access to the standing orders
+        aisp.notifications: Access to the notifications
         PISP: Access to all services within PIS
         pisp.payments: Option to initiate payment
         pisp.directdebits: Ability to initiate a direct debits

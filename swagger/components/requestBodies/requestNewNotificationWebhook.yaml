@@ -1,0 +1,33 @@
+requestNewNotificationWebhook:
+  description: |
+    JSON request body for new notification webhook
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/requestPayloads/requestNewNotificationWebhook.yaml#/requestNewNotificationWebhook"
+      example:
+        {
+          "webhookUrl": "https://mujdemoobchod.cz/notification",
+          "paymentId": "6ba905fd-aefb-4e35-ac60-acaf8e564556",
+          "amount": {
+            "minValue": 10000,
+            "maxValue": 25000,
+            "currency": "CZK"
+          },
+          "creditorAccount": {
+            "identification": {
+              "iban": "CZ0827000000002108589434"
+            }
+          },
+          "remittanceInformation": {
+            "structured": {
+              "creditorReferenceInformation": {
+                "reference": [
+                  "VS:20200312"
+                ]
+              }
+            }
+          }
+        }
+
