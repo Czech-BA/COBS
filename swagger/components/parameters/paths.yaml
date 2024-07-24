@@ -25,6 +25,24 @@ transactionIdentification:
   schema:
     $ref: "../schemas/elements.yaml#/transactionIdentification"
 
+notificationAccountId:
+  name: id
+  in: path
+  description: |
+    API payment account identifier from the response to a query on the list of accounts.
+  required: true
+  schema:
+    $ref: "../schemas/elements.yaml#/notificationAccountId"
+
+notificationId:
+  name: notificationId
+  in: path
+  description: |
+      Unique identifier for current notification
+  required: true
+  schema:
+      $ref: "../schemas/elements.yaml#/notificationId"
+
 signId:
   name: signId
   in: path

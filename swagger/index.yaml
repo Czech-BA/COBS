@@ -1963,6 +1963,214 @@ paths:
         '503':
           $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
 
+  /my/accounts/{id}/notifications:
+    post:
+      summary: New notification webhook
+      description: |
+        A service that allows a third party to register a so-called webhook to receive notifications about changes to the account. The goal is to offer a solution for regularly downloading the transaction history and monitoring whether the expected transaction or transactions have occurred.
+  
+        Defining a rule for sending a notification to a registered webhook enables sufficient content filtering and targeting only those transactions that interest the third party.
+
+      tags:
+        - Notifications
+
+      security:
+        - OAuth2: [ AISP, aisp.notifications ]
+          ApiKey: [ ]
+        - ClientCert: [ ]
+          ApiKey: [ ]
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/notificationAccountId"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestNewNotificationWebhook.yaml#/requestNewNotificationWebhook"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_NewNotificationWebhookResponse.yaml#/OK_200_NewNotificationWebhookResponse"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+  /my/accounts/{id}/notifications/{notificationId}:
+    get:
+      summary: Detail of notification settings
+      description: |
+        The service is used when TPP needs to determine the parameters of a specific notification setting and its status.
+
+      tags:
+        - Notifications
+
+      security:
+        - OAuth2: [ AISP, aisp.notifications ]
+          ApiKey: [ ]
+        - ClientCert: [ ]
+          ApiKey: [ ]
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/notificationAccountId"
+        - $ref: "./components/parameters/paths.yaml#/notificationId"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_NewNotificationWebhookResponse.yaml#/OK_200_NewNotificationWebhookResponse"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
+    delete:
+      summary: Delete an existing notification
+      description: |
+        This service is intended for the case that, for some reason, TPP no longer wants to receive information about changes to the account in the form of requests sent to a specified webhook.
+        Each third party can only delete webhooks defined by it.
+
+      tags:
+        - Notifications
+
+      security:
+        - OAuth2: [ AISP, aisp.notifications ]
+          ApiKey: [ ]
+        - ClientCert: [ ]
+          ApiKey: [ ]
+
+      parameters:
+        #path
+        - $ref: "./components/parameters/paths.yaml#/notificationAccountId"
+        - $ref: "./components/parameters/paths.yaml#/notificationId"
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '204':
+          description: The notification webhook was deleted successfully.
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '404':
+          $ref: "./components/responses/NOT_FOUND_404.yaml#/NOT_FOUND_404"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
 
   /my/payments/balanceCheck:
     post:
@@ -3258,6 +3466,17 @@ tags:
           * PUT Batch payment authorization Step III
         * DELETE Batch payment
         * GET Batch payment status
+
+  - name: Notifications
+    description: |
+      A service that allows a third party to register a so-called webhook to receive notifications about changes to the account. The goal is to offer a solution for regularly downloading the transaction history and monitoring whether the expected transaction or transactions have occurred.
+  
+      Defining a rule for sending a notification to a registered webhook enables sufficient content filtering and targeting only those transactions that interest the third party.
+  
+      **Overview of resources:**
+        * POST New notification - (register webhook)
+        * GET Notification detail
+        * DELETE Notification
 
   - name: Balance check
     description: |

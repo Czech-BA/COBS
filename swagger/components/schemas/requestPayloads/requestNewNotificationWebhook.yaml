@@ -1,0 +1,22 @@
+requestNewNotificationWebhook:
+  title: requestNewNotificationWebhook
+  description: |
+    Request message elements for POST new notification webhook
+  type: object
+  required:
+    - exchangeIdentification
+    - debtorAccount
+    - creditorAccount
+  properties:
+    webhookUrl:
+      $ref: "../elements.yaml#/webhookUrl"
+    paymentId:
+      $ref: "../elements.yaml#/paymentId"
+    amount:
+      $ref: "../objects.yaml#/notificationAmount"
+    debtorAccount:
+      $ref: "../objects.yaml#/webhookDebtorAccount"
+    creditorAccount:
+      $ref: "../objects.yaml#/webhookCreditorAccount"
+    remittanceInformation:
+      $ref: "../objects.yaml#/remittanceInformation"

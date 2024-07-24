@@ -638,6 +638,13 @@ paymentId:
   maxLength: 255
   type: string
 
+notificationId:
+  title: notificationId
+  description: |
+    Unique identifier for the notification.
+  type: string
+  example: "882ab993-d52e-48c2-8477-5dc39979e339"
+
 accountServicerReference:
   title: accountServicerReference
   description: |
@@ -738,6 +745,20 @@ direcDebitAlias:
   maxLength: 250
   type: string
   example: "Platba za plyn"
+
+notificationAccountId:
+  title: notificationId
+  description: |
+    Unique identifier for the notification.
+  type: string
+  example: "164298331754922"
+
+webhookUrl:
+  title: webhookUrl
+  description: |
+    URL address for the notification webhook.
+  type: string
+  example: "https://api.example.com/webhook"
 
 directDebitValidFromDate:
   title: directDebitValidFromDate

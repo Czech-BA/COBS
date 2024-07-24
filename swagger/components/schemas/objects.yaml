@@ -25,6 +25,22 @@ creditLineAmount:
     currency:
       $ref: "#/currencyCode"
 
+notificationAmount:
+    title: notificationAmount
+    description: |
+      Transaction amount range for notification
+    type: object
+    required:
+        - minValue
+        - maxValue
+    properties:
+      minValue:
+        $ref: "elements.yaml#/value"
+      maxValue:
+        $ref: "elements.yaml#/value"
+      currency:
+        $ref: "#/currencyCode"
+
 balanceAmount:
   title: balanceAmount
   description: |
@@ -961,6 +977,15 @@ creditorAccount:
         Payee account name.
       type: string
 
+webhookCreditorAccount:
+  title: creditorAccount
+  description: |
+      Payee account identification for notification about the payment.
+  type: object
+  properties:
+    identification:
+      $ref: "#/onlyIbanIdentification"
+
 paymentCreditorAccount:
   title: paymentCreditorAccount
   description: |
@@ -1013,6 +1038,15 @@ debtorAccount:
       description: |
         Payer account name.
       type: string
+
+webhookDebtorAccount:
+  title: debtorAccount
+  description: |
+    Debtor account identification for notification about the payment.
+  type: object
+  properties:
+    identification:
+      $ref: "#/onlyIbanIdentification"
 
 awaitingDebtorAccount:
   title: debtorAccount
