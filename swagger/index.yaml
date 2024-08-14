@@ -1757,6 +1757,70 @@ paths:
         '503':
           $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
 
+    get:
+      summary: List of client's direct debit orders
+      description: |
+        Paged list of client’s direct debit orders. Each direct debit order contains a unique id usable for URI referencing, e.g. for the direct debit order detail.
+      tags:
+        - Direct Debits
+
+      security:
+        - OAuth2: [PISP, pisp.directdebits]
+          ApiKey: [ ]
+        - ClientCert: [ ]
+          ApiKey: [ ]
+
+      parameters:
+        #path
+        #query
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_DirectDebitOrderList.yaml#/OK_200_DirectDebitOrderList"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
+
+        '500':
+          $ref: "./components/responses/INTERNAL_SERVER_ERROR_500.yaml#/INTERNAL_SERVER_ERROR_500"
+
+        '503':
+          $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
+
   /my/payments/directdebitorder/{transactionIdentification}:
     get:
       summary: Detail about the direct debit order
@@ -3451,6 +3515,7 @@ tags:
         * DELETE Domestic direct debit Consent delete
       
         * POST Domestic direct debit order - instruction initiation
+        * GET List of client's direct debit orders
         * GET Domestic direct debit order detail
         * DELETE Domestic direct debit order
         * GET Domestic direct debit order status
