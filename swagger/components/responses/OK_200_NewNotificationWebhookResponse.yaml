@@ -1,0 +1,28 @@
+OK_200_NewNotificationWebhookResponse:
+  description: |
+    JSON request body for new notification webhook
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/responsePayloads/postNewNotificationWebhook.yaml#/postNewNotificationWebhook"
+      example:
+        {
+          "webhookUrl": "https://mujdemoobchod.cz/notification",
+          "notificationId": "b06a4b19-e1f5-4a50-9be5-be47b0d57829",
+          "paymentId": "6ba905fd-aefb-4e35-ac60-acaf8e564556",
+          "amount": {
+            "minValue": 10000,
+            "maxValue": 25000,
+            "currency": "CZK"
+          },
+          "remittanceInformation": {
+            "structured": {
+              "creditorReferenceInformation": {
+                "reference": [
+                  "VS:20200312"
+                ]
+              }
+            }
+          }
+
+        }

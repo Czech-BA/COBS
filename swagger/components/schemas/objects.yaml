@@ -25,6 +25,22 @@ creditLineAmount:
     currency:
       $ref: "#/currencyCode"
 
+notificationAmount:
+    title: notificationAmount
+    description: |
+      Transaction amount range for notification
+    type: object
+    required:
+        - minValue
+        - maxValue
+    properties:
+      minValue:
+        $ref: "elements.yaml#/value"
+      maxValue:
+        $ref: "elements.yaml#/value"
+      currency:
+        $ref: "#/currencyCode"
+
 balanceAmount:
   title: balanceAmount
   description: |
@@ -192,12 +208,31 @@ postalAddress:
       $ref: "#/streetName"
     buildingNumber:
       $ref: "#/buildingNumber"
+    buildingName:
+      $ref: "#/buildingName"
+    floor:
+      $ref: "#/floor"
+    postBox:
+      $ref: "#/postBox"
+    room:
+      $ref: "#/room"
     postCode:
       $ref: "#/postCode"
     townName:
       $ref: "#/townName"
+    townLocationName:
+      $ref: "#/townLocationName"
+    districtName:
+      $ref: "#/districtName"
     country:
       $ref: "#/country"
+    countrySubDivision:
+      $ref: "#/countrySubDivision"
+    department:
+      $ref: "#/department"
+    subDepartment:
+      $ref: "#/subDepartment"
+
     addressLine:
       $ref: "#/addressLine"
 
@@ -358,20 +393,23 @@ streetName:
   description: |
     Street name used for postal address.
   type: string
-  example: "Reisnerstrase"
+  maxLength: 70
+  example: "Merrick Avenue"
 
 buildingNumber:
   title: buildingNumber
   description: |
     Land registry no. used for postal address.
   type: string
-  example: "20"
+  maxLength: 16
+  example: "61511590-6644"
 
 postCode:
   title: postCode
   description: |
     Postcode used for postal address.
   type: string
+  maxLength: 16
   example: "1030"
 
 townName:
@@ -379,6 +417,7 @@ townName:
   description: |
     Town name used for postal address.
   type: string
+  maxLength: 35
   example: "Wiena"
 
 country:
@@ -386,6 +425,8 @@ country:
   description: |
     CountryCode, ISO 3166 (2 alphanumeric characters code version)
   type: string
+  pattern: "[A-Z]{2}"
+  maxLength: 2
   example: "AT"
 
 addressLine:
@@ -394,6 +435,77 @@ addressLine:
     Unstructured record of payer postal address
   type: string
 
+department:
+  title: department
+  description: |
+    Identification of a division of a large organisation or building.
+  type: string
+  maxLength: 70
+  example: "Merrick Ave"
+
+subDepartment:
+  title: subDepartment
+  description: |
+    Identification of a subdivision of a large organisation or building.
+  type: string
+  maxLength: 70
+  example: "NYCB Building"
+
+buildingName:
+  title: buildingName
+  description: |
+    Name of the building or house.
+  type: string
+  maxLength: 35
+  example: "Merrick Ave"
+
+floor:
+  title: floor
+  description: |
+    Floor or storey within a building.
+  type: string
+  maxLength: 70
+  example: "3A"
+
+postBox:
+  title: postBox
+  description: |
+    Identification of a postbox.
+  type: string
+  maxLength: 16
+  example: "P.O.Box 5555"
+
+room:
+  title: room
+  description: |
+    Identification of a room.
+  type: string
+  maxLength: 70
+  example: "405"
+
+townLocationName:
+  title: townLocationName
+  description: |
+    Specific location name within the town.
+  type: string
+  maxLength: 35
+  example: "East Meadow"
+
+districtName:
+  title: districtName
+  description: |
+    Identifies a subdivision within a country sub-division.
+  type: string
+  maxLength: 35
+  example: "New York"
+
+countrySubDivision:
+  title: countrySubDivision
+  description: |
+    Identifies a subdivision of a country such as state, region, county. Codes shall be taken from ISO 3166-2.
+  type: string
+  maxLength: 35
+  example: "US-NY"
 
 servicer:
   title: servicer
@@ -865,6 +977,15 @@ creditorAccount:
         Payee account name.
       type: string
 
+webhookCreditorAccount:
+  title: creditorAccount
+  description: |
+      Payee account identification for notification about the payment.
+  type: object
+  properties:
+    identification:
+      $ref: "#/onlyIbanIdentification"
+
 paymentCreditorAccount:
   title: paymentCreditorAccount
   description: |
@@ -917,6 +1038,15 @@ debtorAccount:
       description: |
         Payer account name.
       type: string
+
+webhookDebtorAccount:
+  title: debtorAccount
+  description: |
+    Debtor account identification for notification about the payment.
+  type: object
+  properties:
+    identification:
+      $ref: "#/onlyIbanIdentification"
 
 awaitingDebtorAccount:
   title: debtorAccount
