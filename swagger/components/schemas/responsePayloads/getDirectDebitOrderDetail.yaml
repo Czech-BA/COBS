@@ -18,7 +18,7 @@ getDirectDebitOrderDetail:
     requestedExecutionDate:
       $ref: '../elements.yaml#/requestedExecutionDate'
     creditorAccount:
-      $ref: '../objects.yaml#/directDebitOrderCreditorAccount'
+      $ref: '../objects.yaml#/creditorAccountDD'
     debtorAccount:
       $ref: '../objects.yaml#/directDebitOrderDebtorAccount'
     remittanceInformation:

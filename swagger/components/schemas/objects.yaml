@@ -888,7 +888,7 @@ directDebitCreditorAccount:
 directDebitOrderCreditorAccount:
   title: creditorAccount
   description: |
-    Information on the payee account. It is according to the payment direction, and filled in in the case of counterparty.
+    Payee's account
   type: object
   properties:
     iban:
@@ -897,7 +897,7 @@ directDebitOrderCreditorAccount:
 directDebitOrderDebtorAccount:
   title: debtorAccount
   description: |
-    Information on the account payer. It is according to the payment direction, and filled in in the case of counterparty.
+    Payer's account
   type: object
   properties:
     iban:
@@ -974,6 +974,16 @@ debtorAccountSO:
     currency:
       $ref: "#/currencyCode"
 
+creditorAccountDD:
+  title: creditorAccountDD
+  description: |
+    Payee's account
+  type: object
+  properties:
+    id:
+      $ref: "elements.yaml#/accountId"
+    iban:
+      $ref: "elements.yaml#/iban"
 
 debtor:
   title: debtor
@@ -1779,6 +1789,44 @@ standingorderList:
   type: array
   items:
     $ref: "#/standingOrders"
+
+directdebitorderList:
+  title: directdebitorderList
+  description: |
+    List of client's direct debit orders
+  type: array
+  items:
+    $ref: "#/directDebitOrders"
+
+directDebitOrders:
+  title: directDebitOrders
+  description: |
+    Direct debit order
+  type: object
+  required:
+    - paymentIdentification
+    - amount
+    - requestedExecutionDate
+    - creditorAccount
+    - debtorAccount
+    - instructionStatus
+  properties:
+    paymentIdentification:
+      $ref: "#/directDebitPaymentIdentification"
+    amount:
+      $ref: '#/directDebitAmount'
+    requestedExecutionDate:
+      $ref: './elements.yaml#/requestedExecutionDate'
+    creditorAccount:
+      $ref: '#/creditorAccountDD'
+    debtorAccount:
+      $ref: '#/directDebitOrderDebtorAccount'
+    remittanceInformation:
+      $ref: '#/directDebitRemittanceInformation'
+    instructionStatus:
+      $ref: "./elements.yaml#/directDebitInstructionStatus"
+    statusChangeInfo:
+      $ref: "./elements.yaml#/statusChangeInfo"
 
 exchangeIdentification:
   title: exchangeIdentification
