@@ -1,0 +1,23 @@
+getDirectDebitOrderList:
+  title: getDirectDebitOrders
+  description: |
+    Direct Debit Order list
+  type: object
+  required:
+    - pageNumber
+    - pageCount
+    - pageSize
+    - directDebitOrders
+  properties:
+    pageNumber:
+      $ref: "../elements.yaml#/pageNumber"
+    pageCount:
+      $ref: "../elements.yaml#/pageCount"
+    nextPage:
+      $ref: "../elements.yaml#/nextPage"
+    pageSize:
+      $ref: "../elements.yaml#/pageSize"
+    totalCount:
+      $ref: "../elements.yaml#/totalCount"
+    directDebitOrders:
+      $ref: "../objects.yaml#/directdebitorderList"

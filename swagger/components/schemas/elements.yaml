@@ -282,7 +282,7 @@ transactionType:
     - STANDINGORDER
     - DIRECTDEBIT
     - BATCHPAYMENT
-  example: "PAYENT"
+  example: "PAYMENT"
 
 allInstructions:
   title: allInstructions
@@ -486,6 +486,20 @@ entryReference:
   maxLength: 35
   type: string
 
+recipientNote:
+  title: recipientNote
+  description: |
+    Note for the recipient of the payment.
+  maxLength: 140
+  type: string
+
+senderNote:
+  title: senderNote
+  description: |
+    Note for the sender of the payment.
+  maxLength: 140
+  type: string
+
 paymentIdentification:
   title: paymentIdentification
   description: |
@@ -624,6 +638,13 @@ paymentId:
   maxLength: 255
   type: string
 
+notificationId:
+  title: notificationId
+  description: |
+    Unique identifier for the notification.
+  type: string
+  example: "882ab993-d52e-48c2-8477-5dc39979e339"
+
 accountServicerReference:
   title: accountServicerReference
   description: |
@@ -724,6 +745,20 @@ direcDebitAlias:
   maxLength: 250
   type: string
   example: "Platba za plyn"
+
+notificationAccountId:
+  title: notificationId
+  description: |
+    Unique identifier for the notification.
+  type: string
+  example: "164298331754922"
+
+webhookUrl:
+  title: webhookUrl
+  description: |
+    URL address for the notification webhook.
+  type: string
+  example: "https://api.example.com/webhook"
 
 directDebitValidFromDate:
   title: directDebitValidFromDate
@@ -849,9 +884,14 @@ instructionStatus:
 directDebitInstructionStatus:
   title: directDebitInstructionStatus
   description: |
-    Status of entered direct debit consent.
-  maxLength: 35
+    Status of entered direct debit order. 'ACTC' - Accepted and validated, 'ACSP' - Sent to debtor's bank, 'ACSC' - Settlement on the debtor´s account has been completed, 'RJCT' - Direct debit order initiation has been rejected
   type: string
+  enum:
+    - ACTC
+    - ACSP
+    - ACSC
+    - RJCT
+  example: "ACTC"
 
 standingOrderInstructionStatus:
   title: standingOrderInstructionStatus
@@ -870,7 +910,7 @@ batchPaymentsInstructionStatus:
 statusChangeInfo:
   title: statusChangeInfo
   description: |
-    Specifies the change which was made to the instruction. Used with istructionStatus "ACWC".
+    Specifies the change which was made to the instruction. Used with instructionStatus "ACWC".
   type: string
 
 scenarios:

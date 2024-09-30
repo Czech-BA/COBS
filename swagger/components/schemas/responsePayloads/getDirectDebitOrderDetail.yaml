@@ -1,0 +1,29 @@
+getDirectDebitOrderDetail:
+  title: directDebitDetail
+  description: |
+    Direct Debit Order detail
+  type: object
+  required:
+    - paymentIdentification
+    - amount
+    - requestedExecutionDate
+    - creditorAccount
+    - debtorAccount
+    - instructionStatus
+  properties:
+    paymentIdentification:
+      $ref: "../objects.yaml#/directDebitPaymentIdentification"
+    amount:
+      $ref: '../objects.yaml#/directDebitAmount'
+    requestedExecutionDate:
+      $ref: '../elements.yaml#/requestedExecutionDate'
+    creditorAccount:
+      $ref: '../objects.yaml#/creditorAccountDD'
+    debtorAccount:
+      $ref: '../objects.yaml#/directDebitOrderDebtorAccount'
+    remittanceInformation:
+      $ref: '../objects.yaml#/directDebitRemittanceInformation'
+    instructionStatus:
+      $ref: "../elements.yaml#/directDebitInstructionStatus"
+    statusChangeInfo:
+      $ref: "../elements.yaml#/statusChangeInfo"

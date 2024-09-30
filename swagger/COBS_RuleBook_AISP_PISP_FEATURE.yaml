@@ -747,7 +747,7 @@ paths:
                               title: suitableScopeAISP
                               description: >
                                 If nothing is specified, the account supports
-                                all AIS services. Otherwise, one or more
+                                all AIS services. Otherwise, one or more 
 
                                 scopes can be specified as a space-separatede
                                 string.
@@ -779,7 +779,7 @@ paths:
                               title: suitableScopePISP
                               description: >
                                 If nothing is specified, the account supports
-                                all PIS services. Otherwise, one or more
+                                all PIS services. Otherwise, one or more 
 
                                 scopes can be specified as a space-separatede
                                 string.
@@ -812,7 +812,7 @@ paths:
                               title: suitableScopeCISP
                               description: >
                                 If nothing is specified, the account supports
-                                all CIS services. Otherwise, one or more
+                                all CIS services. Otherwise, one or more 
 
                                 scopes can be specified as a space-separatede
                                 string.
@@ -9230,7 +9230,7 @@ paths:
                                     day if the day falls on a non-banking day)
                                     or DUE_OR_NEXT_DAY_OF_MONTH (is defined as a
                                     specific day of the month or the next day if
-                                    the day falls on a non-banking day) or
+                                    the day falls on a non-banking day) or 
                                     DUE_LAST_DAY_OF_MONTH (order is executed on
                                     last day of particular month).
                                   maxLength: 35
@@ -10434,7 +10434,7 @@ paths:
                             previous day if the day falls on a non-banking day)
                             or DUE_OR_NEXT_DAY_OF_MONTH (is defined as a
                             specific day of the month or the next day if the day
-                            falls on a non-banking day) or
+                            falls on a non-banking day) or 
                             DUE_LAST_DAY_OF_MONTH (order is executed on last day
                             of particular month).
                           maxLength: 35
@@ -13450,7 +13450,7 @@ paths:
                               message: null
                         - title: error_NRC10_400
                           description: >
-                            [InvalidCreditorClearingSystemMemberIdentifier] -
+                            [InvalidCreditorClearingSystemMemberIdentifier] - 
                             invalid recipient bank code identification.
                           type: object
                           required:
@@ -13957,7 +13957,7 @@ paths:
     get:
       summary: Detail about the standing order
       description: >
-        Resource for get detail about the standing order.
+        Resource for get detail about the standing order. 
 
         It is at the choice of each bank whether to return details of any
         client’s standing order or just those that the client has established
@@ -16086,7 +16086,7 @@ paths:
     delete:
       summary: Resource to delete standing order.
       description: >
-        Resource to delete unauthorised and authorised standing orders.
+        Resource to delete unauthorised and authorised standing orders. 
 
 
         Deleting of an authorised standing order must be followed by the
@@ -17674,7 +17674,7 @@ paths:
                             previous day if the day falls on a non-banking day)
                             or DUE_OR_NEXT_DAY_OF_MONTH (is defined as a
                             specific day of the month or the next day if the day
-                            falls on a non-banking day) or
+                            falls on a non-banking day) or 
                             DUE_LAST_DAY_OF_MONTH (order is executed on last day
                             of particular month).
                           maxLength: 35
@@ -20685,7 +20685,7 @@ paths:
                               message: null
                         - title: error_NRC10_400
                           description: >
-                            [InvalidCreditorClearingSystemMemberIdentifier] -
+                            [InvalidCreditorClearingSystemMemberIdentifier] - 
                             invalid recipient bank code identification.
                           type: object
                           required:
@@ -24153,10 +24153,10 @@ paths:
         bank
       description: >
         - An optional resource designed for the finalization of the
-        authorization process.
+        authorization process. 
 
         - The resource may be purely indicative or returns information on
-        whether the authorization process was completed and with what result.
+        whether the authorization process was completed and with what result. 
 
         - E.g., in the case of federated authorization.
 
@@ -25758,9 +25758,9 @@ paths:
                                     the last time.
 
 
-                                    Possible values:
+                                    Possible values: 
 
-                                      * UNTIL_DATE (direct debit is valid until specific date)
+                                      * UNTIL_DATE (direct debit is valid until specific date)  
                                       * UNTIL_CANCELLATION (direct debit is valid forever and must be cancelled by client)
                                       * AFTER_MAX_ITERATION_EXCEEDED (certain count of executions is specified - field max Iterations)
                                       * MAX_AMOUNT_EXCEEDED (maximum amount which can be transferred for this direct debit consent is specified - field value).
@@ -25776,10 +25776,10 @@ paths:
                                   title: directDebitExecutionInterval
                                   description: >
                                     Execution interval defines how often direct
-                                    debit is executed.
+                                    debit is executed. 
 
 
-                                    Possible values:
+                                    Possible values: 
                                       * DAILY
                                       * WEEKLY
                                       * MONTHLY
@@ -25814,7 +25814,7 @@ paths:
                                   title: directDebitExecutionApprovalDirectDebits
                                   description: >
                                     Receive notifications about the approval of
-                                    domestic direct debits.
+                                    domestic direct debits. 
 
 
                                     Possible values: Y/N
@@ -26887,9 +26887,9 @@ paths:
                             will be cancelled, processed the last time.
 
 
-                            Possible values:
+                            Possible values: 
 
-                              * UNTIL_DATE (direct debit is valid until specific date)
+                              * UNTIL_DATE (direct debit is valid until specific date)  
                               * UNTIL_CANCELLATION (direct debit is valid forever and must be cancelled by client)
                               * AFTER_MAX_ITERATION_EXCEEDED (certain count of executions is specified - field max Iterations)
                               * MAX_AMOUNT_EXCEEDED (maximum amount which can be transferred for this direct debit consent is specified - field value).
@@ -26905,10 +26905,10 @@ paths:
                           title: directDebitExecutionInterval
                           description: >
                             Execution interval defines how often direct debit is
-                            executed.
+                            executed. 
 
 
-                            Possible values:
+                            Possible values: 
                               * DAILY
                               * WEEKLY
                               * MONTHLY
@@ -26943,7 +26943,7 @@ paths:
                           title: directDebitExecutionApprovalDirectDebits
                           description: >
                             Receive notifications about the approval of domestic
-                            direct debits.
+                            direct debits. 
 
 
                             Possible values: Y/N
@@ -27264,9 +27264,9 @@ paths:
                               debit will be cancelled, processed the last time.
 
 
-                              Possible values:
+                              Possible values: 
 
-                                * UNTIL_DATE (direct debit is valid until specific date)
+                                * UNTIL_DATE (direct debit is valid until specific date)  
                                 * UNTIL_CANCELLATION (direct debit is valid forever and must be cancelled by client)
                                 * AFTER_MAX_ITERATION_EXCEEDED (certain count of executions is specified - field max Iterations)
                                 * MAX_AMOUNT_EXCEEDED (maximum amount which can be transferred for this direct debit consent is specified - field value).
@@ -27282,10 +27282,10 @@ paths:
                             title: directDebitExecutionInterval
                             description: >
                               Execution interval defines how often direct debit
-                              is executed.
+                              is executed. 
 
 
-                              Possible values:
+                              Possible values: 
                                 * DAILY
                                 * WEEKLY
                                 * MONTHLY
@@ -27320,7 +27320,7 @@ paths:
                             title: directDebitExecutionApprovalDirectDebits
                             description: >
                               Receive notifications about the approval of
-                              domestic direct debits.
+                              domestic direct debits. 
 
 
                               Possible values: Y/N
@@ -28140,7 +28140,7 @@ paths:
                         - title: error_EXECUTION_DATE_INVALID_400
                           description: >
                             [EXECUTION_DATE_INVALID] –  Non validity execution
-                            date or execution mode (missing element
+                            date or execution mode (missing element 
                             "validToDate" with combination mode UNTIL_DATE)
                           type: object
                           required:
@@ -29103,9 +29103,9 @@ paths:
                               debit will be cancelled, processed the last time.
 
 
-                              Possible values:
+                              Possible values: 
 
-                                * UNTIL_DATE (direct debit is valid until specific date)
+                                * UNTIL_DATE (direct debit is valid until specific date)  
                                 * UNTIL_CANCELLATION (direct debit is valid forever and must be cancelled by client)
                                 * AFTER_MAX_ITERATION_EXCEEDED (certain count of executions is specified - field max Iterations)
                                 * MAX_AMOUNT_EXCEEDED (maximum amount which can be transferred for this direct debit consent is specified - field value).
@@ -29121,10 +29121,10 @@ paths:
                             title: directDebitExecutionInterval
                             description: >
                               Execution interval defines how often direct debit
-                              is executed.
+                              is executed. 
 
 
-                              Possible values:
+                              Possible values: 
                                 * DAILY
                                 * WEEKLY
                                 * MONTHLY
@@ -29159,7 +29159,7 @@ paths:
                             title: directDebitExecutionApprovalDirectDebits
                             description: >
                               Receive notifications about the approval of
-                              domestic direct debits.
+                              domestic direct debits. 
 
 
                               Possible values: Y/N
@@ -30260,9 +30260,9 @@ paths:
                             will be cancelled, processed the last time.
 
 
-                            Possible values:
+                            Possible values: 
 
-                              * UNTIL_DATE (direct debit is valid until specific date)
+                              * UNTIL_DATE (direct debit is valid until specific date)  
                               * UNTIL_CANCELLATION (direct debit is valid forever and must be cancelled by client)
                               * AFTER_MAX_ITERATION_EXCEEDED (certain count of executions is specified - field max Iterations)
                               * MAX_AMOUNT_EXCEEDED (maximum amount which can be transferred for this direct debit consent is specified - field value).
@@ -30278,10 +30278,10 @@ paths:
                           title: directDebitExecutionInterval
                           description: >
                             Execution interval defines how often direct debit is
-                            executed.
+                            executed. 
 
 
-                            Possible values:
+                            Possible values: 
                               * DAILY
                               * WEEKLY
                               * MONTHLY
@@ -30316,7 +30316,7 @@ paths:
                           title: directDebitExecutionApprovalDirectDebits
                           description: >
                             Receive notifications about the approval of domestic
-                            direct debits.
+                            direct debits. 
 
 
                             Possible values: Y/N
@@ -30637,9 +30637,9 @@ paths:
                               debit will be cancelled, processed the last time.
 
 
-                              Possible values:
+                              Possible values: 
 
-                                * UNTIL_DATE (direct debit is valid until specific date)
+                                * UNTIL_DATE (direct debit is valid until specific date)  
                                 * UNTIL_CANCELLATION (direct debit is valid forever and must be cancelled by client)
                                 * AFTER_MAX_ITERATION_EXCEEDED (certain count of executions is specified - field max Iterations)
                                 * MAX_AMOUNT_EXCEEDED (maximum amount which can be transferred for this direct debit consent is specified - field value).
@@ -30655,10 +30655,10 @@ paths:
                             title: directDebitExecutionInterval
                             description: >
                               Execution interval defines how often direct debit
-                              is executed.
+                              is executed. 
 
 
-                              Possible values:
+                              Possible values: 
                                 * DAILY
                                 * WEEKLY
                                 * MONTHLY
@@ -30693,7 +30693,7 @@ paths:
                             title: directDebitExecutionApprovalDirectDebits
                             description: >
                               Receive notifications about the approval of
-                              domestic direct debits.
+                              domestic direct debits. 
 
 
                               Possible values: Y/N
@@ -31470,7 +31470,7 @@ paths:
                         - title: error_EXECUTION_DATE_INVALID_400
                           description: >
                             [EXECUTION_DATE_INVALID] –  Non validity execution
-                            date or execution mode (missing element
+                            date or execution mode (missing element 
                             "validToDate" with combination mode UNTIL_DATE)
                           type: object
                           required:
@@ -34735,10 +34735,10 @@ paths:
       summary: Domestic direct debit authorization Step III
       description: >
         - An optional resource designed for the finalization of the
-        authorization process.
+        authorization process. 
 
         - The resource may be purely indicative or returns information on
-        whether the authorization process was completed and with what result.
+        whether the authorization process was completed and with what result. 
 
         - E.g., in the case of federated authorization.
 
@@ -37200,7 +37200,7 @@ paths:
                               message: null
                         - title: error_NRC10_400
                           description: >
-                            [InvalidCreditorClearingSystemMemberIdentifier] -
+                            [InvalidCreditorClearingSystemMemberIdentifier] - 
                             invalid recipient bank code identification.
                           type: object
                           required:
@@ -46567,7 +46567,7 @@ paths:
                               message: null
                         - title: error_NRC10_400
                           description: >
-                            [InvalidCreditorClearingSystemMemberIdentifier] -
+                            [InvalidCreditorClearingSystemMemberIdentifier] - 
                             invalid recipient bank code identification.
                           type: object
                           required:
@@ -53567,10 +53567,10 @@ paths:
       summary: Step III. Payment authorization initiation – specific for each bank
       description: >
         - An optional resource designed for the finalization of the
-        authorization process.
+        authorization process. 
 
         - The resource may be purely indicative or returns information on
-        whether the authorization process was completed and with what result.
+        whether the authorization process was completed and with what result. 
 
         - E.g., in the case of federated authorization.
 
@@ -62037,10 +62037,10 @@ paths:
         bank
       description: >
         - An optional resource designed for the finalization of the
-        authorization process.
+        authorization process. 
 
         - The resource may be purely indicative or returns information on
-        whether the authorization process was completed and with what result.
+        whether the authorization process was completed and with what result. 
 
         - E.g., in the case of federated authorization.
 
@@ -62993,7 +62993,7 @@ tags:
 
 
       **Overview of resources:**
-        * POST New standing order - instruction initiation
+        * POST New standing order - instruction initiation 
           * GET Standing order authorization Step I
           * POST Standing order authorization Step II
           * PUT Standing order authorization Step III
@@ -63028,7 +63028,7 @@ tags:
 
 
       **Overview of Batch payment - bulk authorization resources:**
-        * POST New batch payment - instruction initiation
+        * POST New batch payment - instruction initiation 
           * GET Batch payment authorization Step I
           * POST Batch payment authorization Step II
           * PUT Batch payment authorization Step III
