@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Czech Open Banking Standard
-  version: "8.0.0"
+  version: "9.0.0"
   description: |
 
   contact:
