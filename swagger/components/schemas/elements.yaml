@@ -1020,8 +1020,8 @@ authorizationDetails:
   type: string
   example: "5000U2FsdGVkX1/xaq5hQD/PU6JHEncGMTkqtrWwyyzD0JESLsVIsNlm1f0zYYeJBHhg3ghWI3BuSm9eZeCYrMbj2VkmPW7rEFX0mI92bb7EZdQe9rmYfCO5nI+1Q7jow38seZAGe2xoaXbrf47YaDZTNdUfFNkHQoEQaa1CjuhXuj3/bvpcj3dtTzj4KExI/a1od6LmiiPP5xch/P0E3xGraclZW7QMNMqFSzCuZT7vWyHNAX9yKW8pPb.."
 
-LEI:
-  title: LEI
+lei:
+  title: lei
   description: |
     Legal Entity Identifier (LEI) is a unique global identifier for legal entities participating in financial transactions.
   type: string

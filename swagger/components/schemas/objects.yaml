@@ -926,8 +926,8 @@ paymentCreditor:
         Payee name.
       type: string
       example: "1. wiena investment"
-    LEI:
-      $ref: "elements.yaml#/LEI"
+    lei:
+      $ref: "elements.yaml#/lei"
     postalAddress:
       $ref: "#/postalAddress"
 
@@ -1144,8 +1144,8 @@ paymentDebtor:
         Payer name.
       type: string
       example: "RENWORTH s.r.o"
-    LEI:
-      $ref: "elements.yaml#/LEI"
+    lei:
+      $ref: "elements.yaml#/lei"
 
 payerIdentification:
   title: payerIdentification
