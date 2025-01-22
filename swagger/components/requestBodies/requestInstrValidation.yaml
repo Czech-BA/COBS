@@ -1,0 +1,33 @@
+requestInstrValidation:
+  description: |
+    JSON request body for new payment instruction validation API
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/requestPayloads/requestInstrValidation.yaml#/requestInstrValidation"
+      example:
+        {
+          "paymentTypeInformation":{
+            "instructionPriority":"INST"
+          },
+          "amount":{
+            "instructedAmount":{
+              "value":124500.00,
+              "currency":"CZK"
+            }
+          },
+          "debtorAccount":{
+            "identification":{
+              "iban":"CZ7508000000002108589434"
+            },
+            "currency":"CZK"
+          },
+          "creditorAccount":{
+            "identification":{
+              "iban":"CZ6330300000000000000123"
+            },
+            "currency":"CZK"
+          }
+        }
+

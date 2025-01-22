@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Czech Open Banking Standard
-  version: "8.0.0"
+  version: "9.0.0"
   description: |
 
   contact:
@@ -3450,6 +3450,77 @@ paths:
 
         '400':
           $ref: "./components/responses/AUTH_LIMIT_EXCEEDED_400.yaml#/AUTH_LIMIT_EXCEEDED_400"
+
+        '501':
+          $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"
+
+  /my/validations/payment:
+    post:
+      summary: Query for Payment type possibility validation
+      description: >
+        The /my/validations/payment endpoint is designed to validate the
+        feasibility of sending a payment based on the specified mode and type.
+        This service ensures that the payment can be processed according to the
+        provided parameters before the actual payment initiation. It helps in
+        verifying the constraints and rules associated with different payment
+        modes and types.
+        
+        
+        **Recommendation:** It is recommended to call this API before initiating a
+        payment to ensure that the payment can be processed in the desired mode
+        and type.
+      operationId: '-postInstrValidation'
+      tags:
+        - Payment Initiation
+      parameters:
+        #path
+        #header
+        #common header parameter
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
+        - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
+        - $ref: "./components/parameters/requestHeaders.yaml#/accept"
+        - $ref: "./components/parameters/requestHeaders.yaml#/acceptLanguage"
+        - $ref: "./components/parameters/requestHeaders.yaml#/xRequestIdReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/dateHeader"
+        - $ref: "./components/parameters/requestHeaders.yaml#/contentLength"
+        - $ref: "./components/parameters/requestHeaders.yaml#/transferEncoding"
+        - $ref: "./components/parameters/requestHeaders.yaml#/actionIdReq"
+          #optional User Information in header
+        - $ref: "./components/parameters/requestHeaders.yaml#/userInvolved"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpAddress"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userIpPort"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceOs"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userUserAgent"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userTimestamp"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userGeoLocation"
+        - $ref: "./components/parameters/requestHeaders.yaml#/userDeviceId"
+          #header to support the tpp informations
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppName"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppIdentification"
+          #header to support the signature function
+        - $ref: "./components/parameters/requestHeaders.yaml#/signatureHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/digestHeaderReq"
+        - $ref: "./components/parameters/requestHeaders.yaml#/tppSignatureCertificate"
+
+      requestBody:
+        $ref: "./components/requestBodies/requestInstrValidation.yaml#/requestInstrValidation"
+
+      responses:
+        '200':
+          $ref: "./components/responses/OK_200_postInstrValidation.yaml#/OK_200_postInstrValidation"
+
+        '401':
+          $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
+
+        '403':
+          $ref: "./components/responses/FORBIDDEN_403.yaml#/FORBIDDEN_403"
+
+        '400':
+          $ref: "./components/responses/BAD_REQUEST_400_postNewPayment.yaml#/BAD_REQUEST_400_postNewPayment"
+
+        '415':
+          $ref: "./components/responses/UNSUPPORTED_MEDIA_TYPE_415.yaml#/UNSUPPORTED_MEDIA_TYPE_415"
 
         '501':
           $ref: "./components/responses/NOT_IMPLEMENTED_501.yaml#/NOT_IMPLEMENTED_501"

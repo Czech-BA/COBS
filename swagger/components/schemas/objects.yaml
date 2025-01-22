@@ -2205,6 +2205,29 @@ paymentTypeInformation:
     categoryPurpose:
       $ref: '#/categoryPurpose'
 
+paymentTypeInformationValidation:
+  title: paymentTypeInformation
+  description: Payment type information
+  type: object
+  required:
+    - instructionPriority
+    - serviceLevel
+  properties:
+    instructionPriority:
+      $ref: 'elements.yaml#/instructionPriority'
+    serviceLevel:
+      $ref: '#/serviceLevel'
+    categoryPurpose:
+      $ref: '#/categoryPurpose'
+
+paymentTypeInformationPriority:
+  title: paymentTypeInformation
+  description: Payment type information
+  type: object
+  properties:
+    instructionPriority:
+      $ref: 'elements.yaml#/instructionPriority'
+
 href:
   title: href
   description: Reference to call federated authorization

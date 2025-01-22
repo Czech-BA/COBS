@@ -1,0 +1,10 @@
+postInstrValidation:
+  title: postInstructionValudation
+  description: |
+    Post response for instruction validation
+  type: object
+  required:
+    - paymentIdentification
+  properties:
+    paymentIdentification:
+      $ref: "../objects.yaml#/paymentTypeInformationValidation"
