@@ -3651,16 +3651,9 @@ paths:
                                         sourceCurrency:
                                           title: sourceCurrency
                                           description: >
-                                            It is not related to the direction of
-                                            the money, but to which currency the
-                                            exchange rate is given.
-
-
-
-                                            Source currency or base or primary
-                                            currency. It is a currency exchanged for
-                                            the purpose of obtaining another
-                                            currency.
+                                            Client account currency (source/original
+                                            currency/payer account currency for
+                                            intrabank conversion payments).
                                           type: string
                                           maxLength: 3
                                           pattern: '[A-Z]{3}'
@@ -3668,22 +3661,9 @@ paths:
                                         targetCurrency:
                                           title: targetCurrency
                                           description: >
-                                            The target currency to which the
-                                            conversion is indicated.
-
-
-
-                                            E.g. for sourceCurrency=CZK and
-                                            targetCurrency=USD, exchangeRate=23 can
-                                            be, which means that 1 USD will be 23
-                                            CZK.
-
-
-
-                                            And for the same case, the exchange rate
-                                            given for sourceCurrency=USD and
-                                            targetCurrency=CZK will be
-                                            exchangeRate=0.0435 USD for 1 CZK.
+                                            Payment currency (End/target
+                                            currency/payee account currency for
+                                            intrabank conversion payments).
                                           type: string
                                           maxLength: 3
                                           pattern: '[A-Z]{3}'
@@ -59907,10 +59887,10 @@ paths:
       summary: Step III. Payment authorization initiation – specific for each bank
       description: >
         - An optional resource designed for the finalization of the
-        authorization process. 
+        authorization process.
 
         - The resource may be purely indicative or returns information on
-        whether the authorization process was completed and with what result. 
+        whether the authorization process was completed and with what result.
 
         - E.g., in the case of federated authorization.
 
@@ -68377,10 +68357,10 @@ paths:
         bank
       description: >
         - An optional resource designed for the finalization of the
-        authorization process. 
+        authorization process.
 
         - The resource may be purely indicative or returns information on
-        whether the authorization process was completed and with what result. 
+        whether the authorization process was completed and with what result.
 
         - E.g., in the case of federated authorization.
 
@@ -69294,6 +69274,2310 @@ paths:
                 type: string
                 maxLength: 60
                 example: 2f549458-b592-4a85-ad57-e9610dfd5218
+  /my/validations/payment:
+    post:
+      summary: Query for Payment type possibility validation
+      description: >
+        The /my/validations/payment endpoint is designed to validate the
+        feasibility of sending a payment based on the specified mode and type.
+        This service ensures that the payment can be processed according to the
+        provided parameters before the actual payment initiation. It helps in
+        verifying the constraints and rules associated with different payment
+        modes and types.
+
+
+        **Recommendation:** It is recommended to call this API before initiating
+        a payment to ensure that the payment can be processed in the desired
+        mode and type.
+      operationId: '-postInstrValidation'
+      tags:
+        - Payment Initiation
+      parameters:
+        - name: Content-Type
+          in: header
+          description: >
+            Defines MIME media type of the resource. For example
+            application/json or application/x-www-form-urlencoded (OAuth2 /auth
+            resources) and application/xml in case of bulk payment initiation.
+          required: true
+          schema:
+            title: contentType
+            description: >
+              Defines MIME media type of the resource. For example
+              application/json or application/x-www-form-urlencoded (OAuth2
+              /auth resources) and application/xml in case of bulk payment
+              initiation.
+            type: string
+            maxLength: 50
+            example: application/json
+        - name: Authorization
+          in: header
+          description: >
+            Contains the credentials to authenticate a user agent with a server.
+            Element is defined in RFC 6750 In the case of this specification as
+            Bearer Token Usage.
+          required: true
+          schema:
+            title: authorization
+            description: >
+              Contains the credentials to authenticate a user agent with a
+              server. Element is defined in RFC 6750 In the case of this
+              specification as Bearer Token Usage.
+            type: string
+            maxLength: 1024
+            example: Bearer 77d49180-f486-40cf-8a63-87f4f639027c
+        - name: API-key
+          in: header
+          description: >
+            The API key issued for TPP is part of the communication
+            configuration for better identification of third-party call access
+            settings. In essence, this is not a security element.
+          required: false
+          schema:
+            title: apiKey
+            description: >
+              The API key issued for TPP is part of the communication
+              configuration for better identification of third-party call access
+              settings. In essence, this is not a security element.
+            type: string
+            maxLength: 10
+            example: ce0f4b31-fe74-4403-92ef-2d706f288107
+        - name: Accept
+          in: header
+          description: >
+            The Accept request HTTP header specifies which content types,
+            expressed as MIME types, the client is able to understand.
+          required: false
+          schema:
+            title: accept
+            description: >
+              The Accept request HTTP header specifies which content types,
+              expressed as MIME types, the client is able to understand.
+            type: string
+            maxLength: 50
+            example: 'application/json,application/xml;q=0.9,*/*;q=0.8'
+        - name: Accept-Language
+          in: header
+          description: >
+            The Accept-Language request HTTP header specifies which languages
+            the client is able to understand, and which locale variant is
+            preferred. If no `Accept-Language:` is given, local country language
+            is assumed.
+
+
+            For example:
+              - Accept-Language: *
+              - Accept-Language: en-US, en;q=0.8
+          required: false
+          schema:
+            title: acceptLanguage
+            description: >
+              The Accept-Language request HTTP header specifies which languages
+              the client is able to understand, and which locale variant is
+              preferred. If no `Accept-Language:` is given, local country
+              language is assumed.
+
+
+              For example:
+                - Accept-Language: *
+                - Accept-Language: en-US, en;q=0.8
+            type: string
+            maxLength: 50
+            example: 'en-US, en;q=0.8'
+        - name: X-Request-ID
+          in: header
+          description: >
+            Unique identifier for each request specified by TPP. It is
+            recommended to use a UUID format with a length of 36 to 60
+            characters.
+          required: true
+          schema:
+            title: xRequestId
+            description: >
+              Unique identifier for each request specified by TPP. It is
+              recommended to use a UUID format with a length of 36 to 60
+              characters.
+            type: string
+            maxLength: 60
+            example: f713da2b-6908-4c3f-9461-784f74b86710
+        - name: Date
+          in: header
+          description: >
+            Each request of a transaction contains the date and time at which
+            the message was originated. In timestamp format.
+          required: true
+          schema:
+            title: dateHeader
+            description: >
+              Each request of a transaction contains the date and time at which
+              the message was originated. In timestamp format.
+            type: string
+            example: '1568452389'
+        - name: Content-Length
+          in: header
+          description: >
+            The Content-Length entity-header field indicates the size of the
+            entity-body, in decimal bytes, sent to the recipient.
+          required: false
+          schema:
+            title: contentLength
+            description: >
+              The Content-Length entity-header field indicates the size of the
+              entity-body, in decimal bytes, sent to the recipient.
+            type: number
+            example: 16529
+        - name: Transfer-Encoding
+          in: header
+          description: >
+            The Transfer-Encoding general-header field specifies the form of
+            encoding used to safely transfer the request payload to the ASPSP
+            and back to TPP.
+          required: false
+          schema:
+            title: transferEncoding
+            description: >
+              The Transfer-Encoding general-header field specifies the form of
+              encoding used to safely transfer the request payload to the ASPSP
+              and back to TPP.
+            type: string
+            example: gzip
+        - name: Action-ID
+          in: header
+          description: >
+            IDs that identify the technical or business process within the call
+            of each API request.
+
+
+            For example, it can be used to identify the process of retrieving a
+            transaction history that is provided as a paged response available
+            through multiple requests.
+          required: false
+          schema:
+            title: actionId
+            description: >
+              IDs that identify the technical or business process within the
+              call of each API request.
+
+
+              For example, it can be used to identify the process of retrieving
+              a transaction history that is provided as a paged response
+              available through multiple requests.
+            type: string
+            maxLength: 60
+            example: 2f549458-b592-4a85-ad57-e9610dfd5218
+        - name: User-Involved
+          in: header
+          description: >
+            The flag identifies if the end user is online and the request was
+            made based on his activity.
+          required: true
+          schema:
+            title: userInvolved
+            description: >
+              The flag identifies if the end user is online and the request was
+              made based on his activity.
+            type: boolean
+            example: true
+        - name: User–IP-Address
+          in: header
+          description: >
+            Identifies the API's end-user IP address. The TPP should fill this
+            value if the IP address can be detected. The address can be in IPv4
+            or IPv6 format.
+          required: false
+          schema:
+            title: userIpAddress
+            description: >
+              Identifies the API's end-user IP address. The TPP should fill this
+              value if the IP address can be detected. The address can be in
+              IPv4 or IPv6 format.
+            type: string
+            maxLength: 50
+            example: 192.168.1.221
+        - name: User–IP-Port
+          in: header
+          description: >
+            An element used to pass on information about what end-user IP port
+            is using.
+          required: false
+          schema:
+            title: userIpPort
+            description: >
+              An element used to pass on information about what end-user IP port
+              is using.
+            type: string
+            maxLength: 40
+            example: '443'
+        - name: User-Device-OS
+          in: header
+          description: >
+            The element is used to forward information about the end user
+            operating system used.
+          required: false
+          schema:
+            title: userDeviceOs
+            description: >
+              The element is used to forward information about the end user
+              operating system used.
+            type: string
+            maxLength: 100
+            example: Mac OS
+        - name: User-User-Agent
+          in: header
+          description: >
+            Contains information about the end-user web browser. The format
+            should be the same as the standard HTTP parameter User-Agent.
+          required: false
+          schema:
+            title: userUserAgent
+            description: >
+              Contains information about the end-user web browser. The format
+              should be the same as the standard HTTP parameter User-Agent.
+            type: string
+            maxLength: 200
+            example: >-
+              Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:42.0)
+              Gecko/20100101 Firefox/42.0
+        - name: User-Timestamp
+          in: header
+          description: |
+            Local time on User's device.
+          required: false
+          schema:
+            title: userTimestamp
+            description: |
+              Local time on User's device.
+            type: string
+            example: '1568452581'
+        - name: User-Geo-Location
+          in: header
+          description: >
+            End-user GPS coordinates (if the coordinates can be reliably
+            detected).
+
+
+            **Required format:** GEO:Latitude;Longitude
+
+
+            Based on [RFC2426] in signed degrees format (DDD.dddd)
+          required: false
+          schema:
+            title: userGeoLocation
+            description: >
+              End-user GPS coordinates (if the coordinates can be reliably
+              detected).
+
+
+              **Required format:** GEO:Latitude;Longitude
+
+
+              Based on [RFC2426] in signed degrees format (DDD.dddd)
+            type: string
+            maxLength: 100
+            example: 'GEO:50.089354;14.400031'
+        - name: User-Device-ID
+          in: header
+          description: >
+            It contains a unique identifier of end user equipment, if available.
+            For example, a unique mobile device identifier (IMEI).
+          required: false
+          schema:
+            title: userDeviceId
+            description: >
+              It contains a unique identifier of end user equipment, if
+              available. For example, a unique mobile device identifier (IMEI).
+            type: string
+            example: '990000862471854'
+        - name: TPP-Name
+          in: header
+          description: >
+            The name of the original TPP that created the request. Eg. ‘Star
+            corporation, a.s.’.
+          required: true
+          schema:
+            title: tppName
+            description: >
+              The name of the original TPP that created the request. Eg. ‘Star
+              corporation, a.s.’.
+            type: string
+            example: 'Star Corporation, a.s.'
+        - name: TPP-Identification
+          in: header
+          description: >
+            The identification (licence number) of the original TPP that created
+            the request. Eg. ‘CZ013574-15’.
+          required: false
+          schema:
+            title: tppIdentification
+            description: >
+              The identification (licence number) of the original TPP that
+              created the request. Eg. ‘CZ013574-15’.
+            type: string
+            example: CZ013984-14
+        - name: Signature
+          in: header
+          description: |
+            If the TPP signs the request, it contains a digital signature.
+          required: false
+          schema:
+            title: signatureHeader
+            description: |
+              If the TPP signs the request, it contains a digital signature.
+            type: string
+            example: ACDE666345014BB46003B0706277D9F0A407CC6815DE7F550CF83310F1A82D9C
+        - name: Digest
+          in: header
+          description: >
+            When an TPP  includes a signature he also must include a "Digest"
+            header as defined in [RFC3230].
+          required: false
+          schema:
+            title: digestHeader
+            description: >
+              When an TPP  includes a signature he also must include a "Digest"
+              header as defined in [RFC3230].
+            type: string
+            example: F6A5CBE090AE0506D5EB1D0D38370FE8EC55591545F234B5B09F8832AF434CCA
+        - name: TPP-Signature-Certificate
+          in: header
+          description: >
+            The public TPP certificate used for signing the request, In base64
+            encoding (with the "BEGIN CERTIFICATE" and "END CERTIFICATE"
+            markers).
+          required: false
+          schema:
+            title: tppSignatureCertificate
+            description: >
+              The public TPP certificate used for signing the request, In base64
+              encoding (with the "BEGIN CERTIFICATE" and "END CERTIFICATE"
+              markers).
+            type: string
+            example: >-
+              B837482297624E072EB04C0A8CA6A03ED48FBFD74255DEAA2DE471E9F203AFB5...
+      requestBody:
+        description: |
+          JSON request body for new payment instruction validation API
+        required: true
+        content:
+          application/json:
+            schema:
+              title: postInstructionValudation
+              description: |
+                Post request for instruction validation
+              type: object
+              required:
+                - paymentIdentification
+                - creditorAccount
+              properties:
+                paymentIdentification:
+                  title: paymentTypeInformation
+                  description: Payment type information
+                  type: object
+                  properties:
+                    instructionPriority:
+                      title: instructionPriority
+                      description: >
+                        If the element is not filled in, the payer's provider
+                        assigns a NORM value and makes a payment by default. If
+                        a "HIGH" value is indicated, the payer's provider will
+                        make the payment as priority / express / urgent, usually
+                        at D + 0 foreign currency. If the "NORM" is specified,
+                        they will make the payment by default, i.e. D + 1
+                        foreign currency, where D, the date of debiting funds
+                        from the payer's account. The deadlines for making
+                        standard and priority payments may vary depending on the
+                        type of payment and are governed by the terms of each
+                        payer's conditions.
+
+
+                        If the "INST" value is stated, the payer's provider
+                        executes the payment as Instant according to the
+                        applicable rule.
+                      maxLength: 4
+                      type: string
+                      example: NORM
+                amount:
+                  title: amount
+                  description: |
+                    Payment amount
+                  type: object
+                  properties:
+                    instructedAmount:
+                      description: |
+                        Amount and currency in the instruction
+                      type: object
+                      properties:
+                        value:
+                          title: value
+                          description: Amount value
+                          type: number
+                          example: 10000
+                        currency:
+                          title: currencyCode
+                          description: >
+                            Defined account currency.
+
+
+                            Currency code according to ISO 4217 = 3 capital
+                            letters.
+                          type: string
+                          maxLength: 3
+                          pattern: '[A-Z]{3}'
+                          example: CZK
+                requestedExecutionDate:
+                  title: requestedExecutionDate
+                  description: >
+                    The date on which the initiating party requests payment
+                    processing by a settlement agent. On this date, funds will
+                    be debited from the payer's account if the agreed terms are
+                    met. The bank terms pertaining to the execution date may
+                    vary, for example, depending on the business hours, the work
+                    day specification for the type of payment, the number of
+                    days to track the available balance, the number of days for
+                    future maturity, the date older than the current day, etc.
+                    If the requested execution date is not filled in, the
+                    payer's bank will debit funds from the payer's account
+                    immediately after meeting the agreed terms.
+                  type: string
+                  format: date
+                  example: '2017-01-31'
+                creditorAccount:
+                  title: paymentCreditorAccount
+                  description: >
+                    Information on the payee account. It is according to the
+                    payment direction, and filled in in the case of
+                    counterparty.
+                  type: object
+                  properties:
+                    identification:
+                      title: accountIdentification
+                      description: |
+                        Identification of account
+                      type: object
+                      properties:
+                        iban:
+                          title: iban
+                          description: International Bank Account Number (IBAN)
+                          type: string
+                          maxLength: 34
+                          pattern: '[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}'
+                          example: CZ0708000000001019382023
+                        other:
+                          description: |
+                            Account no. in other/local format of account no.
+                          type: object
+                          properties:
+                            identification:
+                              description: |
+                                Account no. in other/local format of account no.
+                              type: string
+                              example: '1019382023'
+                    currency:
+                      title: currencyCode
+                      description: |
+                        Defined account currency.
+
+                        Currency code according to ISO 4217 = 3 capital letters.
+                      type: string
+                      maxLength: 3
+                      pattern: '[A-Z]{3}'
+                      example: CZK
+                debtorAccount:
+                  title: paymentDebtorAccount
+                  description: >
+                    Information on the account payer. It is according to the
+                    payment direction, and filled in in the case of
+                    counterparty.
+                  type: object
+                  required:
+                    - identification
+                  properties:
+                    identification:
+                      title: accountIdentification
+                      description: |
+                        Identification of account
+                      type: object
+                      properties:
+                        iban:
+                          title: iban
+                          description: International Bank Account Number (IBAN)
+                          type: string
+                          maxLength: 34
+                          pattern: '[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}'
+                          example: CZ0708000000001019382023
+                        other:
+                          description: |
+                            Account no. in other/local format of account no.
+                          type: object
+                          properties:
+                            identification:
+                              description: |
+                                Account no. in other/local format of account no.
+                              type: string
+                              example: '1019382023'
+                    currency:
+                      title: currencyCode
+                      description: |
+                        Defined account currency.
+
+                        Currency code according to ISO 4217 = 3 capital letters.
+                      type: string
+                      maxLength: 3
+                      pattern: '[A-Z]{3}'
+                      example: CZK
+            example:
+              paymentTypeInformation:
+                instructionPriority: INST
+              amount:
+                instructedAmount:
+                  value: 124500
+                  currency: CZK
+              debtorAccount:
+                identification:
+                  iban: CZ7508000000002108589434
+                currency: CZK
+              creditorAccount:
+                identification:
+                  iban: CZ6330300000000000000123
+                currency: CZK
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              description: >
+                Defines MIME media type of the response. For example
+                application/json or application/xml in case of bulk payment
+                initiation.
+              required: true
+              schema:
+                title: contentType
+                description: >
+                  Defines MIME media type of the resource. For example
+                  application/json or application/x-www-form-urlencoded (OAuth2
+                  /auth resources) and application/xml in case of bulk payment
+                  initiation.
+                type: string
+                maxLength: 50
+                example: application/json
+            X-Request-ID:
+              description: >
+                Unique identifier for each request specified by TPP returned in
+                response header.
+              required: true
+              schema:
+                title: xRequestId
+                description: >
+                  Unique identifier for each request specified by TPP. It is
+                  recommended to use a UUID format with a length of 36 to 60
+                  characters.
+                type: string
+                maxLength: 60
+                example: f713da2b-6908-4c3f-9461-784f74b86710
+            Action-ID:
+              description: >
+                IDs that identify the technical or business process within the
+                call of each API request. APSPS should have a return value in
+                this case.
+              required: false
+              schema:
+                title: actionId
+                description: >
+                  IDs that identify the technical or business process within the
+                  call of each API request.
+
+
+                  For example, it can be used to identify the process of
+                  retrieving a transaction history that is provided as a paged
+                  response available through multiple requests.
+                type: string
+                maxLength: 60
+                example: 2f549458-b592-4a85-ad57-e9610dfd5218
+            Signature:
+              description: >
+                If the ASPSP signs the response, it contains a digital
+                signature.
+              required: false
+              schema:
+                title: signatureHeader
+                description: |
+                  If the TPP signs the request, it contains a digital signature.
+                type: string
+                example: >-
+                  ACDE666345014BB46003B0706277D9F0A407CC6815DE7F550CF83310F1A82D9C
+            Digest:
+              description: >
+                When the ASPS in response includes a signature he also must
+                include a "Digest" header as defined in [RFC3230].
+              required: false
+              schema:
+                title: digestHeader
+                description: >
+                  When an TPP  includes a signature he also must include a
+                  "Digest" header as defined in [RFC3230].
+                type: string
+                example: >-
+                  F6A5CBE090AE0506D5EB1D0D38370FE8EC55591545F234B5B09F8832AF434CCA
+            ASPSP-Signature-Certificate:
+              description: >
+                The public ASPSP certificate used for signing the request, In
+                base64 encoding.
+              required: false
+              schema:
+                title: aspspSignatureCertificate
+                description: >
+                  The public ASPSP certificate used for signing the request, In
+                  base64 encoding.
+                type: string
+                example: >-
+                  4710C3600CB14042ADE6EBA7194C2A2C01F6C2EEADF7894AF212797C53BB84D0...
+          content:
+            application/json:
+              schema:
+                title: postInstructionValudation
+                description: |
+                  Post response for instruction validation
+                type: object
+                required:
+                  - paymentIdentification
+                properties:
+                  paymentIdentification:
+                    title: paymentTypeInformation
+                    description: Payment type information
+                    type: object
+                    required:
+                      - instructionPriority
+                      - serviceLevel
+                    properties:
+                      instructionPriority:
+                        title: instructionPriority
+                        description: >
+                          If the element is not filled in, the payer's provider
+                          assigns a NORM value and makes a payment by default.
+                          If a "HIGH" value is indicated, the payer's provider
+                          will make the payment as priority / express / urgent,
+                          usually at D + 0 foreign currency. If the "NORM" is
+                          specified, they will make the payment by default, i.e.
+                          D + 1 foreign currency, where D, the date of debiting
+                          funds from the payer's account. The deadlines for
+                          making standard and priority payments may vary
+                          depending on the type of payment and are governed by
+                          the terms of each payer's conditions.
+
+
+                          If the "INST" value is stated, the payer's provider
+                          executes the payment as Instant according to the
+                          applicable rule.
+                        maxLength: 4
+                        type: string
+                        example: NORM
+                      serviceLevel:
+                        title: serviceLevel
+                        description: Service level
+                        type: object
+                        properties:
+                          code:
+                            title: serviceLevelCode
+                            description: >
+                              Service level code. An agreement or rules
+                              according to which the transaction is to be
+                              processed.
+                            type: string
+                            maxLength: 4
+                            enum:
+                              - DMCT
+                              - ESCT
+                              - XBCT
+                              - EXCT
+                              - NXCT
+                            example: DMCT
+                      categoryPurpose:
+                        title: categoryPurpose
+                        description: Category of the purpose of payment
+                        type: object
+                        properties:
+                          code:
+                            title: categoryPurposeCode
+                            description: Payment purpose category code
+                            type: string
+                          proprietary:
+                            title: categoryPurposeProprietary
+                            description: 'Payment purpose category, in free format'
+                            type: string
+                            maxLength: 35
+              example:
+                paymentTypeInformation:
+                  instructionPriority: INST
+                  serviceLevel:
+                    code: DMCT
+        '400':
+          description: Bad request
+          headers:
+            Content-Type:
+              description: >
+                Defines MIME media type of the response. For example
+                application/json or application/xml in case of bulk payment
+                initiation.
+              required: true
+              schema:
+                title: contentType
+                description: >
+                  Defines MIME media type of the resource. For example
+                  application/json or application/x-www-form-urlencoded (OAuth2
+                  /auth resources) and application/xml in case of bulk payment
+                  initiation.
+                type: string
+                maxLength: 50
+                example: application/json
+          content:
+            application/json:
+              schema:
+                title: error400_postNewPayment
+                description: >
+                  This is an invalid query that cannot be answered. E.g., if
+                  JSON content is not valid for this resource.
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      anyOf:
+                        - title: error_FIELD_MISSING_400
+                          description: |
+                            Missing mandatory field in the request.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: FIELD_MISSING
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: FIELD_MISSING
+                              scope: transactionDetails.currency
+                        - title: error_FIELD_INVALID_400
+                          description: |
+                            FIELD value is not valid.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: FIELD_INVALID
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: FIELD_INVALID
+                              scope: transactionDetails.currency
+                        - title: error_AC02_400
+                          description: >
+                            [InvalidDebtorAccountNumber] – invalid account
+                            identifier in the request content..
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AC02
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AC02
+                              scope: debtorAccount.identification.iban
+                        - title: error_AC03_400
+                          description: >
+                            [InvalidCreditorAccountNumber] -  recipient account
+                            number is closed, blocked, credit card are disabled
+                            for the account type, or the recipient's account
+                            number is in invalid format (note: only valid for
+                            in-house payments).
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AC03
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AC03
+                              scope: iban
+                              parameters: null
+                              message: The date will be in the future.
+                        - title: error_AC10_400
+                          description: >
+                            [InvalidDebtorAccountCurrency] –  the specified
+                            payer account currency does not correspond to the
+                            client's account currency for the account number
+                            held in the bank (the account currency is optional,
+                            in the case of multicurrency accounts, the account
+                            currency must be specified - Raiffeisenbank).
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AC10
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AC10
+                              scope: currency
+                              parameters: null
+                              message: null
+                        - title: error_AC12_400
+                          description: >
+                            [InvalidAccountType] -  account type does not match
+                            allowed account types (e.g., a non-paying account).
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AC12
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AC12
+                              scope: debtorAccount.identification.iban
+                              parameters: null
+                              message: null
+                        - title: error_AG01_400
+                          description: >
+                            [TransactionForbidden] – absent consent to access to
+                            balance check at the account.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AG01
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AG01
+                              scope: null
+                              parameters: null
+                              message: null
+                        - title: error_AM05_400
+                          description: >
+                            [Duplication] -  this is a duplicate. Universal code
+                            for a duplicate CISP query (validated by, for
+                            example, CSOB) or a duplicate payment via GIS
+                            (non-unique payment reference).
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AM05
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AM05
+                              scope: null
+                              parameters: null
+                              message: null
+                        - title: error_AM11_400
+                          description: >
+                            [InvalidTransactionCurrency] – the request contains
+                            a currency not trade/not supported.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AM11
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AM11
+                              scope: transactionDetails.currency
+                              parameters: null
+                              message: null
+                        - title: error_AM12_400
+                          description: >
+                            [InvalidAmount] – wrong amount. For instance, too
+                            low or high amount or wrong number format according
+                            to the number of decimal places according to the ISO
+                            4217.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AM12
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AM12
+                              scope: transactionDetails.totalAmount
+                              parameters: null
+                              message: null
+                        - title: error_FF01_400
+                          description: >
+                            [Invalid File Format] – invalid JSON forma or other
+                            technical problem with the query processing.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: FF01
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: FF01
+                              scope: null
+                              parameters: null
+                              message: null
+                        - title: error_BE19_400
+                          description: >
+                            [InvalidChargeBearerCode] - invalid fee type for the
+                            given transaction type.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: BE19
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: BE19
+                              scope: charges.bearer
+                              parameters: null
+                              message: null
+                        - title: error_DT01_400
+                          description: |
+                            [InvalidDate] Invalid date.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: DT01
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: DT01
+                              scope: fromDate
+                              parameters: null
+                              message: The date will be in the future.
+                        - title: error_NARR_400
+                          description: >
+                            Narrative – a general reason for rejecting the
+                            payment, with an addition of error-related
+                            information.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: NARR
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: NARR
+                              scope: null
+                              parameters: null
+                              message: null
+                        - title: error_RC07_400
+                          description: >
+                            [InvalidCreditorBICIdentifier] –  invalid recipient
+                            SWIFT / BIC code.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: RC07
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: RC07
+                              scope: bic
+                              parameters: null
+                              message: null
+                        - title: error_NRC10_400
+                          description: >
+                            [InvalidCreditorClearingSystemMemberIdentifier] -
+                            invalid recipient bank code identification.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: RC10
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: RC10
+                              scope: >-
+                                creditorAgent.financialInstitutionIdentification.clearingSystemMemberIdentification
+                              parameters: null
+                              message: null
+                        - title: error_RR03_400
+                          description: >
+                            [MissingCreditorNameOrAddress] -  the field is
+                            missing the required data about the recipient's name
+                            or address (or its part). If the data is in bad
+                            format, the error code FIELD_INVALID is used.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: RR03
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: RR03
+                              scope: null
+                              parameters: null
+                              message: null
+                        - title: error_RR10_400
+                          description: >
+                            [InvalidCharacterSet] – invalid character set in the
+                            request.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: RF01
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: RR01
+                              scope: null
+                              parameters: null
+                              message: null
+                        - title: error_NO_PART_400
+                          description: >
+                            Unattainable Payment Method - The payer or payee
+                            bank does not provide the requested priority of the
+                            instruction (Instant Payment).
+
+                            In this case, the bank can extend the error response
+                            by the "parameters" element and define a set of
+                            possible payment priorities. TPP resp. the PSU may
+                            be able to choose another type of priority.
+
+                            …
+
+                            "parameters": {
+                                    "ALLOWED_PRIORITY_TYPES" : ["NORM", "HIGH"]
+                            }
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: NO_PART
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: NO_PART
+                              scope: null
+                              parameters: null
+                              message: null
+                        - title: error_REC_SEND_400
+                          description: >
+                            [RECEIVER_SAME_AS_SENDER] –  Payer's account is the
+                            same as the payee's account (Applies to all types of
+                            payments)
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: REC_SEND
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: REC_SEND
+                              scope: null
+                              parameters: null
+                              message: null
+                        - title: error_CNOR_400
+                          description: >
+                            [Creditor bank is not registered] - The
+                            beneficiary's bank is not a participant in the Czech
+                            instant payments scheme.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: CNOR
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: CNOR
+                        - title: error_DNOR_400
+                          description: >
+                            [Debtor bank is not registered] - The payer's bank
+                            is not a participant in the Czech instant payments
+                            scheme.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: DNOR
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: DNOR
+                        - title: error_AB08_400
+                          description: >
+                            [Transaction Forbidden] - The payer's bank doesn´t
+                            allow instant payment from the payer's account.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AB08
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AB08
+                        - title: error_AM02_400
+                          description: >
+                            [Not Allowed Amount] - Exceeded limit for single
+                            instant payment.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AM02
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AM02
+                              scope: amount
+                        - title: error_AG09_400
+                          description: >
+                            [Payment Not Received] - The beneficiary's bank
+                            rejected to accept instant payment to the
+                            beneficiary's account.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AG09
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AG09
+                        - title: error_FORB_400
+                          description: >
+                            [Transaction Forbidden] - The payer's bank doesn´t
+                            allow instant payment from the payer's account.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: FORB
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: FORB
+                        - title: error_AB07_400
+                          description: >
+                            [Offline Agent] - The ČNB is not currently available
+                            for the Czech instant payments.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AB07
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AB07
+                        - title: error_AB05_400
+                          description: >
+                            [Timeout Creditor Agent] - Transaction declined due
+                            to timeout.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: AB05
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: AB05
+                        - title: error_OFFD_400
+                          description: >
+                            [Offline Debtor Agent] - The payer´s bank is
+                            currently  unavailable due to planned and unplanned
+                            outages of  the Czech instant payments scheme
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: OFFD
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: OFFD
+              example:
+                errors:
+                  - error: FIELD_MISSING
+                    scope: amount
+        '401':
+          description: Unauthorised
+          headers:
+            Content-Type:
+              description: >
+                Defines MIME media type of the response. For example
+                application/json or application/xml in case of bulk payment
+                initiation.
+              required: true
+              schema:
+                title: contentType
+                description: >
+                  Defines MIME media type of the resource. For example
+                  application/json or application/x-www-form-urlencoded (OAuth2
+                  /auth resources) and application/xml in case of bulk payment
+                  initiation.
+                type: string
+                maxLength: 50
+                example: application/json
+          content:
+            application/json:
+              schema:
+                title: error401
+                description: |
+                  Querying requires user authentication
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      anyOf:
+                        - title: error_UNAUTHORISED_401
+                          description: >
+                            Invalid/missing access token = user is not
+                            authenticated
+                              OR
+                            Invalid/missing certificate = provider is not
+                            authenticated/authorised
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: UNAUTHORISED
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: UNAUTHORISED
+        '403':
+          description: Forbidden
+          headers:
+            Content-Type:
+              description: >
+                Defines MIME media type of the response. For example
+                application/json or application/xml in case of bulk payment
+                initiation.
+              required: true
+              schema:
+                title: contentType
+                description: >
+                  Defines MIME media type of the resource. For example
+                  application/json or application/x-www-form-urlencoded (OAuth2
+                  /auth resources) and application/xml in case of bulk payment
+                  initiation.
+                type: string
+                maxLength: 50
+                example: application/json
+          content:
+            application/json:
+              schema:
+                title: error403
+                description: >
+                  Authentication with an invalid certificate or expired access
+                  token, a call that does not match a third-party license.
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      anyOf:
+                        - title: error_FORBIDDEN_403
+                          description: >
+                            Authentication with an invalid certificate or
+                            expired access token, a call that does not match a
+                            third-party license.
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: FORBIDDEN
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: FORBIDDEN
+        '415':
+          description: Unsupported Media Type
+          headers:
+            Content-Type:
+              description: >
+                Defines MIME media type of the response. For example
+                application/json or application/xml in case of bulk payment
+                initiation.
+              required: true
+              schema:
+                title: contentType
+                description: >
+                  Defines MIME media type of the resource. For example
+                  application/json or application/x-www-form-urlencoded (OAuth2
+                  /auth resources) and application/xml in case of bulk payment
+                  initiation.
+                type: string
+                maxLength: 50
+                example: application/json
+            X-Request-ID:
+              description: >
+                Unique identifier for each request specified by TPP returned in
+                response header.
+              required: true
+              schema:
+                title: xRequestId
+                description: >
+                  Unique identifier for each request specified by TPP. It is
+                  recommended to use a UUID format with a length of 36 to 60
+                  characters.
+                type: string
+                maxLength: 60
+                example: f713da2b-6908-4c3f-9461-784f74b86710
+            Action-ID:
+              description: >
+                IDs that identify the technical or business process within the
+                call of each API request. APSPS should have a return value in
+                this case.
+              required: false
+              schema:
+                title: actionId
+                description: >
+                  IDs that identify the technical or business process within the
+                  call of each API request.
+
+
+                  For example, it can be used to identify the process of
+                  retrieving a transaction history that is provided as a paged
+                  response available through multiple requests.
+                type: string
+                maxLength: 60
+                example: 2f549458-b592-4a85-ad57-e9610dfd5218
+          content:
+            application/json:
+              schema:
+                title: error415
+                description: >
+                  Request contains a request for unsupported transmission type
+                  (e.g. in relation to headers Accept and Accept-Language).
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      anyOf:
+                        - title: error_UNSUPPORTED_MEDIA_TYPE_415
+                          description: >
+                            Request contains a request for unsupported
+                            transmission type (e.g. in relation to headers
+                            Accept and Accept-Language).
+                          type: object
+                          required:
+                            - error
+                          properties:
+                            error:
+                              type: string
+                              example: UNSUPPORTED_MEDIA_TYPE
+                            parameters:
+                              title: errorParameters
+                              description: >
+                                The field of additional elements specific for
+                                the given error code. These parameters are
+                                always specified in the description of a
+                                specific error code.
+                              type: object
+                              example:
+                                AMOUNT_ENTERED: 10000
+                                CURRENCY: EUR
+                                LIMIT: 500
+                            scope:
+                              title: scope
+                              description: >
+                                It determines the JSON path of the request
+                                element that caused the error status.
+                              type: string
+                              example: account.amount.currency
+                            message:
+                              title: errorMessage
+                              description: >
+                                Optional text description. It is not intended
+                                for interpretation to the end user but, for
+                                example, to enrich the error log.
+                              type: string
+                              example: Requested amount is too large
+                          example:
+                            - error: UNSUPPORTED_MEDIA_TYPE
+        '501':
+          description: Not Implemented
+          headers:
+            X-Request-ID:
+              description: >
+                Unique identifier for each request specified by TPP returned in
+                response header.
+              required: true
+              schema:
+                title: xRequestId
+                description: >
+                  Unique identifier for each request specified by TPP. It is
+                  recommended to use a UUID format with a length of 36 to 60
+                  characters.
+                type: string
+                maxLength: 60
+                example: f713da2b-6908-4c3f-9461-784f74b86710
+            Process-ID:
+              description: >
+                IDs that identify the technical or business process within the
+                call of each API request. APSPS should have a return value in
+                this case.
+              required: false
+              schema:
+                title: actionId
+                description: >
+                  IDs that identify the technical or business process within the
+                  call of each API request.
+
+
+                  For example, it can be used to identify the process of
+                  retrieving a transaction history that is provided as a paged
+                  response available through multiple requests.
+                type: string
+                maxLength: 60
+                example: 2f549458-b592-4a85-ad57-e9610dfd5218
 tags:
   - name: Account information
     description: >
@@ -69333,7 +71617,7 @@ tags:
 
 
       **Overview of resources:**
-        * POST New standing order - instruction initiation 
+        * POST New standing order - instruction initiation
           * GET Standing order authorization Step I
           * POST Standing order authorization Step II
           * PUT Standing order authorization Step III
@@ -69369,7 +71653,7 @@ tags:
 
 
       **Overview of Batch payment - bulk authorization resources:**
-        * POST New batch payment - instruction initiation 
+        * POST New batch payment - instruction initiation
           * GET Batch payment authorization Step I
           * POST Batch payment authorization Step II
           * PUT Batch payment authorization Step III
