@@ -3711,7 +3711,7 @@ tags:
       Specification of API Account Statement contains a description of resources for the acquisition of information about the account statements of the bank client.
       
       **Overview of resources:**
-        * GET List of available account statements
+        * GET List of client account statements
         * GET Download the statement file
 
   - name: Notifications
