@@ -149,6 +149,17 @@ suitableScope:
     CISP:
       $ref: "elements.yaml#/suitableScopeCISP"
 
+formats:
+  title: formats
+  description: |
+    Types of account statement’s availability and their formats.
+  type: object
+  properties:
+    availability:
+      $ref: "elements.yaml#/availability"
+    format:
+      $ref: "elements.yaml#/format"
+
 currencyCode:
   title: currencyCode
   description: |
@@ -545,6 +556,44 @@ accountInfo:
     suitableScope:
       $ref: "#/suitableScope"
 
+accountStatementInfo:
+  title: accountStatementInfo
+  description: Info about client account statement
+  type: object
+  required:
+    - accountStatementId
+    - sequenceNumber
+    - period
+    - dateFrom
+    - dateTo
+    - formats
+    - availability
+    - format
+  properties:
+    accountStatementId:
+      $ref: "elements.yaml#/accountStatementId"
+    year:
+      $ref: "elements.yaml#/year"
+    halfyear:
+      $ref: "elements.yaml#/halfyear"
+    quarter:
+      $ref: "elements.yaml#/quarter"
+    month:
+      $ref: "elements.yaml#/month"
+    week:
+      $ref: "elements.yaml#/week"
+    day:
+      $ref: "elements.yaml#/day"
+    sequenceNumber:
+      $ref: "elements.yaml#/sequenceNumber"
+    period:
+      $ref: "elements.yaml#/period"
+    dateFrom:
+      $ref: "elements.yaml#/dateFrom"
+    dateTo:
+      $ref: "elements.yaml#/dateTo"
+    formats:
+      $ref: "#/formats"
 
 accountsList:
   title: accountsList
@@ -553,6 +602,14 @@ accountsList:
   type: array
   items:
     $ref: "#/accountInfo"
+
+accountStatementsList:
+  title: accountStatementsList
+  description: |
+    Set of client account statements
+  type: array
+  items:
+    $ref: "#/accountStatementInfo"
 
 balanceInfo:
   title: balanceInfo

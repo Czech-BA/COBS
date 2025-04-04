@@ -1,0 +1,47 @@
+OK_200_AllAccountStatementsList:
+  description: OK
+  headers:
+    Content-Type:
+      $ref: "../parameters/responseHeaders.yaml#/contentTypeRes"
+    X-Request-ID:
+      $ref: "../parameters/responseHeaders.yaml#/xRequestIdRes"
+    Action-ID:
+      $ref: "../parameters/responseHeaders.yaml#/actionIdRes"
+    Signature:
+      $ref: "../parameters/responseHeaders.yaml#/signatureHeaderRes"
+    Digest:
+      $ref: "../parameters/responseHeaders.yaml#/digestHeaderRes"
+    ASPSP-Signature-Certificate:
+      $ref: "../parameters/responseHeaders.yaml#/aspspSignatureCertificate"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/responsePayloads/getAllAccountStatements.yaml#/getAllAccountStatements"
+      example:
+        {
+          "pageNumber": 0,
+          "pageCount": 2,
+          "pageSize": 10,
+          "nextPage": 1,
+          "accountStatements": [
+            {
+              "accountStatementId": "aca74ae2-e0d3-4094-b574-63b0dc237941",
+              "year": 2021,
+              "month": 7,
+              "sequenceNumber": 7,
+              "period": "MONTH",
+              "dateFrom": "2021-07-01",
+              "dateTo": "2021-07-31",
+              "formats": [
+                {
+                  "availability": "IMMEDIATE",
+                  "format": "PDF"
+                },
+                {
+                  "availability": "IMMEDIATE",
+                  "format": " JSON"
+                }
+              ]
+            }
+          ]
+        }

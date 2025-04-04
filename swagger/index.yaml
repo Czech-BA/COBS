@@ -2055,16 +2055,16 @@ paths:
         #query
         - $ref: "./components/parameters/queries.yaml#/pageSizeParam"
         - $ref: "./components/parameters/queries.yaml#/pageParam"
-        - $ref: "./components/parameters/queries.yaml#/yearParam"
-        - $ref: "./components/parameters/queries.yaml#/halfyearParam"
-        - $ref: "./components/parameters/queries.yaml#/quarterParam"
-        - $ref: "./components/parameters/queries.yaml#/monthParam"
-        - $ref: "./components/parameters/queries.yaml#/weekParam"
-        - $ref: "./components/parameters/queries.yaml#/dayParam"
+        - $ref: "./components/parameters/queries.yaml#/year"
+        - $ref: "./components/parameters/queries.yaml#/halfyear"
+        - $ref: "./components/parameters/queries.yaml#/quarter"
+        - $ref: "./components/parameters/queries.yaml#/month"
+        - $ref: "./components/parameters/queries.yaml#/week"
+        - $ref: "./components/parameters/queries.yaml#/day"
         - $ref: "./components/parameters/queries.yaml#/fromParam"
         - $ref: "./components/parameters/queries.yaml#/toParam"
         - $ref: "./components/parameters/queries.yaml#/matchingParam"
-        - $ref: "./components/parameters/queries.yaml#/availabilityParam"
+        - $ref: "./components/parameters/queries.yaml#/availability"
           #header
           #common header parameter
         - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
@@ -2096,7 +2096,7 @@ paths:
 
       responses:
         '200':
-          $ref: "./components/responses/OK_200_AllAccountList.yaml#/OK_200_AllAccountList"
+          $ref: "./components/responses/OK_200_AllAccountStatementsList.yaml#/OK_200_AllAccountStatementsList"
 
         '400':
           $ref: "./components/responses/BAD_REQUEST_400_getAllAccounts.yaml#/BAD_REQUEST_400_getAllAccounts"
@@ -2144,8 +2144,8 @@ paths:
         #path
         - $ref: "./components/parameters/paths.yaml#/accountId"
         #query
-        - $ref: "./components/parameters/queries.yaml#/accountStatementIdParam"
-        - $ref: "./components/parameters/queries.yaml#/formatParam"
+        - $ref: "./components/parameters/queries.yaml#/accountStatementId"
+        - $ref: "./components/parameters/queries.yaml#/format"
         - $ref: "./components/parameters/queries.yaml#/featureParam"
           #header
           #common header parameter
