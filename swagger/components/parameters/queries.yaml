@@ -73,3 +73,123 @@ allInstructions:
   required: false
   schema:
     $ref: "../schemas/elements.yaml#/allInstructions"
+
+yearParam:
+  name: year
+  in: query
+  description: |
+    Year of account statement.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/yearParam"
+
+halfyearParam:
+  name: halfyear
+  in: query
+  description: |
+    Half-year of account statement. Values 1, 2. This parameter must only be used in combination with the “year” parameter.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/halfyearParam"
+
+quarterParam:
+  name: quarter
+  in: query
+  description: |
+    Quarter of account statement. Values (1, 2, 3, 4). This parameter must only be used in combination with the “year” parameter.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"
+
+monthParam:
+  name: month
+  in: query
+  description: |
+    Month of account statement. Values (1-12). This parameter must only be used in combination with the “year” parameter.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"
+
+weekParam:
+  name: week
+  in: query
+  description: |
+    Week of account statement. Denotes week of the year as number (1-53). This parameter must only be used in combination with the “year” parameter.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"
+
+dayParam:
+  name: day
+  in: query
+  description: |
+    Day of account statement in case of daily frequency. Values (1-366). This parameter must only be used in combination with the “year” parameter.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"
+
+fromParam:
+  name: from
+  in: query
+  description: |
+    From date, start of a matching period.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"
+
+toParam:
+  name: to
+  in: query
+  description: |
+    End date of a matching period.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"
+
+matchingParam:
+  name: matching
+  in: query
+  description: |
+    Enum: intersects, encloses. The parameter  defines a way how the start/end date of a statement is treated in comparison with From/To dates supplied in URL query.
+    When intersects then any statement which  period is anyhow overlapping the matching From/To period is selected.
+    When enclosed then a statement which period falls fully inside matching from/to period is selected.
+    When not supplied in URL enclosed is preferred as Default value.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"
+
+availabilityParam:
+  name: availability
+  in: query
+  description: |
+    Availability specifies whether the account statement is immediately available `IMMEDIATE` or has been archived by the bank `ARCHIVED`. If the value is not filled in, the default value `ALL` is used.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"
+
+accountStatementIdParam:
+  name: accountStatementId
+  in: query
+  description: |
+    Unique account statement identifier from the response to a query on the list of account statements.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"
+
+formatParam:
+  name: format
+  in: query
+  description: |
+    Chosen format of the statement, e.g. PDF, XML.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"
+
+featureParam:
+  name: feature
+  in: query
+  description: |
+    Standardized or Bank-specific features (documented on the bank service level) - subtype of ABO, embedded or standalone JSON, … etc.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/pageSizeParam"

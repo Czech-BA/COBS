@@ -1019,3 +1019,104 @@ authorizationDetails:
     Encrypted data (recommended JWE) that containt subject of authorization in base64 encoding.
   type: string
   example: "5000U2FsdGVkX1/xaq5hQD/PU6JHEncGMTkqtrWwyyzD0JESLsVIsNlm1f0zYYeJBHhg3ghWI3BuSm9eZeCYrMbj2VkmPW7rEFX0mI92bb7EZdQe9rmYfCO5nI+1Q7jow38seZAGe2xoaXbrf47YaDZTNdUfFNkHQoEQaa1CjuhXuj3/bvpcj3dtTzj4KExI/a1od6LmiiPP5xch/P0E3xGraclZW7QMNMqFSzCuZT7vWyHNAX9yKW8pPb.."
+
+yearParam:
+  title: yearParam
+  description: |
+    Year of account statement.
+  type: integer
+  example: 1
+
+halfyearParam:
+  title: halfyearParam
+  description: |
+    Half-year of account statement. Values 1, 2. This parameter must only be used in combination with the “year” parameter.
+  type: integer
+  example: 2
+
+quarterParam:
+  title: quarterParam
+  description: |
+    Quarter of account statement. Values (1, 2, 3, 4). This parameter must only be used in combination with the “year” parameter.
+  type: integer
+  example: 4
+
+monthParam:
+  title: monthParam
+  description: |
+    Month of account statement. Values (1-12). This parameter must only be used in combination with the “year” parameter.
+  type: integer
+  example: 12
+
+weekParam:
+  title: weekParam
+  description: |
+    Week of account statement. Denotes week of the year as number (1-53). This parameter must only be used in combination with the “year” parameter.
+  type: integer
+  example: 25
+
+dayParam:
+  title: dayParam
+  description: |
+    Day of account statement in case of daily frequency. Values (1-366). This parameter must only be used in combination with the “year” parameter.
+  type: integer
+  example: 322
+
+fromParam:
+  title: fromParam
+  description: |
+    From date, start of a matching period.
+  type: string
+  example: 2022-05-01
+
+toParam:
+  title: toParam
+  description: |
+    End date of a matching period.
+  type: string
+  example: 2022-06-01
+
+matchingParam:
+  title: matchingParam
+  description: |
+    Enum: intersects, encloses. The parameter  defines a way how the start/end date of a statement is treated in comparison with From/To dates supplied in URL query.
+    When intersects then any statement which  period is anyhow overlapping the matching From/To period is selected.
+    When enclosed then a statement which period falls fully inside matching from/to period is selected.
+    When not supplied in URL enclosed is preferred as Default value.
+  type: string
+  enum:
+    - INTERSECTS
+    - ENCLOSES
+  example: ENCLOSES
+
+availabilityParam:
+  title: availabilityParam
+  description: |
+    Availability specifies whether the account statement is immediately available `IMMEDIATE` or has been archived by the bank `ARCHIVED`. If the value is not filled in, the default value `ALL` is used.
+  type: string
+  enum:
+    - IMMEDIATE
+    - ARCHIVED
+    - ALL
+  example: IMMEDIATE
+
+accountStatementIdParam:
+  title: accountStatementIdParam
+  description: |
+    Unique account statement identifier from the response to a query on the list of account statements.
+  type: integer
+  example: 123456789
+
+formatParam:
+  title: formatParam
+  description: |
+    Chosen format of the statement, e.g. PDF, XML.
+  type: string
+  example: XML
+
+featureParam:
+  title: featureParam
+  description: |
+    Standardized or Bank-specific features (documented on the bank service level) - subtype of ABO, embedded or standalone JSON, … etc.
+  type: string
+  example: XML-data
