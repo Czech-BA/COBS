@@ -1,0 +1,60 @@
+OK_200_StatementDownload:
+  description: Successful download of a statement file
+  headers:
+    Content-Type:
+      schema:
+        type: string
+        enum:
+          - application/pdf
+          - application/xml
+          - application/json
+          - text/plain
+          - text/xml
+      description: The content type of the statement file
+    Content-Disposition:
+      schema:
+        type: string
+        example: attachment; filename="statement_2025-04-09.pdf"
+      description: Indicates file should be downloaded with the provided filename
+  content:
+    application/pdf:
+      schema:
+        type: string
+        format: binary
+      description: Bank statement in PDF format
+    text/plain:
+      schema:
+        type: string
+        format: binary
+      description: Bank statement in plain text format
+    application/xml:
+      schema:
+        type: string
+        format: binary
+      description: Bank statement in XML format
+    text/xml:
+      schema:
+        type: string
+        format: binary
+      description: Bank statement in XML format
+    application/json:
+      schema:
+        type: string
+        format: binary
+      description: Bank statement in JSON format
+  examples:
+    application/pdf:
+      summary: PDF statement example
+      value: <binary data>
+    text/plain:
+      summary: Text statement example
+      value: <binary data>
+    application/xml:
+      summary: XML statement example
+      value: <binary data>
+    text/xml:
+      summary: XML statement example
+      value: <binary data>
+    application/json:
+      summary: JSON statement example
+      value: <binary data>
