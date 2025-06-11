@@ -38,6 +38,35 @@ orderParam:
   schema:
     $ref: "../schemas/elements.yaml#/orderParam"
 
+directionParam:
+  name: deirection
+  in: query
+  description: |
+    Determines whether only incoming or only outgoing transactions are requested.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/directionParam"
+
+counterpartyIbanParam:
+  name: counterpartyIban
+  in: query
+  description: |
+    Filters transactions where the counterparty IBAN matches the given value.
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/counterpartyIbanParam"
+
+transactionStatusParam:
+  name: transactionStatus
+  in: query
+  description: |
+    Filters transactions by status:
+    - BOOK: posted (booked) transactions
+    - PDNG: pending (blocked) transactions
+  required: false
+  schema:
+    $ref: "../schemas/elements.yaml#/transactionStatusParam"
+
 currencyParam:
   name: currency
   in: query
