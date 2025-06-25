@@ -211,6 +211,7 @@ paths:
         - $ref: "./components/parameters/queries.yaml#/directionParam"
         - $ref: "./components/parameters/queries.yaml#/counterpartyIbanParam"
         - $ref: "./components/parameters/queries.yaml#/transactionStatusParam"
+        - $ref: "./components/parameters/queries.yaml#/searchTextParam"
       #header
           #common header parameter
         - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"

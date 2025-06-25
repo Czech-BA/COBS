@@ -67,6 +67,21 @@ transactionStatusParam:
   schema:
     $ref: "../schemas/elements.yaml#/transactionStatusParam"
 
+searchTextParam:
+  name: text
+  in: query
+  description: >
+    Text filter for searching transactions. Performs a case-insensitive search
+    primarily in the `remittanceInformation` field, but also in other relevant
+    fields such as transaction description, merchant name, variable symbol, and
+    other textual references.
+  required: false
+  schema:
+    title: textFilter
+    type: string
+    maxLength: 100
+    example: "Albert"
+
 currencyParam:
   name: currency
   in: query
