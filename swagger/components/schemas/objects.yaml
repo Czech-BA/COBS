@@ -202,7 +202,11 @@ postalAddress:
   title: postalAddress
   description: |
     Postal address
+      In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
   type: object
+  required:
+    - townName
+    - country
   properties:
     streetName:
       $ref: "#/streetName"
