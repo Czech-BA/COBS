@@ -2679,6 +2679,19 @@ paths:
               - BOOK
               - PDNG
             example: BOOK
+        - name: text
+          in: query
+          description: >
+            Text filter for searching transactions. Performs a case-insensitive
+            search primarily in the `remittanceInformation` field, but also in
+            other relevant fields such as transaction description, merchant
+            name, variable symbol, and other textual references.
+          required: false
+          schema:
+            title: textFilter
+            type: string
+            maxLength: 100
+            example: Albert
         - name: Content-Type
           in: header
           description: >
@@ -3802,7 +3815,11 @@ paths:
                                       title: postalAddress
                                       description: |
                                         Postal address
+                                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                                       type: object
+                                      required:
+                                        - townName
+                                        - country
                                       properties:
                                         streetName:
                                           title: streetName
@@ -4095,7 +4112,11 @@ paths:
                                       title: postalAddress
                                       description: |
                                         Postal address
+                                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                                       type: object
+                                      required:
+                                        - townName
+                                        - country
                                       properties:
                                         streetName:
                                           title: streetName
@@ -4339,7 +4360,11 @@ paths:
                                       title: postalAddress
                                       description: |
                                         Postal address
+                                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                                       type: object
+                                      required:
+                                        - townName
+                                        - country
                                       properties:
                                         streetName:
                                           title: streetName
@@ -4632,7 +4657,11 @@ paths:
                                       title: postalAddress
                                       description: |
                                         Postal address
+                                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                                       type: object
+                                      required:
+                                        - townName
+                                        - country
                                       properties:
                                         streetName:
                                           title: streetName
@@ -4952,7 +4981,11 @@ paths:
                                           title: postalAddress
                                           description: |
                                             Postal address
+                                              In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                                           type: object
+                                          required:
+                                            - townName
+                                            - country
                                           properties:
                                             streetName:
                                               title: streetName
@@ -5142,7 +5175,11 @@ paths:
                                           title: postalAddress
                                           description: |
                                             Postal address
+                                              In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                                           type: object
+                                          required:
+                                            - townName
+                                            - country
                                           properties:
                                             streetName:
                                               title: streetName
@@ -6742,7 +6779,11 @@ paths:
                                   title: postalAddress
                                   description: |
                                     Postal address
+                                      In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                                   type: object
+                                  required:
+                                    - townName
+                                    - country
                                   properties:
                                     streetName:
                                       title: streetName
@@ -8386,7 +8427,11 @@ paths:
                                   title: postalAddress
                                   description: |
                                     Postal address
+                                      In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                                   type: object
+                                  required:
+                                    - townName
+                                    - country
                                   properties:
                                     streetName:
                                       title: streetName
@@ -11276,7 +11321,11 @@ paths:
                       title: postalAddress
                       description: |
                         Postal address
+                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                       type: object
+                      required:
+                        - townName
+                        - country
                       properties:
                         streetName:
                           title: streetName
@@ -11612,7 +11661,11 @@ paths:
                           title: postalAddress
                           description: |
                             Postal address
+                              In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                           type: object
+                          required:
+                            - townName
+                            - country
                           properties:
                             streetName:
                               title: streetName
@@ -11793,7 +11846,11 @@ paths:
                           title: postalAddress
                           description: |
                             Postal address
+                              In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                           type: object
+                          required:
+                            - townName
+                            - country
                           properties:
                             streetName:
                               title: streetName
@@ -11931,7 +11988,11 @@ paths:
                       title: postalAddress
                       description: |
                         Postal address
+                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                       type: object
+                      required:
+                        - townName
+                        - country
                       properties:
                         streetName:
                           title: streetName
@@ -12101,7 +12162,11 @@ paths:
                       title: postalAddress
                       description: |
                         Postal address
+                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                       type: object
+                      required:
+                        - townName
+                        - country
                       properties:
                         streetName:
                           title: streetName
@@ -12951,7 +13016,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -13291,7 +13360,11 @@ paths:
                             title: postalAddress
                             description: |
                               Postal address
+                                In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                             type: object
+                            required:
+                              - townName
+                              - country
                             properties:
                               streetName:
                                 title: streetName
@@ -13473,7 +13546,11 @@ paths:
                             title: postalAddress
                             description: |
                               Postal address
+                                In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                             type: object
+                            required:
+                              - townName
+                              - country
                             properties:
                               streetName:
                                 title: streetName
@@ -13611,7 +13688,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -13784,7 +13865,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -16270,7 +16355,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -16510,7 +16599,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -16792,7 +16885,11 @@ paths:
                             title: postalAddress
                             description: |
                               Postal address
+                                In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                             type: object
+                            required:
+                              - townName
+                              - country
                             properties:
                               streetName:
                                 title: streetName
@@ -16974,7 +17071,11 @@ paths:
                             title: postalAddress
                             description: |
                               Postal address
+                                In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                             type: object
+                            required:
+                              - townName
+                              - country
                             properties:
                               streetName:
                                 title: streetName
@@ -17161,7 +17262,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -19626,7 +19731,11 @@ paths:
                       title: postalAddress
                       description: |
                         Postal address
+                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                       type: object
+                      required:
+                        - townName
+                        - country
                       properties:
                         streetName:
                           title: streetName
@@ -19962,7 +20071,11 @@ paths:
                           title: postalAddress
                           description: |
                             Postal address
+                              In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                           type: object
+                          required:
+                            - townName
+                            - country
                           properties:
                             streetName:
                               title: streetName
@@ -20143,7 +20256,11 @@ paths:
                           title: postalAddress
                           description: |
                             Postal address
+                              In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                           type: object
+                          required:
+                            - townName
+                            - country
                           properties:
                             streetName:
                               title: streetName
@@ -20281,7 +20398,11 @@ paths:
                       title: postalAddress
                       description: |
                         Postal address
+                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                       type: object
+                      required:
+                        - townName
+                        - country
                       properties:
                         streetName:
                           title: streetName
@@ -20451,7 +20572,11 @@ paths:
                       title: postalAddress
                       description: |
                         Postal address
+                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                       type: object
+                      required:
+                        - townName
+                        - country
                       properties:
                         streetName:
                           title: streetName
@@ -21296,7 +21421,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -21636,7 +21765,11 @@ paths:
                             title: postalAddress
                             description: |
                               Postal address
+                                In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                             type: object
+                            required:
+                              - townName
+                              - country
                             properties:
                               streetName:
                                 title: streetName
@@ -21818,7 +21951,11 @@ paths:
                             title: postalAddress
                             description: |
                               Postal address
+                                In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                             type: object
+                            required:
+                              - townName
+                              - country
                             properties:
                               streetName:
                                 title: streetName
@@ -21956,7 +22093,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -22129,7 +22270,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -49244,7 +49389,11 @@ paths:
                       title: postalAddress
                       description: |
                         Postal address
+                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                       type: object
+                      required:
+                        - townName
+                        - country
                       properties:
                         streetName:
                           title: streetName
@@ -49580,7 +49729,11 @@ paths:
                           title: postalAddress
                           description: |
                             Postal address
+                              In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                           type: object
+                          required:
+                            - townName
+                            - country
                           properties:
                             streetName:
                               title: streetName
@@ -49761,7 +49914,11 @@ paths:
                           title: postalAddress
                           description: |
                             Postal address
+                              In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                           type: object
+                          required:
+                            - townName
+                            - country
                           properties:
                             streetName:
                               title: streetName
@@ -49899,7 +50056,11 @@ paths:
                       title: postalAddress
                       description: |
                         Postal address
+                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                       type: object
+                      required:
+                        - townName
+                        - country
                       properties:
                         streetName:
                           title: streetName
@@ -50069,7 +50230,11 @@ paths:
                       title: postalAddress
                       description: |
                         Postal address
+                          In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                       type: object
+                      required:
+                        - townName
+                        - country
                       properties:
                         streetName:
                           title: streetName
@@ -50744,7 +50909,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -51084,7 +51253,11 @@ paths:
                             title: postalAddress
                             description: |
                               Postal address
+                                In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                             type: object
+                            required:
+                              - townName
+                              - country
                             properties:
                               streetName:
                                 title: streetName
@@ -51266,7 +51439,11 @@ paths:
                             title: postalAddress
                             description: |
                               Postal address
+                                In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                             type: object
+                            required:
+                              - townName
+                              - country
                             properties:
                               streetName:
                                 title: streetName
@@ -51404,7 +51581,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -51577,7 +51758,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -54949,7 +55134,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -55289,7 +55478,11 @@ paths:
                             title: postalAddress
                             description: |
                               Postal address
+                                In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                             type: object
+                            required:
+                              - townName
+                              - country
                             properties:
                               streetName:
                                 title: streetName
@@ -55471,7 +55664,11 @@ paths:
                             title: postalAddress
                             description: |
                               Postal address
+                                In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                             type: object
+                            required:
+                              - townName
+                              - country
                             properties:
                               streetName:
                                 title: streetName
@@ -55609,7 +55806,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
@@ -55782,7 +55983,11 @@ paths:
                         title: postalAddress
                         description: |
                           Postal address
+                            In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
                         type: object
+                        required:
+                          - townName
+                          - country
                         properties:
                           streetName:
                             title: streetName
