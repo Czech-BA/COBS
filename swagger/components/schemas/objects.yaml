@@ -208,6 +208,8 @@ postalAddress:
     - townName
     - country
   properties:
+    addressType:
+      $ref: "#/addressType"
     streetName:
       $ref: "#/streetName"
     buildingNumber:
@@ -236,15 +238,23 @@ postalAddress:
       $ref: "#/department"
     subDepartment:
       $ref: "#/subDepartment"
-
     addressLine:
       $ref: "#/addressLine"
+    addressLines:
+      type: array
+      minItems: 0
+      maxItems: 7
+      items:
+        $ref: "#/addressLine"
 
 otherIdentification:
   title: otherIdentification
   description: |
     Other identification as the organization/legal entity.
   type: object
+  required:
+    - townName
+    - country
   properties:
     identification:
       description: |
@@ -392,6 +402,25 @@ directDebitPaymentLimit:
     crrency:
       $ref: "elements.yaml#/currency"
 
+addressType:
+  title: addressType
+  description: |
+    Type of address based on ISO 20022 AddressType3Choice.
+    Either a standard code or a proprietary value may be provided.
+  type: object
+  properties:
+    code:
+      type: string
+      description: Standard ISO 20022 address type code.
+      enum:
+        - HOME
+        - BUSI
+      example: BUSI
+    proprietary:
+      type: string
+      description: Proprietary address type defined by the sender.
+      example: REGISTERED_OFFICE
+
 streetName:
   title: streetName
   description: |
@@ -437,6 +466,7 @@ addressLine:
   title: addressLine
   description: |
     Unstructured record of payer postal address
+  maxLength: 70
   type: string
 
 department:
