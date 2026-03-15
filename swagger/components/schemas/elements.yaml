@@ -216,6 +216,36 @@ orderParam:
   type: string
   example: "ASC"
 
+directionParam:
+  title: directionParam
+  description: |
+    Determines whether only incoming or only outgoing transactions are requested.
+  type: string
+  enum:
+    - INCOMING
+    - OUTGOING
+  example: INCOMING
+
+counterpartyIbanParam:
+  title: counterpartyIBAN
+  description: |
+    Filters transactions where the counterparty IBAN matches the given value.
+  type: string
+  pattern: '^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$'  # valid IBAN format (simplified)
+  example: "CZ6508000000192000145399"
+
+transactionStatusParam:
+  title: transactionStatus
+  description: |
+    Filters transactions by status:
+    - BOOK: posted (booked) transactions
+    - PDNG: pending (blocked) transactions
+  type: string
+  enum:
+    - BOOK
+    - PDNG
+  example: BOOK
+
 pageNumber:
   title: pageNumber
   description: |
