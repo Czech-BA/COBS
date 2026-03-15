@@ -176,7 +176,10 @@ chargeBearer:
 sourceCurrency:
   title: sourceCurrency
   description: |
-    Client account currency (source/original currency/payer account currency for intrabank conversion payments).
+    It is not related to the direction of the money, but to which currency the exchange rate is given.
+    
+    
+    Source currency or base or primary currency. It is a currency exchanged for the purpose of obtaining another currency.
   type: string
   maxLength: 3
   pattern: "[A-Z]{3}"
@@ -185,7 +188,13 @@ sourceCurrency:
 targetCurrency:
   title: targetCurrency
   description: |
-    Payment currency (End/target currency/payee account currency for intrabank conversion payments).
+    The target currency to which the conversion is indicated. 
+    
+    
+    E.g. for sourceCurrency=CZK and targetCurrency=USD, exchangeRate=23 can be, which means that 1 USD will be 23 CZK.
+    
+    
+    And for the same case, the exchange rate given for sourceCurrency=USD and targetCurrency=CZK will be exchangeRate=0.0435 USD for 1 CZK.
   type: string
   maxLength: 3
   pattern: "[A-Z]{3}"
