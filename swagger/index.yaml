@@ -2099,7 +2099,7 @@ paths:
           $ref: "./components/responses/OK_200_AllAccountStatementsList.yaml#/OK_200_AllAccountStatementsList"
 
         '400':
-          $ref: "./components/responses/BAD_REQUEST_400_getAllAccounts.yaml#/BAD_REQUEST_400_getAllAccounts"
+          $ref: "./components/responses/BAD_REQUEST_400_getAllStatements.yaml#/BAD_REQUEST_400_getAllStatements"
 
         '401':
           $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
@@ -2119,11 +2119,11 @@ paths:
         '503':
           $ref: "./components/responses/SERVICE_UNAVAILABLE_503.yaml#/SERVICE_UNAVAILABLE_503"
 
-  /my/accounts/{id}/statement/download:
+  /my/accounts/{id}/statement/{accountStatementId}/download:
     get:
-      summary: Get the account statement download url
+      summary: Download the statement
       description: |
-        Resource for obtaining the account statement download url.
+        Resource for downloading the statement.
 
         **Resource characteristics:**
           * **Authorization:**  request requires the authorization of user/client as part of API calling
@@ -2149,7 +2149,6 @@ paths:
         - $ref: "./components/parameters/queries.yaml#/featureParam"
           #header
           #common header parameter
-        - $ref: "./components/parameters/requestHeaders.yaml#/contentTypeReq"
         - $ref: "./components/parameters/requestHeaders.yaml#/authorization"
         - $ref: "./components/parameters/requestHeaders.yaml#/apiKey"
         - $ref: "./components/parameters/requestHeaders.yaml#/accept"
@@ -2178,10 +2177,10 @@ paths:
 
       responses:
         '200':
-          $ref: "./components/responses/OK_200_AccountsBalances.yaml#/OK_200_AccountsBalances"
+          $ref: "./components/responses/OK_200_AccountStatementsDownload.yaml#/OK_200_StatementDownload"
 
         '400':
-          $ref: "./components/responses/BAD_REQUEST_400_getAccountsBalances.yaml#/BAD_REQUEST_400_getAccountsBalances"
+          $ref: "./components/responses/BAD_REQUEST_400_getStatementDownload.yaml#/BAD_REQUEST_400_getStatementDownload"
 
         '401':
           $ref: "./components/responses/UNAUTHORIZED_401.yaml#/UNAUTHORIZED_401"
