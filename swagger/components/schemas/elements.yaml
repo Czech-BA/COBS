@@ -1170,7 +1170,7 @@ dateFrom:
   description: |
     The start-date of the statement period. Format YYYY-MM-DD.
   type: string
-  example: "2021-07-01
+  example: "2021-07-01"
 
 dateTo:
   title: dateTo

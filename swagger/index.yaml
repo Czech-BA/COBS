@@ -2046,7 +2046,7 @@ paths:
 
       operationId: -getAllAccountStatements
       tags:
-        - Account statements
+        - Account Statements
 
       security:
         - OAuth2: [AISP, aisp.statements]
@@ -2137,7 +2137,7 @@ paths:
           * **Filtering:**  no
       operationId: -getAccountStatementsDownload
       tags:
-        - Account statements
+        - Account Statements
 
       security:
         - OAuth2: [AISP, aisp.statements]
