@@ -1,0 +1,19 @@
+requestInstrValidation:
+  title: postInstructionValudation
+  description: |
+    Post request for instruction validation
+  type: object
+  required:
+    - paymentIdentification
+    - creditorAccount
+  properties:
+    paymentIdentification:
+      $ref: "../objects.yaml#/paymentTypeInformationPriority"
+    amount:
+      $ref: '../objects.yaml#/amount'
+    requestedExecutionDate:
+      $ref: '../elements.yaml#/requestedExecutionDate'
+    creditorAccount:
+      $ref: '../objects.yaml#/paymentCreditorAccount'
+    debtorAccount:
+      $ref: '../objects.yaml#/paymentDebtorAccount'
