@@ -1,5 +1,9 @@
 # Czech Standard for Open Banking
 
+![Version](https://img.shields.io/badge/version-9.0-blue)
+![OpenAPI](https://img.shields.io/badge/OpenAPI-supported-green)
+![Status](https://img.shields.io/badge/status-active-success)
+
 **_COBS overview of changes_**
 
 | Version | Note                                                                                                                             |
@@ -13,7 +17,47 @@
 | 9.0     | New chapter 3.2.4.3 Processing Payments with Insufficient Funds                                                                 |
 | 9.0     | Required fields for swift or sepa transactions                                                                                  |
 
+---
 
+## Preview and published versions
+
+Preview, published and historical versions of the Czech Standard for Open Banking are available on GitHub Pages:
+
+* **https://czech-ba.github.io/COBS/**
+
+The preview portal contains:
+- current published versions,
+- historical versions,
+- preview versions of upcoming releases,
+- downloadable PDF documents.
+
+> Preview versions are intended for early integrations, implementation testing and feedback before official publication.
+
+---
+
+## Repository content
+
+This repository contains:
+- official PDF versions of the Czech Standard for Open Banking,
+- OpenAPI (Swagger) definitions,
+- JSON request/response examples,
+- preview versions of upcoming releases,
+- supporting documentation and examples.
+
+---
+
+## Repository structure
+
+```text
+.
+├── versions/          # Published PDF versions of the standard
+├── preview/           # Preview versions and draft releases
+├── swagger/           # OpenAPI / Swagger definitions
+├── examples/          # JSON request and response examples
+└── README.md
+```
+
+---
 
 On 16 November 2015, the European Banking Authority issued the Revised Payment Service Directive (hereinafter: PSD2). As of 13th January 2018, PSD2 will replace former Directive on Payment Services in the Internal Market. A need for this substation was caused by rapid development of IT, by the birth of brand new types of payment services and by a number of overall changes. Thanks to PSD2 new subjects will be regulated in the field of electronic payments, subjects, which were not in the scope of the previous Directive. Among other things, new legislation opens banking for the so-called third parties.
 
@@ -46,6 +90,13 @@ The main benefits of the Czech Standard are the easier integration of TPP into s
 
 * **[Structured OpenAPI (Swagger) definition for COBS V9.0](swagger/)**
 
+The OpenAPI definition can be used for:
+- API integrations,
+- validation,
+- client generation,
+- server generation,
+- API documentation rendering.
+
 ## Examples
 Here you will find an overview of the requests and responses examples for each API resource contained in the standard
 
@@ -65,6 +116,19 @@ The Czech Standard for Open Banking consists of these parts:
 * **Definition of API Payment Initiation**
 * **Definition of API Balance Check**
 * **Examples of requests and response of particular API resources in JSON format**
+
+---
+
+## Contribution workflow
+
+Contributions, issue reports and improvement proposals are welcome through GitHub Issues and Pull Requests.
+
+When reporting issues:
+- specify the affected version of the standard,
+- include relevant API chapters,
+- provide reproducible examples whenever possible.
+
+---
 
 ## Contributing & posting issues
 You found a bug, have a question? For such cases, you can enter a problem or question in the issue tracker here. Here are some notes on how to proceed in this case.
