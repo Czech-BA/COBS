@@ -4,13 +4,14 @@
 
 | Version | Note                                                                                                                             |
 |---------|----------------------------------------------------------------------------------------------------------------------------------|
-| 8.0     | **Basic document v.8.0**                                                                                                         |
-| 8.0     | Recommendations for authentication and authorization flow (see chapter 1.6)                                                      |
-| 8.0     | Recommendations for payment initiation (entering the payer's IBAN)                                                               |
-| 8.0     | Direct debit initialization (see chapter 3.2.48)                                                                                 |
-| 8.0     | New postalAddres structure for SEPA payments (see chapter 3.1.5 and 3.2.4)                                                       |
-| 8.0     | Transaction notification webhooks (seechapter 3.1.9 to 3.1.11)                                                                   |
-| 8.0     | Recommendations for information about the duration of the shutdown (see chapter 1.10.1)                                          |
+| 9.0     | **Basic document v.9.0**                                                                                                         |
+| 9.0     | New LEI identifier                                                                                                               |
+| 9.0     | New description for source and target Currency                                                                                   |
+| 9.0     | Payment validation API (see chapter 3.2.53)                                                                                     |
+| 9.0     | New statements endpoints (see chapters 3.5.3, 3.5.4)                                                                            |
+| 9.0     | Transaction filtering by multiple query parameters (see chapter 3.1.6)                                                          |
+| 9.0     | New chapter 3.2.4.3 Processing Payments with Insufficient Funds                                                                 |
+| 9.0     | Required fields for swift or sepa transactions                                                                                  |
 
 
 
@@ -28,12 +29,13 @@ The standard is designed and developed to maintain a high degree of versatility.
 
 The main benefits of the Czech Standard are the easier integration of TPP into systems which banks are offering, including without any other intermediaries, ensuring a uniform interpretation of the PSD2 in the Czech market, compliance with the content of the transmitted data and security elements in communication with banks, support for the unified functioning of services for clients across banks, timely readiness for the implementation of PSD2.
 
-## Actual version of Czech Standard for Open Banking 8.0
+## Actual version of Czech Standard for Open Banking 9.0
 
-* **Czech Standard for Open Banking v.8.0** [[EN](versions/v.8.0/CzechOpenBankingStandard_EN_8.0.pdf)]
+* **Czech Standard for Open Banking v.9.0** [[EN](versions/v.9.0/CzechOpenBankingStandard_EN_9.0.pdf)]
 
 ### Previous versions of Czech Standard for Open Banking
 
+* Czech Standard for Open Banking v.8.0 [[EN](versions/v.8.0/CzechOpenBankingStandard_EN_8.0.pdf)]
 * Czech Standard for Open Banking v.7.0 [[EN](versions/v.7.0/CzechOpenBankingStandard_EN_7.0.pdf)]
 * Czech Standard for Open Banking v.3.0 [[EN](versions/v.3.0/CzechOpenBankingStandard_EN_3.0.pdf)]
 * Czech Standard for Open Banking v.2.0 [[EN](versions/v.2.0/CzechOpenBankingStandard_CZ_2.0.pdf)]
@@ -42,7 +44,7 @@ The main benefits of the Czech Standard are the easier integration of TPP into s
 
 ## OpenAPI definition of Czech Standard for Open Banking
 
-* **[Structured OpenAPI (Swagger) definition for COBS V8.0](swagger/)**
+* **[Structured OpenAPI (Swagger) definition for COBS V9.0](swagger/)**
 
 ## Examples
 Here you will find an overview of the requests and responses examples for each API resource contained in the standard

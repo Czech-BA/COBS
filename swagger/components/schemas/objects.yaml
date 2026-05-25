@@ -149,6 +149,17 @@ suitableScope:
     CISP:
       $ref: "elements.yaml#/suitableScopeCISP"
 
+formats:
+  title: formats
+  description: |
+    Types of account statement’s availability and their formats.
+  type: object
+  properties:
+    availability:
+      $ref: "elements.yaml#/availability"
+    format:
+      $ref: "elements.yaml#/format"
+
 currencyCode:
   title: currencyCode
   description: |
@@ -176,7 +187,10 @@ chargeBearer:
 sourceCurrency:
   title: sourceCurrency
   description: |
-    Client account currency (source/original currency/payer account currency for intrabank conversion payments).
+    It is not related to the direction of the money, but to which currency the exchange rate is given.
+    
+    
+    Source currency or base or primary currency. It is a currency exchanged for the purpose of obtaining another currency.
   type: string
   maxLength: 3
   pattern: "[A-Z]{3}"
@@ -185,7 +199,13 @@ sourceCurrency:
 targetCurrency:
   title: targetCurrency
   description: |
-    Payment currency (End/target currency/payee account currency for intrabank conversion payments).
+    The target currency to which the conversion is indicated. 
+    
+    
+    E.g. for sourceCurrency=CZK and targetCurrency=USD, exchangeRate=23 can be, which means that 1 USD will be 23 CZK.
+    
+    
+    And for the same case, the exchange rate given for sourceCurrency=USD and targetCurrency=CZK will be exchangeRate=0.0435 USD for 1 CZK.
   type: string
   maxLength: 3
   pattern: "[A-Z]{3}"
@@ -202,8 +222,14 @@ postalAddress:
   title: postalAddress
   description: |
     Postal address
+      In case of **SWIFT** or **SEPA** payment, ```townName``` and ```country``` are mandatory parameters.
   type: object
+  required:
+    - townName
+    - country
   properties:
+    addressType:
+      $ref: "#/addressType"
     streetName:
       $ref: "#/streetName"
     buildingNumber:
@@ -232,15 +258,23 @@ postalAddress:
       $ref: "#/department"
     subDepartment:
       $ref: "#/subDepartment"
-
     addressLine:
       $ref: "#/addressLine"
+    addressLines:
+      type: array
+      minItems: 0
+      maxItems: 7
+      items:
+        $ref: "#/addressLine"
 
 otherIdentification:
   title: otherIdentification
   description: |
     Other identification as the organization/legal entity.
   type: object
+  required:
+    - townName
+    - country
   properties:
     identification:
       description: |
@@ -388,6 +422,25 @@ directDebitPaymentLimit:
     crrency:
       $ref: "elements.yaml#/currency"
 
+addressType:
+  title: addressType
+  description: |
+    Type of address based on ISO 20022 AddressType3Choice.
+    Either a standard code or a proprietary value may be provided.
+  type: object
+  properties:
+    code:
+      type: string
+      description: Standard ISO 20022 address type code.
+      enum:
+        - HOME
+        - BUSI
+      example: BUSI
+    proprietary:
+      type: string
+      description: Proprietary address type defined by the sender.
+      example: REGISTERED_OFFICE
+
 streetName:
   title: streetName
   description: |
@@ -433,6 +486,7 @@ addressLine:
   title: addressLine
   description: |
     Unstructured record of payer postal address
+  maxLength: 70
   type: string
 
 department:
@@ -545,6 +599,44 @@ accountInfo:
     suitableScope:
       $ref: "#/suitableScope"
 
+accountStatementInfo:
+  title: accountStatementInfo
+  description: Info about client account statement
+  type: object
+  required:
+    - accountStatementId
+    - sequenceNumber
+    - period
+    - dateFrom
+    - dateTo
+    - formats
+    - availability
+    - format
+  properties:
+    accountStatementId:
+      $ref: "elements.yaml#/accountStatementId"
+    year:
+      $ref: "elements.yaml#/year"
+    halfyear:
+      $ref: "elements.yaml#/halfyear"
+    quarter:
+      $ref: "elements.yaml#/quarter"
+    month:
+      $ref: "elements.yaml#/month"
+    week:
+      $ref: "elements.yaml#/week"
+    day:
+      $ref: "elements.yaml#/day"
+    sequenceNumber:
+      $ref: "elements.yaml#/sequenceNumber"
+    period:
+      $ref: "elements.yaml#/period"
+    dateFrom:
+      $ref: "elements.yaml#/dateFrom"
+    dateTo:
+      $ref: "elements.yaml#/dateTo"
+    formats:
+      $ref: "#/formats"
 
 accountsList:
   title: accountsList
@@ -553,6 +645,14 @@ accountsList:
   type: array
   items:
     $ref: "#/accountInfo"
+
+accountStatementsList:
+  title: accountStatementsList
+  description: |
+    Set of client account statements
+  type: array
+  items:
+    $ref: "#/accountStatementInfo"
 
 balanceInfo:
   title: balanceInfo
@@ -926,6 +1026,8 @@ paymentCreditor:
         Payee name.
       type: string
       example: "1. wiena investment"
+    lei:
+      $ref: "elements.yaml#/lei"
     postalAddress:
       $ref: "#/postalAddress"
 
@@ -1142,6 +1244,8 @@ paymentDebtor:
         Payer name.
       type: string
       example: "RENWORTH s.r.o"
+    lei:
+      $ref: "elements.yaml#/lei"
 
 payerIdentification:
   title: payerIdentification
@@ -2204,6 +2308,29 @@ paymentTypeInformation:
       $ref: '#/serviceLevel'
     categoryPurpose:
       $ref: '#/categoryPurpose'
+
+paymentTypeInformationValidation:
+  title: paymentTypeInformation
+  description: Payment type information
+  type: object
+  required:
+    - instructionPriority
+    - serviceLevel
+  properties:
+    instructionPriority:
+      $ref: 'elements.yaml#/instructionPriority'
+    serviceLevel:
+      $ref: '#/serviceLevel'
+    categoryPurpose:
+      $ref: '#/categoryPurpose'
+
+paymentTypeInformationPriority:
+  title: paymentTypeInformation
+  description: Payment type information
+  type: object
+  properties:
+    instructionPriority:
+      $ref: 'elements.yaml#/instructionPriority'
 
 href:
   title: href

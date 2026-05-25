@@ -216,6 +216,36 @@ orderParam:
   type: string
   example: "ASC"
 
+directionParam:
+  title: directionParam
+  description: |
+    Determines whether only incoming or only outgoing transactions are requested.
+  type: string
+  enum:
+    - INCOMING
+    - OUTGOING
+  example: INCOMING
+
+counterpartyIbanParam:
+  title: counterpartyIBAN
+  description: |
+    Filters transactions where the counterparty IBAN matches the given value.
+  type: string
+  pattern: '^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$'  # valid IBAN format (simplified)
+  example: "CZ6508000000192000145399"
+
+transactionStatusParam:
+  title: transactionStatus
+  description: |
+    Filters transactions by status:
+    - BOOK: posted (booked) transactions
+    - PDNG: pending (blocked) transactions
+  type: string
+  enum:
+    - BOOK
+    - PDNG
+  example: BOOK
+
 pageNumber:
   title: pageNumber
   description: |
@@ -1019,3 +1049,140 @@ authorizationDetails:
     Encrypted data (recommended JWE) that containt subject of authorization in base64 encoding.
   type: string
   example: "5000U2FsdGVkX1/xaq5hQD/PU6JHEncGMTkqtrWwyyzD0JESLsVIsNlm1f0zYYeJBHhg3ghWI3BuSm9eZeCYrMbj2VkmPW7rEFX0mI92bb7EZdQe9rmYfCO5nI+1Q7jow38seZAGe2xoaXbrf47YaDZTNdUfFNkHQoEQaa1CjuhXuj3/bvpcj3dtTzj4KExI/a1od6LmiiPP5xch/P0E3xGraclZW7QMNMqFSzCuZT7vWyHNAX9yKW8pPb.."
+
+year:
+  title: year
+  description: |
+    Year of account statement.
+  type: integer
+  example: 1
+
+halfyear:
+  title: halfyear
+  description: |
+    Half-year of account statement. Values 1, 2. This parameter must only be used in combination with the “year” parameter.
+  type: integer
+  example: 2
+
+quarter:
+  title: quarter
+  description: |
+    Quarter of account statement. Values (1, 2, 3, 4). This parameter must only be used in combination with the “year” parameter.
+  type: integer
+  example: 4
+
+month:
+  title: month
+  description: |
+    Month of account statement. Values (1-12). This parameter must only be used in combination with the “year” parameter.
+  type: integer
+  example: 12
+
+week:
+  title: week
+  description: |
+    Week of account statement. Denotes week of the year as number (1-53). This parameter must only be used in combination with the “year” parameter.
+  type: integer
+  example: 25
+
+day:
+  title: day
+  description: |
+    Day of account statement in case of daily frequency. Values (1-366). This parameter must only be used in combination with the “year” parameter.
+  type: integer
+  example: 322
+
+fromParam:
+  title: fromParam
+  description: |
+    From date, start of a matching period.
+  type: string
+  example: 2022-05-01
+
+toParam:
+  title: toParam
+  description: |
+    End date of a matching period.
+  type: string
+  example: 2022-06-01
+
+matchingParam:
+  title: matchingParam
+  description: |
+    Enum: intersects, encloses. The parameter  defines a way how the start/end date of a statement is treated in comparison with From/To dates supplied in URL query.
+    When intersects then any statement which  period is anyhow overlapping the matching From/To period is selected.
+    When enclosed then a statement which period falls fully inside matching from/to period is selected.
+    When not supplied in URL enclosed is preferred as Default value.
+  type: string
+  enum:
+    - INTERSECTS
+    - ENCLOSES
+  example: ENCLOSES
+
+availability:
+  title: availability
+  description: |
+    Availability specifies whether the account statement is immediately available `IMMEDIATE` or has been archived by the bank `ARCHIVED`. If the value is not filled in, the default value `ALL` is used.
+  type: string
+  enum:
+    - IMMEDIATE
+    - ARCHIVED
+    - ALL
+  example: IMMEDIATE
+
+accountStatementId:
+  title: accountStatementId
+  description: |
+    Unique account statement identifier from the response to a query on the list of account statements.
+  type: string
+  example: aca74ae2-e0d3-4094-b574-63b0dc237941
+
+format:
+  title: format
+  description: |
+    Chosen format of the statement, e.g. PDF, XML.
+  type: string
+  example: XML
+
+featureParam:
+  title: featureParam
+  description: |
+    Standardized or Bank-specific features (documented on the bank service level) - subtype of ABO, embedded or standalone JSON, … etc.
+  type: string
+  example: abo-standard
+
+sequenceNumber:
+  title: sequenceNumber
+  description: |
+    The account statement's sequence number. e.g. 1
+  type: integer
+  example: 1
+
+period:
+  title: period
+  description: |
+    The period (i.e. “frequency“ term) of requested statement.
+  type: string
+  example: MONTH
+
+dateFrom:
+  title: dateFrom
+  description: |
+    The start-date of the statement period. Format YYYY-MM-DD.
+  type: string
+  example: "2021-07-01"
+
+dateTo:
+  title: dateTo
+  description: |
+    The end-date of the statement period. Format YYYY-MM-DD.
+  type: string
+  example: 2021-07-31
+  
+lei:
+  title: lei
+  description: |
+    Legal Entity Identifier (LEI) is a unique global identifier for legal entities participating in financial transactions.
+  type: string
+  maxLength: 20
+  example: "529900T8BM49AURSDO55"
